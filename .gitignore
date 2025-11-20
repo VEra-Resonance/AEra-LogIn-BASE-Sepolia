@@ -1,0 +1,252 @@
+# =====================================================
+# .gitignore für AEra Login - SENSIBLE DATEN
+# =====================================================
+
+# ===== KRITISCH: PRIVATE KEYS & SECRETS =====
+*.key
+*.pem
+*.p12
+*.pfx
+*.env
+.env
+.env.*
+!.env.example
+
+# Private Keys (Web3/Ethereum)
+private_key.txt
+private_keys/
+wallets/
+keystore/
+*_private_key*
+*PRIVATE*
+*SECRET*
+
+# Admin Wallet Credentials
+admin_wallet.txt
+admin_credentials.txt
+
+# ===== DATENBANKEN =====
+*.db
+*.sqlite
+*.sqlite3
+aera.db
+memories.db
+vera_memory.db
+test_memory.db
+
+# Database Backups
+*.db.backup
+*.db.bak
+*.sql.gz
+*.dump
+
+# ===== TOKENS & AUTH =====
+*.token
+*.jwt
+auth_token.txt
+session_token.txt
+ngrok_authtoken.txt
+api_keys.txt
+
+# Token Storage
+tokens/
+sessions/
+auth/
+
+# ===== LOGS (können sensible Daten enthalten) =====
+*.log
+logs/
+*.log.*
+server.log
+vera_resonance.log
+nohup.out
+
+# Temp Logs
+/tmp/*.log
+*.log.backup
+
+# ===== NGROK =====
+ngrok
+ngrok.exe
+ngrok.yml
+ngrok.log
+.ngrok
+.ngrok2
+
+# ===== PYTHON =====
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual Environments
+venv/
+env/
+ENV/
+shared-venv/
+.venv
+
+# Distribution / Packaging
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# ===== NODE.JS (falls verwendet) =====
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.npm
+.yarn-integrity
+package-lock.json
+yarn.lock
+
+# ===== BACKUPS =====
+*.backup
+*.bak
+*.old
+*.orig
+*~
+*.swp
+*.swo
+backups/
+backup_*/
+
+# ===== CONFIG FILES MIT SECRETS =====
+config.json
+config.yml
+config.yaml
+secrets.json
+secrets.yml
+credentials.json
+*_config.json
+
+# ===== ETHEREUM / WEB3 =====
+# Infura/Alchemy Keys
+infura_key.txt
+alchemy_key.txt
+rpc_url.txt
+
+# Contract ABIs mit privaten Infos
+contracts/private/
+deployed_addresses.json
+
+# ===== AIRDROP SENSITIVE =====
+# Private Keys für Airdrops
+airdrop_private_key.txt
+airdrop_wallet.txt
+
+# Recipient Lists (können private Adressen sein)
+recipients.json
+airdrop_list.json
+whitelist_private.json
+
+# ===== WALLET ADDRESSES =====
+# User Wallet Daten
+user_wallets.json
+wallet_mappings.json
+address_book.json
+
+# ===== SYSTEM =====
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Temp Files
+*.tmp
+*.temp
+tmp/
+temp/
+
+# ===== IDE / EDITOR =====
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+.project
+.settings/
+
+# ===== TESTING =====
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+test_results/
+
+# ===== DOCKER (falls verwendet) =====
+docker-compose.override.yml
+
+# ===== SSL/TLS Certificates =====
+*.crt
+*.cer
+*.der
+*.key
+*.csr
+ssl/
+certs/
+
+# ===== NGROK SPEZIFISCH =====
+# Alte ngrok URLs
+ngrok_urls.txt
+ngrok_history.txt
+
+# ===== DOCUMENTATION MIT KEYS =====
+# Falls jemand Keys in Docs geschrieben hat
+*PRIVATE*.md
+*SECRET*.md
+*KEYS*.md
+
+# ===== CUSTOM SENSITIVE =====
+# Fujitsu System Info (IP Adressen etc)
+fujitsu_sysinfo.sh
+fujitsu_sysinfo.sh.save
+
+# UFW Rules Backups (enthalten IP Adressen)
+ufw_rules*.txt
+
+# ===== REFERRER TRACKING DATA =====
+# Falls personenbezogene Daten
+referrer_stats.json
+user_tracking.json
+analytics_raw.json
+
+# ===== API RESPONSE CACHES =====
+# Können Wallet-Adressen enthalten
+api_cache/
+*.cache
+
+# ===== DEPLOYMENT SCRIPTS MIT CREDENTIALS =====
+deploy_prod.sh
+deploy_with_keys.sh
+
+# ===== ABER: DIESE DATEIEN SIND OK =====
+# (Explizit nicht ignorieren)
+!README.md
+!DOCUMENTATION*.md
+!INTEGRATION*.md
+!*.example.env
+!requirements.txt
+!package.json
+
+# ===== NOTIZEN =====
+# Persönliche Notizen können sensibel sein
+NOTES.md
+PRIVATE_NOTES.md
+TODO_PRIVATE.md
+
+# =====================================================
+# ENDE .gitignore
+# =====================================================
