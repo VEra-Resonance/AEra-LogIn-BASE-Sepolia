@@ -471,7 +471,7 @@ By combining wallet signatures, behavioral analysis, and soulbound tokens, VEra-
 - "Social Graphs as Identity" - E. Glen Weyl
 
 ### Open Source
-- GitHub: [github.com/vera-resonanz/AEraLogin](https://github.com/vera-resonanz/AEraLogin)
+- GitHub: [github.com/VEra-Resonance/AEra-LogIn](https://github.com/VEra-Resonance/AEra-LogIn)
 - License: Apache 2.0
 
 ---

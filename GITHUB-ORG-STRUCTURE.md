@@ -10,10 +10,10 @@
 
 ### 🟢 Active repositories
 
-#### 1. **AEra-Login** ⭐ Core
+#### 1. **AEra-LogIn** ⭐ Core
 > Decentralized Proof-of-Human login system
 
-**URL:** `https://github.com/vera-resonance/AEra-Login`
+**URL:** `https://github.com/VEra-Resonance/AEra-LogIn`
 
 **Tech Stack:**
 - Python (FastAPI)
@@ -25,10 +25,10 @@
 
 ---
 
-#### 2. **VEra-Resonance Utility Token**
+#### 2. **VEra-Token** 
 > VEra Token Smart Contract + Tokenomics
 
-**URL:** `https://github.com/vera-resonance/VEra-Token`
+**URL:** `https://github.com/VEra-Resonance/VEra-Token`
 
 **Tech Stack:**
 - Solidity 0.8+
@@ -46,10 +46,10 @@
 
 ---
 
-#### 3. **VEra-Resonance Web**
+#### 3. **VEra-Web**
 > Frontend UI for VEra-Resonance
 
-**URL:** `https://github.com/vera-resonanz/VEraWeb`
+**URL:** `https://github.com/VEra-Resonance/VEra-Web`
 
 **Tech Stack:**
 - HTML5, CSS3, JavaScript (ES6+)
@@ -70,7 +70,7 @@
 #### 4. **VEra-Resonance Gate**
 > Platform integrations (Twitter, Telegram, Discord, etc.)
 
-**URL:** `https://github.com/vera-resonanz/VEraGate`
+**URL:** `https://github.com/VEra-Resonance/VEra-Gate`
 
 **Tech Stack:**
 - Node.js
@@ -93,7 +93,7 @@
 #### 5. **VEra-Resonance Score Engine**
 > Advanced scoring algorithm
 
-**URL:** `https://github.com/vera-resonanz/VEraScoreEngine`
+**URL:** `https://github.com/VEra-Resonance/VEra-ScoreEngine`
 
 **Planned tech:**
 - Python (NumPy, Pandas)
@@ -114,7 +114,7 @@
 #### 6. **VEra-Resonance Proof Ledger**
 > Event logging & proof-of-activity
 
-**URL:** `https://github.com/vera-resonanz/VEraProofLedger`
+**URL:** `https://github.com/VEra-Resonance/VEra-ProofLedger`
 
 **Planned tech:**
 - Solidity (smart contracts)
@@ -135,7 +135,7 @@
 #### 7. **VEra-Resonance Docs**
 > Documentation hub
 
-**URL:** `https://github.com/vera-resonanz/VEraDocs`
+**URL:** `https://github.com/VEra-Resonance/VEra-Docs`
 
 **Planned tech:**
 - Markdown
@@ -157,7 +157,7 @@
 #### 8. **VEra-Resonance DevTools** (optional)
 > CLI tools & developer utilities
 
-**URL:** `https://github.com/vera-resonanz/VEraDevTools`
+**URL:** `https://github.com/VEra-Resonance/VEra-DevTools`
 
 **Planned tech:**
 - Node.js CLI
@@ -177,10 +177,10 @@
 
 ## 🗂️ Folder structure (per repository)
 
-### Example: AEraLogin
+### Example: AEra-LogIn
 
 ```
-AEraLogin/
+AEra-LogIn/
 ├── .github/
 │   ├── workflows/          # CI/CD pipelines
 │   ├── ISSUE_TEMPLATE/
@@ -226,7 +226,7 @@ AEraLogin/
 
 ### Organization-level project: **"VEra-Resonance Ecosystem Roadmap"**
 
-**Board:** `https://github.com/orgs/vera-resonanz/projects/1`
+**Board:** `https://github.com/orgs/VEra-Resonance/projects/1`
 
 #### Columns:
 
@@ -260,7 +260,7 @@ AEraLogin/
 - `type: bug` 🐛
 - `type: feature` ✨
 - `type: docs` 📚
-- `repo: AEraLogin` 🔐
+- `repo: AEra-LogIn` 🔐
 - `repo: VEraToken` 💎
 - `status: blocked` 🚫
 
@@ -269,7 +269,7 @@ AEraLogin/
 ## 📊 Repository dependencies
 
 ```
-AEraLogin (core)
+AEra-LogIn (core)
     ↓
     ├─→ VEra-Resonance Score Engine (scoring)
     ├─→ VEra-Resonance Proof Ledger (logging)
@@ -277,11 +277,11 @@ AEraLogin (core)
 
 VEra-Resonance Web (frontend)
     ↓
-    └─→ AEraLogin (API calls)
+    └─→ AEra-LogIn (API calls)
 
 VEra-Resonance Gate (integrations)
     ↓
-    └─→ AEraLogin (auth API)
+    └─→ AEra-LogIn (auth API)
 
 VEra-Resonance Docs (documentation)
     ↓
@@ -292,13 +292,13 @@ VEra-Resonance Docs (documentation)
 
 ## 🚀 First commits (checklist)
 
-### AEraLogin (main repository)
+### AEra-LogIn (main repository)
 
 ```bash
 # 1. Create repo on GitHub
 # 2. Clone locally
-git clone https://github.com/vera-resonanz/AEraLogin.git
-cd AEraLogin
+git clone https://github.com/VEra-Resonance/AEra-LogIn.git
+cd AEra-LogIn
 
 # 3. Copy existing code
 cp -r /home/karlheinz/krypto/aera-token/webside-wallet-login/* .
@@ -387,7 +387,7 @@ git commit -m "docs: update API documentation"
 
 ## 🌍 Public presence
 
-### Organization profile (`vera-resonanz`)
+### Organization profile (`VEra-Resonance`)
 
 **Bio:**
 ```
@@ -396,7 +396,7 @@ git commit -m "docs: update API documentation"
 Building the future of KYC-free authentication through 
 resonance-based proof-of-humanity.
 
-🔐 AEraLogin | 💎 VEra Token | 🤖 Bot detection
+🔐 AEra-LogIn | 💎 VEra Token | 🤖 Bot detection
 ```
 
 **Website:** `https://vera-resonance.org`  
@@ -409,7 +409,7 @@ resonance-based proof-of-humanity.
 
 ### Immediate (this week)
 
-- [ ] Create `AEraLogin` repository
+- [ ] Create `AEra-LogIn` repository
 - [ ] Upload code with README.md
 - [ ] Set up .gitignore & .env.example
 - [ ] Create first release (v0.1.0)
@@ -435,6 +435,6 @@ resonance-based proof-of-humanity.
 
 **Ready to build the ecosystem!** 🚀
 
-Organization: `https://github.com/vera-resonanz`
+Organization: `https://github.com/VEra-Resonance`
 
 © 2025 Karlheinz Beismann — Apache License 2.0

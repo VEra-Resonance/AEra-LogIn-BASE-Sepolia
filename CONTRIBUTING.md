@@ -44,11 +44,11 @@ This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDU
 ```bash
 # Fork the repository on GitHub
 # Then clone your fork:
-git clone https://github.com/YOUR_USERNAME/AEra-Login.git
-cd AEra-Login
+git clone https://github.com/YOUR_USERNAME/AEra-LogIn.git
+cd AEra-LogIn
 
 # Add upstream remote
-git remote add upstream https://github.com/vera-resonance/AEra-Login.git
+git remote add upstream https://github.com/VEra-Resonance/AEra-LogIn.git
 ```
 
 ---
@@ -58,7 +58,7 @@ git remote add upstream https://github.com/vera-resonance/AEra-Login.git
 ### 🐛 Reporting Bugs
 
 **Before submitting a bug report:**
-- Check existing [Issues](https://github.com/vera-resonance/AEra-Login/issues)
+- Check existing [Issues](https://github.com/VEra-Resonance/AEra-LogIn/issues)
 - Test with the latest version
 - Collect relevant information (logs, screenshots, environment)
 
@@ -88,7 +88,7 @@ Error: "Invalid signature"
 ### ✨ Suggesting Features
 
 **Before suggesting:**
-- Check [existing feature requests](https://github.com/vera-resonance/AEra-Login/issues?q=label%3Aenhancement)
+- Check [existing feature requests](https://github.com/VEra-Resonance/AEra-LogIn/issues?q=label%3Aenhancement)
 - Make sure it aligns with project goals
 
 **When suggesting:**
@@ -528,9 +528,9 @@ See [LICENSE](LICENSE) for details.
 ## ❓ Questions?
 
 Don't hesitate to reach out:
-- Open a [Discussion](https://github.com/vera-resonanz/AEraLogin/discussions)
+- Open a [Discussion](https://github.com/VEra-Resonance/AEra-LogIn/discussions)
 - Join our [Discord](https://discord.gg/vera)
-- Email: contributors@vera-resonanz.org
+- Email: contributors@vera-resonance.org
 
 ---
 

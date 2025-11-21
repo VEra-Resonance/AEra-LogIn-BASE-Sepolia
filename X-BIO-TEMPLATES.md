@@ -2,7 +2,7 @@
 
 ## 📋 Übersicht
 
-Diese Bio-Templates sind optimiert für verschiedene Account-Typen, die AEraLogin als **Proof-of-Human-Gate** für ihre privaten X-Accounts verwenden.
+Diese Bio-Templates sind optimiert für verschiedene Account-Typen, die AEra-LogIn als **Proof-of-Human-Gate** für ihre privaten X-Accounts verwenden.
 
 ---
 

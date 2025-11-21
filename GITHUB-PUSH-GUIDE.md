@@ -4,7 +4,7 @@
 
 **Commit:** ✅ Created (36 files, no sensitive data)  
 **Branch:** main  
-**Remote:** https://github.com/vera-resonance/AEra-Login.git (not yet created)
+**Remote:** https://github.com/VEra-Resonance/AEra-LogIn.git (not yet created)
 
 ---
 
@@ -24,8 +24,8 @@
    
 2. **Fill in:**
    ```
-   Owner: vera-resonance
-   Repository name: AEra-Login
+   Owner: VEra-Resonance
+   Repository name: AEra-LogIn
    Description: Decentralized Proof-of-Human Login System
    ```
 
@@ -83,7 +83,7 @@ cat ~/.ssh/id_ed25519.pub
 # Copy and paste in GitHub → Settings → SSH Keys
 
 # Change remote URL
-git remote set-url origin git@github.com:vera-resonanz/AEraLogin.git
+git remote set-url origin git@github.com:VEra-Resonance/AEra-LogIn.git
 
 # Push
 git push -u origin main
@@ -93,12 +93,12 @@ git push -u origin main
 
 ### **Step 5: After successful push**
 
-1. **Go to:** https://github.com/vera-resonanz/AEraLogin
+1. **Go to:** https://github.com/VEra-Resonance/AEra-LogIn
 
 2. **You should see:**
    - ✅ README.md as main page
    - ✅ 36 files
-   - ✅ Commit: "feat: initial commit - AEraLogin v0.1.0"
+   - ✅ Commit: "feat: initial commit - AEra-LogIn v0.1.0"
    - ✅ No .env, .db, .log files
 
 ---
@@ -111,7 +111,7 @@ git push -u origin main
 2. **Fill in:**
    ```
    Description: Decentralized Proof-of-Human Login System
-   Website: https://vera-resonanz.org
+   Website: https://vera-resonance.org
    Topics: web3, authentication, ethereum, defi, bot-detection, 
            proof-of-human, kyc-free, wallet-login, fastapi, metamask
    ```
@@ -236,7 +236,7 @@ git ls-files | grep -E "\.env$|\.db$|\.log$"
 
 ```
 Repository URL:
-https://github.com/vera-resonanz/AEraLogin
+https://github.com/VEra-Resonance/AEra-LogIn
 
 Commit: 6f841ea
 Files: 36

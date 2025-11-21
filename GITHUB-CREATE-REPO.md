@@ -16,7 +16,7 @@
 
 ```
 Owner:              vera-resonance  ✓ (already selected)
-Repository name:    AEra-Login
+Repository name:    AEra-LogIn
 Description:        Decentralized Proof-of-Human login system (Wallet-based, KYC-free, Bot-resistant)
 
 Public:             ✓ (select radio button)
@@ -117,7 +117,7 @@ Then on GitHub:
 
 **Repository URL:**
 ```
-https://github.com/vera-resonance/AEra-Login
+https://github.com/VEra-Resonance/AEra-LogIn
 ```
 
 **Stats:**

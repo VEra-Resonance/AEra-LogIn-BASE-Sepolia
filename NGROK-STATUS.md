@@ -41,7 +41,7 @@ You should only visit this website if you trust whoever sent the link to you.
 
 1. Klicken Sie auf **"Visit Site"**
 2. Die Seite lädt normal
-3. Sie sehen die AEra-Login-Seite (mit dynamischem Design je nach Platform)
+3. Sie sehen die AEra-LogIn-Seite (mit dynamischem Design je nach Platform)
 
 ---
 

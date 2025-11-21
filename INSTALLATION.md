@@ -387,7 +387,7 @@ You have successfully installed VEra-Resonance! 🚀
 
 ## 📞 Support & Links
 
-- **GitHub:** [vera-resonanz/AEraLogin](https://github.com/vera-resonanz/AEraLogin)
+- **GitHub:** [VEra-Resonance/AEra-LogIn](https://github.com/VEra-Resonance/AEra-LogIn)
 - **Docs:** See `README.md`
 - **License:** Apache License 2.0 (see `LICENSE`)
 - **Contact:** Karlheinz Beismann (2025)
