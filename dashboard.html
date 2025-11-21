@@ -311,12 +311,47 @@ Licensed under the Apache License, Version 2.0
         </div>
         
         <div class="owner-section">
-            <h2>Your Account</h2>
+            <h2>🦊 Your Account - Connect MetaMask</h2>
             <div class="input-group">
                 <input type="text" id="ownerInput" placeholder="Enter your wallet address (0x...)" value="">
+                <button id="metamaskBtn" onclick="connectMetaMask()" style="background: linear-gradient(135deg, #f6851b 0%, #fbdb57 100%);">
+                    🦊 Connect MetaMask
+                </button>
                 <button onclick="loadDashboard()">Load Dashboard</button>
             </div>
             <div id="statusMessage"></div>
+            <div style="margin-top: 10px; padding: 12px; background: #f0f0f0; border-radius: 6px; font-size: 12px; color: #666; display: none;" id="walletInfo">
+                <span id="walletAddress"></span>
+                <button onclick="disconnectWallet()" style="float: right; padding: 4px 8px; font-size: 11px;">Disconnect</button>
+            </div>
+        </div>
+        
+        <!-- Follower Link Generation (ALWAYS VISIBLE) -->
+        <div class="owner-section">
+            <h2>📤 Share Your Follower Link</h2>
+            <div class="link-section">
+                <p>Generate a custom link to share with your followers on social media</p>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                    <div>
+                        <label style="display: block; font-size: 12px; margin-bottom: 5px; font-weight: 600;">Select Platform:</label>
+                        <select id="platformSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;">
+                            <option value="direct">Direct Link</option>
+                            <option value="twitter">🐦 X / Twitter</option>
+                            <option value="discord">🎮 Discord</option>
+                            <option value="telegram">✈️ Telegram</option>
+                            <option value="facebook">👍 Facebook</option>
+                            <option value="reddit">🤖 Reddit</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: flex-end;">
+                        <button onclick="generateLink()" style="width: 100%; padding: 10px; background: #667eea; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Generate Link</button>
+                    </div>
+                </div>
+                <div class="link-display" id="linkDisplay" style="display: none;">
+                    <input type="text" id="generatedLink" readonly>
+                    <button onclick="copyToClipboard()">Copy</button>
+                </div>
+            </div>
         </div>
         
         <div id="dashboardContent" style="display: none;">
@@ -333,34 +368,6 @@ Licensed under the Apache License, Version 2.0
                 <div class="stat-card">
                     <div class="value" id="yourScore">0</div>
                     <div class="label">Your Score</div>
-                </div>
-            </div>
-            
-            <!-- Follower Link Generation -->
-            <div class="owner-section">
-                <h2>📤 Share Your Follower Link</h2>
-                <div class="link-section">
-                    <p>Generate a custom link to share with your followers on social media</p>
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
-                        <div>
-                            <label style="display: block; font-size: 12px; margin-bottom: 5px; font-weight: 600;">Select Platform:</label>
-                            <select id="platformSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;">
-                                <option value="direct">Direct Link</option>
-                                <option value="twitter">🐦 X / Twitter</option>
-                                <option value="discord">🎮 Discord</option>
-                                <option value="telegram">✈️ Telegram</option>
-                                <option value="facebook">👍 Facebook</option>
-                                <option value="reddit">🤖 Reddit</option>
-                            </select>
-                        </div>
-                        <div style="display: flex; align-items: flex-end;">
-                            <button onclick="generateLink()" style="width: 100%; padding: 10px; background: #667eea; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Generate Link</button>
-                        </div>
-                    </div>
-                    <div class="link-display" id="linkDisplay" style="display: none;">
-                        <input type="text" id="generatedLink" readonly>
-                        <button onclick="copyToClipboard()">Copy</button>
-                    </div>
                 </div>
             </div>
             
@@ -445,7 +452,7 @@ Licensed under the Apache License, Version 2.0
                     <tbody>
                         ${data.followers.map(f => `
                             <tr>
-                                <td><span class="address-short">${f.follower_address.substring(0, 10)}...${f.follower_address.substring(38)}</span></td>
+                                <td>${f.display_name || f.follower_address.substring(0, 10) + '...' + f.follower_address.substring(38)}</td>
                                 <td><span class="score-badge">${f.resonance_score}/100</span></td>
                                 <td><span class="platform-badge">${f.source_platform || 'unknown'}</span></td>
                                 <td style="font-size: 12px;">${new Date(f.verified_at).toLocaleDateString()}</td>
@@ -503,6 +510,60 @@ Licensed under the Apache License, Version 2.0
             const originalText = btn.textContent;
             btn.textContent = '✓ Copied!';
             setTimeout(() => btn.textContent = originalText, 2000);
+        }
+        
+        // ===== NEW: MetaMask Integration =====
+        async function connectMetaMask() {
+            if (typeof window.ethereum === 'undefined') {
+                alert('❌ MetaMask not installed!\n\nPlease install MetaMask extension:\nhttps://metamask.io');
+                return;
+            }
+            
+            try {
+                // Request account access
+                const accounts = await window.ethereum.request({
+                    method: 'eth_requestAccounts'
+                });
+                
+                const walletAddress = accounts[0].toLowerCase();
+                
+                // Auto-fill input
+                document.getElementById('ownerInput').value = walletAddress;
+                
+                // Show wallet info
+                const walletInfo = document.getElementById('walletInfo');
+                walletInfo.style.display = 'block';
+                document.getElementById('walletAddress').innerHTML = 
+                    `✓ Connected: <strong>${walletAddress.substring(0, 10)}...${walletAddress.substring(38)}</strong>`;
+                
+                // Auto-load dashboard
+                setTimeout(() => loadDashboard(), 500);
+                
+            } catch (error) {
+                if (error.code === 4001) {
+                    alert('❌ User rejected the request');
+                } else {
+                    alert('❌ Error: ' + error.message);
+                }
+            }
+        }
+        
+        function disconnectWallet() {
+            document.getElementById('ownerInput').value = '';
+            document.getElementById('walletInfo').style.display = 'none';
+            document.getElementById('dashboardContent').style.display = 'none';
+            document.getElementById('statusMessage').innerHTML = '';
+        }
+        
+        // Listen for account changes
+        if (window.ethereum) {
+            window.ethereum.on('accountsChanged', (accounts) => {
+                if (accounts.length === 0) {
+                    disconnectWallet();
+                } else {
+                    loadDashboard();
+                }
+            });
         }
         
         // Load from URL if owner is in params

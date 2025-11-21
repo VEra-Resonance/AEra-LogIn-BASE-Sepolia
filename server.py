@@ -31,9 +31,18 @@ load_dotenv()
 
 # Config
 HOST = os.getenv("HOST", "0.0.0.0")
-PORT = int(os.getenv("PORT", 8000))
+PORT = int(os.getenv("PORT", 8840))
 PUBLIC_URL = os.getenv("PUBLIC_URL", f"http://localhost:{PORT}")
+NGROK_URL = os.getenv("NGROK_URL", "")  # NEW: Explicit ngrok URL
 CORS_ORIGINS = os.getenv("CORS_ORIGINS", "*").split(",")
+
+# NEW: Tailscale Support
+TAILSCALE_ENABLED = os.getenv("TAILSCALE_ENABLED", "false").lower() == "true"
+TAILSCALE_IP = os.getenv("TAILSCALE_IP", "")
+
+# NEW: Deployment Mode (local, tailscale, ngrok)
+DEPLOYMENT_MODE = os.getenv("DEPLOYMENT_MODE", "local")  # local, tailscale, ngrok
+
 INITIAL_SCORE = int(os.getenv("INITIAL_SCORE", 50))
 MAX_SCORE = int(os.getenv("MAX_SCORE", 100))
 SCORE_INCREMENT = int(os.getenv("SCORE_INCREMENT", 1))
@@ -235,7 +244,8 @@ def init_db():
         first_referrer TEXT,
         last_referrer TEXT,
         owner_wallet TEXT,
-        is_verified_follower INTEGER DEFAULT 0
+        is_verified_follower INTEGER DEFAULT 0,
+        display_name TEXT
     )
     """)
     
@@ -275,9 +285,12 @@ def init_db():
         owner_wallet TEXT NOT NULL,
         follower_address TEXT NOT NULL,
         follower_score INTEGER,
+        follower_display_name TEXT,
         verified_at TEXT,
         source_platform TEXT,
         verified BOOLEAN DEFAULT 1,
+        follow_confirmed BOOLEAN DEFAULT 0,
+        confirmed_at TEXT,
         UNIQUE(owner_wallet, follower_address),
         FOREIGN KEY(owner_wallet) REFERENCES users(address),
         FOREIGN KEY(follower_address) REFERENCES users(address)
@@ -440,13 +453,33 @@ async def dashboard():
 
 @app.get("/api/health")
 async def health_check():
-    """Health-Check Endpoint"""
+    """Health-Check Endpoint with deployment info"""
+    # NEW: Try to detect Tailscale IP
+    tailscale_ip = None
+    try:
+        import socket
+        hostname = socket.gethostname()
+        # Tailscale IPs start with 100.
+        for ip in socket.gethostbyname_ex(hostname)[2]:
+            if ip.startswith('100.'):
+                tailscale_ip = ip
+                break
+    except:
+        pass
+    
     return {
         "status": "healthy",
         "service": "VEra-Resonance v0.1",
         "timestamp": int(time.time()),
         "database": "connected" if os.path.exists(DB_PATH) else "disconnected",
-        "database_path": DB_PATH
+        "database_path": DB_PATH,
+        "deployment": {
+            "mode": DEPLOYMENT_MODE,
+            "local_url": f"http://localhost:{PORT}",
+            "tailscale_ip": tailscale_ip,
+            "tailscale_url": f"http://{tailscale_ip}/dashboard" if tailscale_ip else None,
+            "public_url": PUBLIC_URL
+        }
     }
 
 @app.get("/api/debug")
@@ -527,6 +560,7 @@ async def verify(req: Request):
         signature = data.get("signature", "")
         token_duration_hours = data.get("token_duration_hours", None)
         owner_wallet = data.get("owner", "").lower()  # NEW: Owner for follower tracking
+        display_name = data.get("display_name", "").strip()  # NEW: User-provided display name
         
         # ===== EXTRACT REFERRER & USER-AGENT =====
         referrer = req.headers.get("referer", req.headers.get("referrer", ""))
@@ -628,9 +662,9 @@ async def verify(req: Request):
             initial_score = 50
             cursor.execute(
                 """INSERT INTO users 
-                   (address, first_seen, last_login, score, login_count, created_at, first_referrer, last_referrer, owner_wallet, is_verified_follower)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (address, current_timestamp, current_timestamp, initial_score, 1, current_iso, referrer_source, referrer_source, owner_wallet or None, 1 if owner_wallet else 0)
+                   (address, first_seen, last_login, score, login_count, created_at, first_referrer, last_referrer, owner_wallet, is_verified_follower, display_name)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (address, current_timestamp, current_timestamp, initial_score, 1, current_iso, referrer_source, referrer_source, owner_wallet or None, 1 if owner_wallet else 0, display_name or None)
             )
             
             cursor.execute(
@@ -645,9 +679,9 @@ async def verify(req: Request):
                 try:
                     cursor.execute(
                         """INSERT INTO followers 
-                           (owner_wallet, follower_address, follower_score, verified_at, source_platform, verified)
-                           VALUES (?, ?, ?, ?, ?, ?)""",
-                        (owner_wallet, address, initial_score, current_iso, referrer_source, 1)
+                           (owner_wallet, follower_address, follower_score, follower_display_name, verified_at, source_platform, verified)
+                           VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                        (owner_wallet, address, initial_score, display_name or None, current_iso, referrer_source, 1)
                     )
                     log_activity("INFO", "FOLLOWER", "✓ Follower registered", 
                                 owner=owner_wallet[:10], 
@@ -1026,6 +1060,7 @@ async def get_followers_dashboard(req: Request):
                 f.id,
                 f.follower_address,
                 f.follower_score,
+                f.follower_display_name,
                 f.verified_at,
                 f.source_platform,
                 f.verified,
@@ -1073,6 +1108,7 @@ async def get_followers_dashboard(req: Request):
             "followers": [
                 {
                     "follower_address": f['follower_address'],
+                    "display_name": f['follower_display_name'],
                     "resonance_score": f['follower_score'],
                     "verified_at": f['verified_at'],
                     "source_platform": f['source_platform'],
@@ -1106,7 +1142,7 @@ async def generate_follower_link(req: Request):
     Returns:
         {
             "owner": "0x...",
-            "follower_link": "https://app.example.com/?owner=0x...&source=twitter",
+            "follower_link": "https://ngrok.url/?owner=0x...&source=twitter",
             "qr_code": "data:image/png;base64,..."
         }
     """
@@ -1117,18 +1153,39 @@ async def generate_follower_link(req: Request):
         if not owner_wallet or not owner_wallet.startswith("0x") or len(owner_wallet) != 42:
             return {"error": "Invalid owner wallet", "success": False}
         
+        # Use ngrok URL if available, otherwise fall back to PUBLIC_URL
+        base_url = NGROK_URL if NGROK_URL else PUBLIC_URL
+        
+        # If ngrok URL not set, try to detect from ngrok API
+        if not base_url or base_url == PUBLIC_URL:
+            try:
+                import urllib.request
+                ngrok_response = urllib.request.urlopen("http://127.0.0.1:4040/api/tunnels", timeout=2)
+                import json as json_lib
+                tunnels_data = json_lib.loads(ngrok_response.read().decode())
+                tunnels = tunnels_data.get("tunnels", [])
+                for tunnel in tunnels:
+                    if tunnel.get("proto") == "https":
+                        base_url = tunnel.get("public_url", base_url)
+                        break
+            except:
+                # Fall back to PUBLIC_URL if ngrok API not available
+                base_url = PUBLIC_URL
+        
         # Build follower link
-        follower_link = f"{PUBLIC_URL}/?owner={owner_wallet}&source={source}"
+        follower_link = f"{base_url}/?owner={owner_wallet}&source={source}"
         
         log_activity("INFO", "ADMIN", "Follower link generated", 
                     owner=owner_wallet[:10], 
-                    source=source)
+                    source=source,
+                    base_url=base_url)
         
         return {
             "success": True,
             "owner": owner_wallet,
             "source": source,
             "follower_link": follower_link,
+            "base_url": base_url,
             "instructions": {
                 "step1": "Share this link with your followers",
                 "step2": "They click the link and verify with their wallet",
@@ -1138,6 +1195,67 @@ async def generate_follower_link(req: Request):
         }
         
     except Exception as e:
+        return {"error": str(e), "success": False}
+
+@app.post("/admin/confirm-follower")
+async def confirm_follower(req: Request):
+    """
+    Confirm a follower from the follower's side (after MetaMask verification)
+    
+    Request Body:
+        {
+            "owner": "0x...",
+            "follower": "0x..."
+        }
+    
+    Updates followers table to set follow_confirmed = 1
+    """
+    try:
+        data = await req.json()
+        owner = data.get("owner", "").lower()
+        follower = data.get("follower", "").lower()
+        
+        if not owner or not owner.startswith("0x") or len(owner) != 42:
+            return {"error": "Invalid owner wallet", "success": False}
+        
+        if not follower or not follower.startswith("0x") or len(follower) != 42:
+            return {"error": "Invalid follower wallet", "success": False}
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # Check if follower record exists
+        cursor.execute(
+            "SELECT * FROM followers WHERE owner_wallet = ? AND follower_address = ?",
+            (owner, follower)
+        )
+        follower_record = cursor.fetchone()
+        
+        if not follower_record:
+            conn.close()
+            return {"error": "Follower record not found", "success": False}
+        
+        # Update to mark as confirmed
+        cursor.execute(
+            "UPDATE followers SET follow_confirmed = 1, confirmed_at = datetime('now') WHERE owner_wallet = ? AND follower_address = ?",
+            (owner, follower)
+        )
+        conn.commit()
+        conn.close()
+        
+        log_activity("INFO", "ADMIN", "Follow confirmed",
+                    owner=owner[:10],
+                    follower=follower[:10])
+        
+        return {
+            "success": True,
+            "message": "Follow request confirmed",
+            "owner": owner,
+            "follower": follower
+        }
+        
+    except Exception as e:
+        logger.error(f"❌ confirm_follower error: {str(e)}")
         return {"error": str(e), "success": False}
 
 if __name__ == "__main__":

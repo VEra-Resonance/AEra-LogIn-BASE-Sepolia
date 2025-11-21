@@ -208,9 +208,16 @@ Platform: {{ platform_name }}
         
         <div id="status" class="status"></div>
         
+        <!-- Name Input Field -->
+        <div id="nameInputSection" style="display: none; margin-bottom: 16px;">
+            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333;">👤 Dein Name (optional):</label>
+            <input type="text" id="nameInput" placeholder="z.B. Max Mustermann" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-family: inherit;">
+        </div>
+        
         <div id="desktopView">
             <button id="connectBtn" class="button">🔗 Wallet Verbinden</button>
             <button id="verifyBtn" class="button" style="display: none;">✓ Verifizieren</button>
+            <button id="confirmFollowBtn" class="button" style="display: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" disabled>📋 Follow Anfrage bestätigen</button>
             <button id="disconnectBtn" class="button" style="display: none; background: #999;">✕ Trennen</button>
         </div>
         
@@ -316,7 +323,8 @@ Platform: {{ platform_name }}
                 
                 let accounts = [];
                 try {
-                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+                    // WICHTIG: eth_accounts LIEST nur die Accounts, öffnet KEIN Popup!
+                    accounts = await window.ethereum.request({ method: 'eth_accounts' });
                 } catch (e) {
                     log('❌ MetaMask nicht aktiv: ' + e.message);
                     localStorage.removeItem('aera_token');
@@ -325,9 +333,7 @@ Platform: {{ platform_name }}
                 }
                 
                 if (!accounts || accounts.length === 0) {
-                    log('❌ Keine Wallet-Konten verfügbar');
-                    localStorage.removeItem('aera_token');
-                    localStorage.removeItem('aera_address');
+                    log('ℹ️ Keine Wallet-Konten verfügbar - User muss manuell verbinden');
                     return false;
                 }
                 
@@ -474,6 +480,9 @@ Platform: {{ platform_name }}
                 document.getElementById('addressValue').textContent = currentAddress;
                 document.getElementById('statusValue').textContent = '🔗 Verbunden';
                 
+                // Show name input field
+                document.getElementById('nameInputSection').style.display = 'block';
+                
                 connectBtn.style.display = 'none';
                 verifyBtn.style.display = 'block';
                 verifyBtn.disabled = false;
@@ -490,6 +499,16 @@ Platform: {{ platform_name }}
         async function verifyWallet() {
             if (!currentAddress) {
                 log('❌ Keine Wallet verbunden');
+                return;
+            }
+            
+            // Check if name is provided
+            const nameInput = document.getElementById('nameInput').value.trim();
+            if (!nameInput) {
+                log('❌ Bitte gib deinen Namen ein!');
+                showStatus('❌ Bitte gib deinen Namen ein!', 'error');
+                document.getElementById('nameInput').focus();
+                document.getElementById('nameInput').style.borderColor = '#ff6b6b';
                 return;
             }
             
@@ -575,7 +594,8 @@ Platform: {{ platform_name }}
                     address: currentAddress,
                     nonce: nonceData.nonce,
                     message: messageToSign,
-                    signature: signature
+                    signature: signature,
+                    display_name: nameInput  // NEW: Include user-provided name
                 };
                 
                 // Add owner if provided (for follower tracking)
@@ -607,6 +627,15 @@ Platform: {{ platform_name }}
                 
                 showStatus(`✓ Score: ${data.resonance_score}/100`, 'success');
                 verifyBtn.textContent = '✓ Verifiziert';
+                verifyBtn.disabled = true;
+                
+                // Enable follow confirmation button if owner is present
+                if (ownerParam) {
+                    const confirmBtn = document.getElementById('confirmFollowBtn');
+                    confirmBtn.style.display = 'block';
+                    confirmBtn.disabled = false;
+                    log('✓ Follow-Bestätigung verfügbar');
+                }
                 
                 if (data.token) {
                     currentToken = data.token;
@@ -636,6 +665,11 @@ Platform: {{ platform_name }}
             document.getElementById('scoreValue').textContent = '—';
             document.getElementById('loginCountValue').textContent = '—';
             
+            // Hide name input
+            document.getElementById('nameInputSection').style.display = 'none';
+            document.getElementById('nameInput').value = '';
+            document.getElementById('nameInput').style.borderColor = '#e0e0e0';
+            
             connectBtn.style.display = 'block';
             verifyBtn.style.display = 'none';
             disconnectBtn.style.display = 'none';
@@ -645,6 +679,53 @@ Platform: {{ platform_name }}
             
             showStatus('✓ Wallet getrennt', 'info');
             log('🗑️ Session gelöscht');
+        }
+        
+        async function confirmFollow() {
+            if (!currentAddress) {
+                log('❌ Keine Wallet verbunden');
+                return;
+            }
+            
+            const urlParams = new URLSearchParams(window.location.search);
+            const ownerParam = urlParams.get('owner');
+            
+            if (!ownerParam) {
+                log('❌ Kein Owner in URL');
+                return;
+            }
+            
+            const confirmBtn = document.getElementById('confirmFollowBtn');
+            confirmBtn.disabled = true;
+            showStatus('⏳ Follow-Anfrage wird bestätigt...', 'info');
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/confirm-follower`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        owner: ownerParam,
+                        follower: currentAddress
+                    }),
+                    signal: AbortSignal.timeout(5000)
+                });
+                
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                
+                const data = await response.json();
+                
+                if (!data.success) throw new Error(data.error || 'Follow confirmation failed');
+                
+                log('✅ Follow-Anfrage bestätigt!');
+                showStatus('✅ Follow-Anfrage bestätigt! 🎉', 'success');
+                confirmBtn.textContent = '✓ Bestätigt';
+                confirmBtn.disabled = true;
+                
+            } catch (error) {
+                log('❌ Fehler: ' + error.message);
+                showStatus('❌ Fehler: ' + error.message, 'error');
+                confirmBtn.disabled = false;
+            }
         }
         
         document.addEventListener('DOMContentLoaded', function() {
@@ -664,8 +745,26 @@ Platform: {{ platform_name }}
                 verifyBtn.addEventListener('click', verifyWallet);
                 disconnectBtn.addEventListener('click', disconnectWallet);
                 
-                // Auto-Login versuchen
+                // Add event listener for confirm follow button
+                const confirmFollowBtn = document.getElementById('confirmFollowBtn');
+                if (confirmFollowBtn) {
+                    confirmFollowBtn.addEventListener('click', confirmFollow);
+                }
+                
+                // Auto-Login versuchen (ABER NICHT bei Follower-Links!)
                 (async () => {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const ownerParam = urlParams.get('owner');
+                    
+                    // Bei Follower-Links: Kein Auto-Login, immer frischer Start
+                    if (ownerParam) {
+                        log('📋 Follower-Link erkannt - kein Auto-Login, frischer Start');
+                        // Clear any old tokens for clean experience
+                        localStorage.removeItem('aera_token');
+                        localStorage.removeItem('aera_address');
+                        return;
+                    }
+                    
                     if (typeof window.ethereum !== 'undefined') {
                         log('MetaMask installiert - versuche Auto-Login...');
                         setTimeout(async () => {
