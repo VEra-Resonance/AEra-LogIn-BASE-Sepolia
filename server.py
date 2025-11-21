@@ -1,6 +1,11 @@
 """
-AEra Login Backend - FastAPI Server
-Verifiziert Wallet-Adressen und verwaltet Resonance Scores
+VEra-Resonance Backend - FastAPI Server
+Creator: Karlheinz Beismann
+Project: VEra-Resonance — Decentralized Proof-of-Human Architecture
+License: Apache 2.0 (see LICENSE file)
+© 2025 VEra-Resonance Project
+
+Verifies wallet addresses and manages Resonance Scores
 """
 
 from fastapi import FastAPI, Request
@@ -43,8 +48,8 @@ AIRDROP_AMOUNT = 0.5  # AEra Tokens
 SEPOLIA_RPC = os.getenv("SEPOLIA_RPC_URL", "https://sepolia.infura.io/v3/YOUR_INFURA_KEY")
 
 app = FastAPI(
-    title="AEra Login API",
-    description="Proof of Human via Resonance",
+    title="VEra-Resonance API",
+    description="Decentralized Proof-of-Human System",
     version="0.1"
 )
 
@@ -379,7 +384,7 @@ async def trigger_airdrop(address: str) -> dict:
 def startup_event():
     """App-Start: Initialisiere Datenbank"""
     init_db()
-    logger.info("🚀 AEra Login Server gestartet")
+    logger.info("🚀 VEra-Resonance Server gestartet")
     logger.info(f"   🌐 Öffentliche URL: {PUBLIC_URL}")
     logger.info(f"   📍 Host: {HOST}:{PORT}")
     logger.info(f"   🔐 CORS Origins: {CORS_ORIGINS}")
@@ -413,7 +418,7 @@ async def health_check():
     """Health-Check Endpoint"""
     return {
         "status": "healthy",
-        "service": "AEra Login v0.1",
+        "service": "VEra-Resonance v0.1",
         "timestamp": int(time.time()),
         "database": "connected" if os.path.exists(DB_PATH) else "disconnected",
         "database_path": DB_PATH
@@ -424,7 +429,7 @@ async def debug_info(req: Request):
     """Debug Info für Troubleshooting"""
     client_host = req.client.host if req.client else "unknown"
     return {
-        "server": "AEra Login v0.1",
+        "server": "VEra-Resonance v0.1",
         "timestamp": int(time.time()),
         "client_ip": client_host,
         "database": {

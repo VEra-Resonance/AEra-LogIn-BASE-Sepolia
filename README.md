@@ -1,6 +1,40 @@
-# AEra Login v0.1 – Proof of Human via Resonance
+# VEra-Resonance v0.1 – Decentralized Proof-of-Human
 
-Ein minimalistisches, Wallet-basiertes Identity-Layer-System, das beweist, dass ein Nutzer ein echter Mensch ist – **ohne KYC, ohne Klarnamen, ohne Datenweitergabe**.
+A minimalist, wallet-based identity layer system that proves a user is a real human – **without KYC, without real names, without data sharing**.
+
+---
+
+## About VEra-Resonance
+
+**VEra-Resonance** is a decentralized, privacy-preserving Proof-of-Human framework designed to protect digital spaces from bots, automated identities, synthetic engagement, and AI-generated fake accounts — without using KYC, biometrics, personal data, or centralized identity providers.
+
+The system combines:
+
+* **cryptographic wallet signatures**
+* **behavioral on-chain pattern analysis**
+* **a transparent Proof-of-Human score (0–100)**
+* **non-tradable utility tokens for event logging**
+* **zero personal data retention**
+* **a resonance-based authenticity model**
+
+VEra-Resonance aims to become a foundational standard for authenticity and human presence — applicable to social platforms, communities, decentralized networks and private ecosystems.
+
+### 🔹 Core Principles
+
+* **Anonymous but provably human**
+* **No phone number, no email, no KYC**
+* **Bot-resistant by design**
+* **Privacy-first: no profiling, no tracking**
+* **Interoperable with any platform (X, Discord, Web Apps)**
+* **Zero speculation: the utility token has no market value**
+* **Open, verifiable, cryptographically secure**
+
+### 🔹 Mission
+
+To restore **authenticity**, **trust** and **real human resonance**
+in digital environments — through open, decentralized technology.
+
+---
 
 ---
 
@@ -54,7 +88,7 @@ uvicorn server:app --host 0.0.0.0 --port 8000
 ```
 INFO:     Uvicorn running on http://127.0.0.1:8000
 ✓ Datenbank initialisiert: /path/to/aera.db
-🚀 AEra Login Server started
+🚀 VEra-Resonance Server started
 ```
 
 ### 4. Browser öffnen
@@ -72,15 +106,15 @@ Gehe zu: **http://localhost:8000**
 
 ---
 
-## 📁 Projektstruktur
+📁 Projektstruktur
 
 ```
 webside-wallet-login/
 ├── index.html          # Frontend (HTML + JavaScript)
 ├── server.py           # Backend (FastAPI)
 ├── aera.db             # SQLite Datenbank
-├── README.md           # Diese Datei
-├── LICENSE             # CC BY-NC-SA 4.0
+├── README.md           # This file
+├── LICENSE             # Apache 2.0
 └── requirements.txt    # Python Dependencies (optional)
 ```
 
@@ -129,7 +163,7 @@ Health-Check für Monitoring.
 ```json
 {
   "status": "healthy",
-  "service": "AEra Login v0.1",
+  "service": "VEra-Resonance v0.1",
   "timestamp": 1700334000
 }
 ```
@@ -377,38 +411,45 @@ docker run -p 8000:8000 aera-login
 
 ---
 
-## 📄 Lizenz
+## 📄 License
 
-**Creative Commons BY-NC-SA 4.0**
+**Apache License 2.0**
 
 ```
-Du darfst:
-✓ Verwenden und Modifizieren (für Non-Commercial Use)
-✓ Mit Namensnennung (Karlheinz 2025)
-✓ Unter gleicher Lizenz weitergeben
+Copyright 2025 Karlheinz Beismann
+VEra-Resonance Project
 
-Du darfst nicht:
-✗ Kommerziell verwenden
-✗ Namensnennung entfernen
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 ```
 
-**Volltext:** https://creativecommons.org/licenses/by-nc-sa/4.0/
+**Full License:** https://www.apache.org/licenses/LICENSE-2.0
 
 ---
 
 ## 👤 Credits
 
-- **Konzept & Implementierung:** Karlheinz, 2025
-- **Framework:** FastAPI, ethers.js
-- **Community:** AEra Project
+- **Creator & Maintainer:** Karlheinz Beismann
+- **Project:** VEra-Resonance — Decentralized Proof-of-Human Architecture
+- **Framework:** FastAPI, ethers.js, Web3.py
+- **Community:** VEra-Resonance Project
 
 ---
 
 ## 🤝 Support
 
-Fragen oder Bugs? Erstelle ein Issue auf GitHub oder schreibe eine E-Mail.
+Questions or bugs? Create an issue on GitHub or contact the maintainer.
 
 ---
 
-**AEra Login Prototype © 2025 Karlheinz**  
+**VEra-Resonance © 2025 Karlheinz Beismann**  
 *Proving Humanity via Resonance – No KYC, No Identity Theft.*

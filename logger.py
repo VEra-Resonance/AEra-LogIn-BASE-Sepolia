@@ -1,3 +1,7 @@
+# VEra-Resonance Logger Module
+# © 2025 Karlheinz Beismann — VEra-Resonance Project
+# Licensed under the Apache License, Version 2.0
+
 import logging
 import json
 from datetime import datetime
