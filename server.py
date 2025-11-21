@@ -223,7 +223,7 @@ def init_db():
     conn = get_db_connection()
     cursor = conn.cursor()
     
-    # Users-Tabelle
+    # Users-Tabelle (erweitert mit owner_wallet für Follower-Tracking)
     cursor.execute("""
     CREATE TABLE IF NOT EXISTS users (
         address TEXT PRIMARY KEY,
@@ -233,7 +233,9 @@ def init_db():
         login_count INTEGER DEFAULT 0,
         created_at TEXT,
         first_referrer TEXT,
-        last_referrer TEXT
+        last_referrer TEXT,
+        owner_wallet TEXT,
+        is_verified_follower INTEGER DEFAULT 0
     )
     """)
     
@@ -249,7 +251,8 @@ def init_db():
         created_at TEXT,
         referrer TEXT,
         user_agent TEXT,
-        ip_address TEXT
+        ip_address TEXT,
+        owner_wallet TEXT
     )
     """)
     
@@ -262,6 +265,22 @@ def init_db():
         tx_hash TEXT,
         status TEXT,
         created_at TEXT
+    )
+    """)
+    
+    # Followers-Tabelle: Link Owner <-> Follower
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS followers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        owner_wallet TEXT NOT NULL,
+        follower_address TEXT NOT NULL,
+        follower_score INTEGER,
+        verified_at TEXT,
+        source_platform TEXT,
+        verified BOOLEAN DEFAULT 1,
+        UNIQUE(owner_wallet, follower_address),
+        FOREIGN KEY(owner_wallet) REFERENCES users(address),
+        FOREIGN KEY(follower_address) REFERENCES users(address)
     )
     """)
     
@@ -413,6 +432,12 @@ async def root(request: Request):
         "platform_badge": platform["badge"]
     })
 
+@app.get("/dashboard", response_class=HTMLResponse)
+async def dashboard():
+    """Admin Follower Dashboard"""
+    with open(os.path.join(os.path.dirname(__file__), "dashboard.html"), "r") as f:
+        return f.read()
+
 @app.get("/api/health")
 async def health_check():
     """Health-Check Endpoint"""
@@ -501,6 +526,7 @@ async def verify(req: Request):
         nonce = data.get("nonce", "")
         signature = data.get("signature", "")
         token_duration_hours = data.get("token_duration_hours", None)
+        owner_wallet = data.get("owner", "").lower()  # NEW: Owner for follower tracking
         
         # ===== EXTRACT REFERRER & USER-AGENT =====
         referrer = req.headers.get("referer", req.headers.get("referrer", ""))
@@ -512,7 +538,13 @@ async def verify(req: Request):
                     address=address[:10], 
                     has_signature=bool(signature),
                     referrer_source=referrer_source,
+                    owner_wallet=owner_wallet[:10] if owner_wallet else "none",
                     ip=client_ip[:15])
+        
+        # ===== VALIDATE OWNER WALLET IF PROVIDED =====
+        if owner_wallet and (not owner_wallet.startswith("0x") or len(owner_wallet) != 42):
+            log_activity("ERROR", "AUTH", "Invalid owner wallet format", address=address[:10])
+            return {"error": "Invalid owner wallet format", "is_human": False}
         
         # ===== KRITISCH: SIGNATURE VALIDIERUNG =====
         if not signature:
@@ -596,25 +628,44 @@ async def verify(req: Request):
             initial_score = 50
             cursor.execute(
                 """INSERT INTO users 
-                   (address, first_seen, last_login, score, login_count, created_at, first_referrer, last_referrer)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)""",
-                (address, current_timestamp, current_timestamp, initial_score, 1, current_iso, referrer_source, referrer_source)
+                   (address, first_seen, last_login, score, login_count, created_at, first_referrer, last_referrer, owner_wallet, is_verified_follower)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (address, current_timestamp, current_timestamp, initial_score, 1, current_iso, referrer_source, referrer_source, owner_wallet or None, 1 if owner_wallet else 0)
             )
             
             cursor.execute(
                 """INSERT INTO events 
-                   (address, event_type, score_before, score_after, timestamp, created_at, referrer, user_agent, ip_address)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (address, "signup", 0, initial_score, current_timestamp, current_iso, referrer_source, user_agent[:200], client_ip)
+                   (address, event_type, score_before, score_after, timestamp, created_at, referrer, user_agent, ip_address, owner_wallet)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+                (address, "signup", 0, initial_score, current_timestamp, current_iso, referrer_source, user_agent[:200], client_ip, owner_wallet or None)
             )
+            
+            # NEW: Wenn Owner vorhanden, registriere als Follower
+            if owner_wallet:
+                try:
+                    cursor.execute(
+                        """INSERT INTO followers 
+                           (owner_wallet, follower_address, follower_score, verified_at, source_platform, verified)
+                           VALUES (?, ?, ?, ?, ?, ?)""",
+                        (owner_wallet, address, initial_score, current_iso, referrer_source, 1)
+                    )
+                    log_activity("INFO", "FOLLOWER", "✓ Follower registered", 
+                                owner=owner_wallet[:10], 
+                                follower=address[:10], 
+                                source=referrer_source)
+                except Exception as e:
+                    log_activity("WARNING", "FOLLOWER", f"Could not register follower: {str(e)}")
             
             first_seen = current_timestamp
             new_score = initial_score
             message = f"Welcome! Your initial Resonance Score is {initial_score}/100"
+            if owner_wallet:
+                message += f" | Registered as follower"
             log_activity("INFO", "AUTH", "New user registered", 
                         address=address[:10], 
                         initial_score=initial_score,
-                        referrer=referrer_source)
+                        referrer=referrer_source,
+                        owner=owner_wallet[:10] if owner_wallet else "none")
         
         conn.commit()
         conn.close()
@@ -924,6 +975,170 @@ async def get_airdrop_status(address: str):
         
     except Exception as e:
         return {"error": str(e)}
+
+@app.get("/admin/followers")
+async def get_followers_dashboard(req: Request):
+    """
+    Admin Dashboard - Shows all verified followers for an owner
+    
+    Query Parameters:
+        owner: Owner wallet address (required)
+        token: Optional signature for verification
+    
+    Returns:
+        {
+            "owner": "0x...",
+            "total_followers": 42,
+            "followers": [
+                {
+                    "follower_address": "0x...",
+                    "resonance_score": 51,
+                    "verified_at": "2025-11-21T10:00:00",
+                    "source_platform": "twitter",
+                    "verified": true
+                }
+            ],
+            "statistics": {
+                "average_score": 65.5,
+                "verified_count": 42,
+                "by_platform": {"twitter": 15, "discord": 8}
+            }
+        }
+    """
+    try:
+        # Get owner from query params
+        owner_wallet = req.query_params.get("owner", "").lower()
+        
+        if not owner_wallet:
+            return {"error": "owner parameter required", "success": False}
+        
+        if not owner_wallet.startswith("0x") or len(owner_wallet) != 42:
+            return {"error": "Invalid owner wallet format", "success": False}
+        
+        log_activity("INFO", "ADMIN", "Dashboard requested", owner=owner_wallet[:10])
+        
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        # Get all followers for this owner
+        cursor.execute("""
+            SELECT 
+                f.id,
+                f.follower_address,
+                f.follower_score,
+                f.verified_at,
+                f.source_platform,
+                f.verified,
+                u.login_count,
+                u.last_login,
+                u.created_at
+            FROM followers f
+            LEFT JOIN users u ON f.follower_address = u.address
+            WHERE f.owner_wallet = ?
+            ORDER BY f.verified_at DESC
+        """, (owner_wallet,))
+        
+        followers = cursor.fetchall()
+        
+        # Calculate statistics
+        if followers:
+            total_verified = len(followers)
+            avg_score = sum(f['follower_score'] if f['follower_score'] else 0 for f in followers) / len(followers)
+            
+            # Group by platform
+            platform_counts = {}
+            for f in followers:
+                platform = f['source_platform'] or 'unknown'
+                platform_counts[platform] = platform_counts.get(platform, 0) + 1
+        else:
+            total_verified = 0
+            avg_score = 0
+            platform_counts = {}
+        
+        # Get owner stats
+        cursor.execute("SELECT score, login_count, created_at FROM users WHERE address=?", (owner_wallet,))
+        owner_data = cursor.fetchone()
+        
+        conn.close()
+        
+        log_activity("INFO", "ADMIN", "Dashboard returned", 
+                    owner=owner_wallet[:10], 
+                    followers_count=total_verified)
+        
+        return {
+            "success": True,
+            "owner": owner_wallet,
+            "owner_score": owner_data['score'] if owner_data else None,
+            "total_followers": total_verified,
+            "followers": [
+                {
+                    "follower_address": f['follower_address'],
+                    "resonance_score": f['follower_score'],
+                    "verified_at": f['verified_at'],
+                    "source_platform": f['source_platform'],
+                    "verified": bool(f['verified']),
+                    "login_count": f['login_count'] or 0,
+                    "last_login": f['last_login']
+                }
+                for f in followers
+            ],
+            "statistics": {
+                "average_score": round(avg_score, 2),
+                "verified_count": total_verified,
+                "by_platform": platform_counts,
+                "timestamp": int(time.time())
+            }
+        }
+        
+    except Exception as e:
+        log_activity("ERROR", "ADMIN", f"Dashboard error: {str(e)}")
+        return {"error": str(e), "success": False}
+
+@app.get("/admin/follower-link")
+async def generate_follower_link(req: Request):
+    """
+    Generate a custom follower link for an owner
+    
+    Query Parameters:
+        owner: Owner wallet address (required)
+        source: Social media platform (optional: twitter, discord, telegram, etc.)
+    
+    Returns:
+        {
+            "owner": "0x...",
+            "follower_link": "https://app.example.com/?owner=0x...&source=twitter",
+            "qr_code": "data:image/png;base64,..."
+        }
+    """
+    try:
+        owner_wallet = req.query_params.get("owner", "").lower()
+        source = req.query_params.get("source", "direct")
+        
+        if not owner_wallet or not owner_wallet.startswith("0x") or len(owner_wallet) != 42:
+            return {"error": "Invalid owner wallet", "success": False}
+        
+        # Build follower link
+        follower_link = f"{PUBLIC_URL}/?owner={owner_wallet}&source={source}"
+        
+        log_activity("INFO", "ADMIN", "Follower link generated", 
+                    owner=owner_wallet[:10], 
+                    source=source)
+        
+        return {
+            "success": True,
+            "owner": owner_wallet,
+            "source": source,
+            "follower_link": follower_link,
+            "instructions": {
+                "step1": "Share this link with your followers",
+                "step2": "They click the link and verify with their wallet",
+                "step3": "They appear in your dashboard at /admin/followers?owner=" + owner_wallet,
+                "step4": "Track their Resonance Score and engagement"
+            }
+        }
+        
+    except Exception as e:
+        return {"error": str(e), "success": False}
 
 if __name__ == "__main__":
     import uvicorn

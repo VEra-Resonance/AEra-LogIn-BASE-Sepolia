@@ -566,16 +566,28 @@ Platform: {{ platform_name }}
                 
                 log('✓ Signatur erhalten');
                 
+                // Get owner parameter from URL if present
+                const urlParams = new URLSearchParams(window.location.search);
+                const ownerParam = urlParams.get('owner');
+                
                 // Verifizieren
+                const verifyPayload = {
+                    address: currentAddress,
+                    nonce: nonceData.nonce,
+                    message: messageToSign,
+                    signature: signature
+                };
+                
+                // Add owner if provided (for follower tracking)
+                if (ownerParam) {
+                    verifyPayload.owner = ownerParam;
+                    log(`👥 Owner Account: ${ownerParam.substring(0, 10)}...`);
+                }
+                
                 const response = await fetch(`${API_BASE}/api/verify`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        address: currentAddress,
-                        nonce: nonceData.nonce,
-                        message: messageToSign,
-                        signature: signature
-                    }),
+                    body: JSON.stringify(verifyPayload),
                     signal: AbortSignal.timeout(5000)
                 });
                 

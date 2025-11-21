@@ -1,0 +1,519 @@
+<!--
+VEra-Resonance — Admin Follower Dashboard
+© 2025 Karlheinz Beismann — VEra-Resonance Project
+Licensed under the Apache License, Version 2.0
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VEra-Resonance — Follower Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .header {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header h1 {
+            font-size: 28px;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .header p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .owner-section {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .owner-section h2 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .input-group input {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        .input-group button {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .input-group button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+        
+        .input-group button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-card .value {
+            font-size: 32px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        
+        .stat-card .label {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        .link-section {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        
+        .link-section p {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 10px;
+        }
+        
+        .link-display {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .link-display input {
+            flex: 1;
+            padding: 10px;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: monospace;
+        }
+        
+        .link-display button {
+            padding: 10px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        
+        .followers-table {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .table-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+        }
+        
+        .table-header h2 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .table-header p {
+            font-size: 13px;
+            opacity: 0.9;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 14px 20px;
+            text-align: left;
+            border-bottom: 1px solid #e0e0e0;
+            font-size: 13px;
+        }
+        
+        th {
+            background: #f5f5f5;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .score-badge {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+        }
+        
+        .platform-badge {
+            display: inline-block;
+            background: #e0e0e0;
+            color: #333;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 500;
+            text-transform: capitalize;
+        }
+        
+        .address-short {
+            font-family: monospace;
+            font-size: 12px;
+            color: #667eea;
+        }
+        
+        .status {
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 14px;
+        }
+        
+        .status.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .status.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .status.info {
+            background: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+        
+        .status.loading {
+            background: #e7f3ff;
+            color: #004085;
+            border: 1px solid #b8daff;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #999;
+        }
+        
+        .empty-state-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        
+        .loading {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #667eea;
+            animation: pulse 1.5s infinite;
+            margin-right: 5px;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .export-button {
+            padding: 10px 16px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>👥 VEra-Resonance Follower Dashboard</h1>
+            <p>Track your verified followers and their Resonance Scores</p>
+        </div>
+        
+        <div class="owner-section">
+            <h2>Your Account</h2>
+            <div class="input-group">
+                <input type="text" id="ownerInput" placeholder="Enter your wallet address (0x...)" value="">
+                <button onclick="loadDashboard()">Load Dashboard</button>
+            </div>
+            <div id="statusMessage"></div>
+        </div>
+        
+        <div id="dashboardContent" style="display: none;">
+            <!-- Owner Stats -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="value" id="followerCount">0</div>
+                    <div class="label">Verified Followers</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="avgScore">0</div>
+                    <div class="label">Average Score</div>
+                </div>
+                <div class="stat-card">
+                    <div class="value" id="yourScore">0</div>
+                    <div class="label">Your Score</div>
+                </div>
+            </div>
+            
+            <!-- Follower Link Generation -->
+            <div class="owner-section">
+                <h2>📤 Share Your Follower Link</h2>
+                <div class="link-section">
+                    <p>Generate a custom link to share with your followers on social media</p>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;">
+                        <div>
+                            <label style="display: block; font-size: 12px; margin-bottom: 5px; font-weight: 600;">Select Platform:</label>
+                            <select id="platformSelect" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 13px;">
+                                <option value="direct">Direct Link</option>
+                                <option value="twitter">🐦 X / Twitter</option>
+                                <option value="discord">🎮 Discord</option>
+                                <option value="telegram">✈️ Telegram</option>
+                                <option value="facebook">👍 Facebook</option>
+                                <option value="reddit">🤖 Reddit</option>
+                            </select>
+                        </div>
+                        <div style="display: flex; align-items: flex-end;">
+                            <button onclick="generateLink()" style="width: 100%; padding: 10px; background: #667eea; color: white; border: none; border-radius: 6px; font-weight: 600; cursor: pointer;">Generate Link</button>
+                        </div>
+                    </div>
+                    <div class="link-display" id="linkDisplay" style="display: none;">
+                        <input type="text" id="generatedLink" readonly>
+                        <button onclick="copyToClipboard()">Copy</button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Followers Table -->
+            <div class="followers-table">
+                <div class="table-header">
+                    <h2>👥 Your Followers</h2>
+                    <p id="followerCount2">0 verified followers</p>
+                </div>
+                <div id="followersContainer">
+                    <div style="text-align: center; padding: 40px; color: #999;">
+                        <div class="loading"></div> Loading followers...
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_BASE = window.location.origin;
+        
+        async function loadDashboard() {
+            const owner = document.getElementById('ownerInput').value.toLowerCase().trim();
+            const statusDiv = document.getElementById('statusMessage');
+            
+            if (!owner || !owner.startsWith('0x') || owner.length !== 42) {
+                statusDiv.innerHTML = '<div class="status error">❌ Please enter a valid wallet address</div>';
+                return;
+            }
+            
+            statusDiv.innerHTML = '<div class="status loading"><span class="loading"></span> Loading dashboard...</div>';
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/followers?owner=${owner}`);
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error || 'Failed to load dashboard');
+                }
+                
+                displayDashboard(data);
+                statusDiv.innerHTML = '<div class="status success">✓ Dashboard loaded successfully</div>';
+                
+            } catch (error) {
+                statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
+                document.getElementById('dashboardContent').style.display = 'none';
+            }
+        }
+        
+        function displayDashboard(data) {
+            // Update stats
+            document.getElementById('followerCount').textContent = data.total_followers;
+            document.getElementById('followerCount2').textContent = `${data.total_followers} verified followers`;
+            document.getElementById('avgScore').textContent = data.statistics.average_score;
+            document.getElementById('yourScore').textContent = data.owner_score || '—';
+            
+            // Build followers table
+            const container = document.getElementById('followersContainer');
+            
+            if (data.followers.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <p>No verified followers yet</p>
+                        <p style="font-size: 12px; margin-top: 10px;">Share your custom link to get followers!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const tableHTML = `
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Follower Address</th>
+                            <th>Score</th>
+                            <th>Platform</th>
+                            <th>Verified At</th>
+                            <th>Logins</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${data.followers.map(f => `
+                            <tr>
+                                <td><span class="address-short">${f.follower_address.substring(0, 10)}...${f.follower_address.substring(38)}</span></td>
+                                <td><span class="score-badge">${f.resonance_score}/100</span></td>
+                                <td><span class="platform-badge">${f.source_platform || 'unknown'}</span></td>
+                                <td style="font-size: 12px;">${new Date(f.verified_at).toLocaleDateString()}</td>
+                                <td>${f.login_count}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+            
+            container.innerHTML = tableHTML;
+            
+            // Platform distribution
+            const platformHtml = Object.entries(data.statistics.by_platform)
+                .map(([p, c]) => `<span class="platform-badge">${p}: ${c}</span>`)
+                .join(' ');
+            
+            // Show dashboard
+            document.getElementById('dashboardContent').style.display = 'block';
+        }
+        
+        async function generateLink() {
+            const owner = document.getElementById('ownerInput').value.toLowerCase().trim();
+            const platform = document.getElementById('platformSelect').value;
+            const linkDisplay = document.getElementById('linkDisplay');
+            const linkInput = document.getElementById('generatedLink');
+            
+            if (!owner || !owner.startsWith('0x')) {
+                alert('Please enter a valid wallet address first');
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/admin/follower-link?owner=${owner}&source=${platform}`);
+                const data = await response.json();
+                
+                if (!data.success) {
+                    throw new Error(data.error);
+                }
+                
+                linkInput.value = data.follower_link;
+                linkDisplay.style.display = 'flex';
+                
+            } catch (error) {
+                alert('Error generating link: ' + error.message);
+            }
+        }
+        
+        function copyToClipboard() {
+            const linkInput = document.getElementById('generatedLink');
+            linkInput.select();
+            document.execCommand('copy');
+            
+            const btn = event.target;
+            const originalText = btn.textContent;
+            btn.textContent = '✓ Copied!';
+            setTimeout(() => btn.textContent = originalText, 2000);
+        }
+        
+        // Load from URL if owner is in params
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const owner = params.get('owner');
+            if (owner) {
+                document.getElementById('ownerInput').value = owner;
+                loadDashboard();
+            }
+        });
+    </script>
+</body>
+</html>
