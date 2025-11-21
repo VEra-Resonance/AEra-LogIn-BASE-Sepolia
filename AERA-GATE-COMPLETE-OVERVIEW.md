@@ -300,7 +300,7 @@ You now have the **complete VEra-Resonance system for X** including:
 ✅ Technical whitepaper
 ✅ Complete guides
 
-**Ihr System ist production-ready!** 🚀
+**Your system is production-ready!** 🚀
 
 ---
 
@@ -308,7 +308,7 @@ You now have the **complete VEra-Resonance system for X** including:
 
 Bei Fragen oder Problemen:
 
-1. **Dokumentation prüfen** (alle .md-Dateien)
+1. **Review documentation** (all .md files)
 2. **Logs checken:** `tail -f /tmp/server_8820.log`
 3. **DB validieren:** `sqlite3 aera.db "SELECT * FROM events LIMIT 5;"`
 4. **Server neu starten:** (siehe Quick Start)

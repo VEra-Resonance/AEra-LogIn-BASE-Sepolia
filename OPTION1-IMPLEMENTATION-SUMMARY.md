@@ -207,7 +207,7 @@ curl https://[ihre-url]
 
 ---
 
-## 📝 Nächste Schritte (Optional)
+## 📝 Next Steps (Optional)
 
 ### **Falls gewünscht:**
 

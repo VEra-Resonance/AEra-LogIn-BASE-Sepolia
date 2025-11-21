@@ -319,7 +319,7 @@ Join: [URL]
 https://ronna-unmagnetised-unaffrightedly.ngrok-free.dev
 ```
 
-**Hinweis:** Diese URL ändert sich bei jedem ngrok-Neustart. Für Production sollten Sie eine feste Domain verwenden.
+**Note:** This URL changes with each ngrok restart. For production, you should use a fixed domain.
 
 ---
 

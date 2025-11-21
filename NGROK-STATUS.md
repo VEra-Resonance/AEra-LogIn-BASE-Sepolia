@@ -34,7 +34,7 @@ You should only visit this website if you trust whoever sent the link to you.
 ### **Das ist NORMAL!**
 
 - ✅ Dies ist die Standard-Warnung für ngrok Free-Accounts
-- ✅ Kein Fehler, sondern Sicherheitshinweis von ngrok
+- ✅ No error, but rather a security notice from ngrok
 - ✅ Einfach auf **"Visit Site"** klicken → Dann funktioniert alles
 
 ### **Für Besucher:**

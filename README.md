@@ -51,68 +51,68 @@ in digital environments — through open, decentralized technology.
 
 ## 🚀 Quick Start
 
-### 1. Voraussetzungen
+### 1. Requirements
 
 ```bash
-# Python 3.9+ erforderlich
+# Python 3.9+ required
 python --version
 
-# pip aktualisieren
+# Update pip
 pip install --upgrade pip
 ```
 
 ### 2. Installation
 
 ```bash
-# In den Projektordner wechseln
+# Navigate to project directory
 cd /path/to/webside-wallet-login
 
-# Abhängigkeiten installieren
+# Install dependencies
 pip install fastapi uvicorn
 
-# (Optional) Mit requirements.txt
+# (Optional) Using requirements.txt
 pip install -r requirements.txt
 ```
 
-### 3. Server starten
+### 3. Start Server
 
 ```bash
-# Development-Modus mit Auto-Reload
+# Development mode with auto-reload
 uvicorn server:app --reload --port 8000
 
-# Oder Production-Modus
+# Or Production mode
 uvicorn server:app --host 0.0.0.0 --port 8000
 ```
 
 **Output:**
 ```
 INFO:     Uvicorn running on http://127.0.0.1:8000
-✓ Datenbank initialisiert: /path/to/aera.db
+✓ Database initialized: /path/to/aera.db
 🚀 VEra-Resonance Server started
 ```
 
-### 4. Browser öffnen
+### 4. Open in Browser
 
-Gehe zu: **http://localhost:8000**
+Navigate to: **http://localhost:8000**
 
 ---
 
 ## 📋 Workflow
 
-1. **Wallet verbinden** – Button klicken, MetaMask genehmigen
-2. **Verifizieren** – Server prüft Adresse und berechnet Score
-3. **Resonance Score anzeigen** – Nutzer erhält Score (50–100)
-4. **Login-Token** – Für Integration in andere Plattformen
+1. **Connect Wallet** – Click button, approve MetaMask
+2. **Verify** – Server checks address and calculates score
+3. **Display Resonance Score** – User receives score (50–100)
+4. **Login Token** – For integration with other platforms
 
 ---
 
-📁 Projektstruktur
+📁 Project Structure
 
 ```
 webside-wallet-login/
 ├── index.html          # Frontend (HTML + JavaScript)
 ├── server.py           # Backend (FastAPI)
-├── aera.db             # SQLite Datenbank
+├── aera.db             # SQLite Database
 ├── README.md           # This file
 ├── LICENSE             # Apache 2.0
 └── requirements.txt    # Python Dependencies (optional)
@@ -120,11 +120,11 @@ webside-wallet-login/
 
 ---
 
-## 🔌 API-Endpoints
+## 🔌 API Endpoints
 
 ### `POST /api/verify`
 
-Verifiziert eine Wallet-Adresse und aktualisiert den Score.
+Verifies a wallet address and updates the score.
 
 **Request:**
 ```json
@@ -157,7 +157,7 @@ Verifiziert eine Wallet-Adresse und aktualisiert den Score.
 
 ### `GET /api/health`
 
-Health-Check für Monitoring.
+Health check for monitoring.
 
 **Response:**
 ```json
@@ -172,7 +172,7 @@ Health-Check für Monitoring.
 
 ### `GET /api/user/{address}`
 
-Ruft Benutzerdaten ab.
+Retrieves user data.
 
 **Response:**
 ```json
@@ -190,7 +190,7 @@ Ruft Benutzerdaten ab.
 
 ### `GET /api/stats`
 
-Öffentliche Statistiken.
+Public statistics.
 
 **Response:**
 ```json
@@ -206,7 +206,7 @@ Ruft Benutzerdaten ab.
 
 ### `GET /api/events/{address}`
 
-Ruft Login-Events eines Benutzers ab (bis zu 50 letzte).
+Retrieves login events for a user (up to 50 most recent).
 
 **Response:**
 ```json
@@ -228,84 +228,84 @@ Ruft Login-Events eines Benutzers ab (bis zu 50 letzte).
 
 ---
 
-## 💾 Datenbank-Schema
+## 💾 Database Schema
 
-### Tabelle: `users`
+### Table: `users`
 
-| Spalte | Typ | Beschreibung |
-|--------|-----|-------------|
-| `address` | TEXT (PK) | Wallet-Adresse (Unique) |
-| `first_seen` | INTEGER | Unix-Timestamp des ersten Logins |
-| `last_login` | INTEGER | Unix-Timestamp des letzten Logins |
+| Column | Type | Description |
+|--------|------|-------------|
+| `address` | TEXT (PK) | Wallet address (Unique) |
+| `first_seen` | INTEGER | Unix timestamp of first login |
+| `last_login` | INTEGER | Unix timestamp of last login |
 | `score` | INTEGER | Resonance Score (0–100) |
-| `login_count` | INTEGER | Anzahl der Logins |
-| `created_at` | TEXT | ISO-Timestamp der Erstellung |
+| `login_count` | INTEGER | Number of logins |
+| `created_at` | TEXT | ISO timestamp of creation |
 
-### Tabelle: `events`
+### Table: `events`
 
-| Spalte | Typ | Beschreibung |
-|--------|-----|-------------|
-| `id` | INTEGER (PK) | Event-ID |
-| `address` | TEXT | Wallet-Adresse |
-| `event_type` | TEXT | "signup" oder "login" |
-| `score_before` | INTEGER | Score vor Aktion |
-| `score_after` | INTEGER | Score nach Aktion |
-| `timestamp` | INTEGER | Unix-Timestamp |
-| `created_at` | TEXT | ISO-Timestamp |
-
----
-
-## 🎓 Resonance Score Logik
-
-Der Score beginnt bei **50** für neue Nutzer und kann bis zu **100** steigen.
-
-- **Neuer Nutzer**: 50 Punkte
-- **Jedes Login**: +1 Punkt (maximal 100)
-- **Audit-Trail**: Alle Änderungen werden in der `events`-Tabelle protokolliert
-
-**Zukünftige Erweiterungen:**
-- Community-Attestierungen (+5 pro bestätigung)
-- Inaktivität-Malus (-1 pro Woche ohne Login)
-- On-Chain Integration (Token-Balance, Governance-Votes)
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | INTEGER (PK) | Event ID |
+| `address` | TEXT | Wallet address |
+| `event_type` | TEXT | "signup" or "login" |
+| `score_before` | INTEGER | Score before action |
+| `score_after` | INTEGER | Score after action |
+| `timestamp` | INTEGER | Unix timestamp |
+| `created_at` | TEXT | ISO timestamp |
 
 ---
 
-## 🔐 Sicherheit & Datenschutz
+## 🎓 Resonance Score Logic
 
-✅ **Keine Klardaten** – Nur Wallet-Adressen gespeichert  
-✅ **Signatur-Verification** – (Wird in v0.2 hinzugefügt)  
-✅ **Non-Transactional** – Kein Gasverbrauch  
-✅ **HTTPS Ready** – Production-Deployment mit SSL  
-✅ **Audit-Trail** – Alle Events logged  
-✅ **CORS-Protection** – Konfigurierbar pro Domain  
+The score starts at **50** for new users and can increase up to **100**.
+
+- **New User**: 50 points
+- **Each Login**: +1 point (maximum 100)
+- **Audit Trail**: All changes are logged in the `events` table
+
+**Future Enhancements:**
+- Community attestations (+5 per confirmation)
+- Inactivity penalty (-1 per week without login)
+- On-Chain Integration (token balance, governance votes)
 
 ---
 
-## 🚀 Integration in andere Plattformen
+## 🔐 Security & Privacy
 
-### Beispiel: Forum-Integration
+✅ **No Personal Data** – Only wallet addresses stored  
+✅ **Signature Verification** – (Coming in v0.2)  
+✅ **Non-Transactional** – No gas consumption  
+✅ **HTTPS Ready** – Production deployment with SSL  
+✅ **Audit Trail** – All events logged  
+✅ **CORS Protection** – Configurable per domain  
+
+---
+
+## 🚀 Integration with Other Platforms
+
+### Example: Forum Integration
 
 ```javascript
-// Forum prüft Login-Status
+// Forum checks login status
 const response = await fetch('https://aera-login.example.com/api/user/0x742d...');
 const user = await response.json();
 
 if (user.resonance_score >= 50) {
-  // Nutzer ist verifiziert → Zugang gewähren
+  // User is verified → grant access
   allowForumAccess(user.address);
 }
 ```
 
-### Beispiel: Discord Bot
+### Example: Discord Bot
 
 ```python
 @discord.command()
 async def verify(ctx):
-    """Verifizierung für Discord"""
-    # Wallet-Adresse erfragen
+    """Verification for Discord"""
+    # Request wallet address
     address = await prompt_wallet(ctx)
     
-    # AEra-Server abfragen
+    # Query AEra server
     response = requests.get(f'https://api.aera-login.com/api/user/{address}')
     user = response.json()
     
@@ -315,9 +315,9 @@ async def verify(ctx):
 
 ---
 
-## 📝 Environment-Variablen
+## 📝 Environment Variables
 
-Optional (für Production):
+Optional (for Production):
 
 ```bash
 # .env (create this file)
@@ -329,23 +329,23 @@ LOG_LEVEL=info
 
 ---
 
-## 🧪 Testen
+## 🧪 Testing
 
-### cURL-Tests
+### cURL Tests
 
 ```bash
-# Health-Check
+# Health check
 curl http://localhost:8000/api/health
 
-# Nutzer verifizieren
+# Verify user
 curl -X POST http://localhost:8000/api/verify \
   -H "Content-Type: application/json" \
   -d '{"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}'
 
-# Nutzer-Daten abrufen
+# Get user data
 curl http://localhost:8000/api/user/0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE
 
-# Statistiken abrufen
+# Get statistics
 curl http://localhost:8000/api/stats
 ```
 
@@ -369,17 +369,17 @@ pip install -r requirements.txt
 
 ## 🔄 Deployment (Production)
 
-### Mit Gunicorn + Nginx
+### With Gunicorn + Nginx
 
 ```bash
-# Gunicorn installieren
+# Install Gunicorn
 pip install gunicorn
 
-# Server starten (4 Worker)
+# Start server (4 workers)
 gunicorn server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
 ```
 
-### Mit Docker
+### With Docker
 
 ```dockerfile
 FROM python:3.11-slim
