@@ -4,7 +4,7 @@
 
 **Commit:** ✅ Created (36 files, no sensitive data)  
 **Branch:** main  
-**Remote:** https://github.com/vera-resonanz/AEraLogin.git (not yet created)
+**Remote:** https://github.com/vera-resonance/AEra-Login.git (not yet created)
 
 ---
 
@@ -14,7 +14,7 @@
 
 1. Go to: https://github.com
 2. Log in
-3. Switch to the `vera-resonanz` organization
+3. Switch to the `vera-resonance` organization
 
 ---
 
@@ -24,8 +24,8 @@
    
 2. **Fill in:**
    ```
-   Owner: vera-resonanz
-   Repository name: AEraLogin
+   Owner: vera-resonance
+   Repository name: AEra-Login
    Description: Decentralized Proof-of-Human Login System
    ```
 
@@ -156,7 +156,7 @@ git push origin v0.1.0
 **Then on GitHub:**
 1. Releases → Draft a new release
 2. Choose tag: v0.1.0
-3. Title: AEraLogin v0.1.0 - Alpha Release
+3. Title: VEra-Resonance v0.1.0 - Alpha Release
 4. Description: Copy from Release Notes
 5. ✅ Set as pre-release
 6. Publish release

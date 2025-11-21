@@ -2,7 +2,7 @@
 
 ## Step 1: Go to GitHub
 
-**URL:** https://github.com/vera-resonanz
+**URL:** https://github.com/vera-resonance
 
 ## Step 2: Create new repository
 
@@ -10,13 +10,13 @@
    
    OR
    
-2. Go directly to: https://github.com/organizations/vera-resonanz/repositories/new
+2. Go directly to: https://github.com/organizations/vera-resonance/repositories/new
 
 ## Step 3: Repository settings
 
 ```
-Owner:              vera-resonanz  ✓ (already selected)
-Repository name:    AEraLogin
+Owner:              vera-resonance  ✓ (already selected)
+Repository name:    AEra-Login
 Description:        Decentralized Proof-of-Human login system (Wallet-based, KYC-free, Bot-resistant)
 
 Public:             ✓ (select radio button)
@@ -117,7 +117,7 @@ Then on GitHub:
 
 **Repository URL:**
 ```
-https://github.com/vera-resonanz/AEraLogin
+https://github.com/vera-resonance/AEra-Login
 ```
 
 **Stats:**

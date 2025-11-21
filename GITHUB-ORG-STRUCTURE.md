@@ -1,6 +1,6 @@
 # 🏗️ VEra-Resonance Ecosystem - Repository Structure
 
-**Organization:** `vera-resonanz`  
+**Organization:** `vera-resonance`  
 **Date:** November 21, 2025  
 **License:** Apache 2.0
 
@@ -10,10 +10,10 @@
 
 ### 🟢 Active repositories
 
-#### 1. **AEraLogin** ⭐ Core
+#### 1. **AEra-Login** ⭐ Core
 > Decentralized Proof-of-Human login system
 
-**URL:** `https://github.com/vera-resonanz/AEraLogin`
+**URL:** `https://github.com/vera-resonance/AEra-Login`
 
 **Tech Stack:**
 - Python (FastAPI)
@@ -28,7 +28,7 @@
 #### 2. **VEra-Resonance Utility Token**
 > VEra Token Smart Contract + Tokenomics
 
-**URL:** `https://github.com/vera-resonanz/VEraToken`
+**URL:** `https://github.com/vera-resonance/VEra-Token`
 
 **Tech Stack:**
 - Solidity 0.8+
