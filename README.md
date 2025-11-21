@@ -41,11 +41,11 @@ in digital environments — through open, decentralized technology.
 ## 🎯 Features
 
 ✅ **Wallet Login** – MetaMask & WalletConnect Support  
-✅ **Resonance Score** – Intelligentes Scoring-System (0–100)  
-✅ **REST API** – Einfache Verifizierung für andere Plattformen  
-✅ **SQLite Datenbank** – Schnelle, lokale Persistenz  
-✅ **Privacy-First** – Nur Wallet-ID + Score, keine Klardaten  
-✅ **Production-Ready** – CORS-Middleware, Error-Handling, Audit-Trail  
+✅ **Resonance Score** – Intelligent Scoring System (0–100)  
+✅ **REST API** – Simple verification for other platforms  
+✅ **SQLite Database** – Fast, local persistence  
+✅ **Privacy-First** – Only wallet ID + score, no personal data  
+✅ **Production-Ready** – CORS middleware, error handling, audit trail  
 
 ---
 
