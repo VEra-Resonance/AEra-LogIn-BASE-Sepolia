@@ -1,32 +1,32 @@
-# 🌐 AEra-Gate Multi-Platform Integration Guide
+# 🌐 VEra-Resonance Multi-Platform Integration Guide
 
-## Komplette Anleitung für ALLE Social Media Plattformen
+## Complete Guide for ALL Social Media Platforms
 
 ---
 
-## 🎯 Universal Setup (gilt für alle Plattformen)
+## 🎯 Universal Setup (applies to all platforms)
 
-### **Schritt 1: Server bereit machen**
+### **Step 1: Prepare server**
 ```bash
-# Server läuft auf Port 8820
+# Server runs on port 8820
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 python3 server.py
 
-# ngrok Tunnel (bereits aktiv)
+# ngrok tunnel (already active)
 # URL: https://ronna-unmagnetised-unaffrightedly.ngrok-free.dev
 ```
 
-### **Schritt 2: Verification Link**
+### **Step 2: Verification link**
 ```
-Ihre Universal-URL:
+Your Universal URL:
 https://ronna-unmagnetised-unaffrightedly.ngrok-free.dev
 ```
 
-**Mit Tracking:**
+**With tracking:**
 ```
-https://[ihre-url]?source=[platform]
+https://[your-url]?source=[platform]
 
-Beispiele:
+Examples:
 - twitter:   ?source=twitter
 - telegram:  ?source=telegram
 - discord:   ?source=discord
@@ -35,31 +35,31 @@ Beispiele:
 
 ---
 
-## 📱 Plattform-spezifische Anleitungen
+## 📱 Platform-specific guides
 
 ---
 
 # 𝕏 X / Twitter
 
-## Setup (5 Minuten)
+## Setup (5 minutes)
 
-### **1. Account auf privat**
+### **1. Set account to private**
 ```
 Settings → Privacy and safety → Audience → ✅ Protect your posts
 ```
 
-### **2. Bio aktualisieren**
+### **2. Update bio**
 ```
 🔒 Protected Account - Real Humans Only
 
 Want to follow? Prove you're human:
-👉 https://[ihre-url]?source=twitter
+👉 https://[your-url]?source=twitter
 
 ✓ No bots | ✓ No spam
 #ProofOfHuman
 ```
 
-### **3. Pinned Tweet**
+### **3. Pinned tweet**
 ```
 🔐 How to follow this account:
 
@@ -73,43 +73,43 @@ Want to follow? Prove you're human:
 Only real humans allowed! 🤝
 ```
 
-### **4. Follow-Request-Management**
+### **4. Follow-request management**
 ```
-User sendet Follow-Request
+User sends follow request
    ↓
-Sie öffnen: https://[ihre-url]/api/user/[wallet-address]
+You open: https://[your-url]/api/user/[wallet-address]
    ↓
 Score ≥50? → Accept
 Score <50? → Decline
 ```
 
-**Workflow:** Siehe `X-INTEGRATION-GUIDE.md` für Details
+**Workflow:** See `X-INTEGRATION-GUIDE.md` for details
 
 ---
 
 # 📱 Telegram
 
-## Setup (10 Minuten)
+## Setup (10 minutes)
 
-### **1. Private Group erstellen**
+### **1. Create private group**
 ```
-1. Telegram öffnen
-2. Neuer Chat → Neue Gruppe
-3. Name & Teilnehmer hinzufügen
-4. Gruppen-Info → Gruppentyp → "Private Gruppe"
+1. Open Telegram
+2. New Chat → New Group
+3. Name & add members
+4. Group Info → Group type → "Private Group"
 ```
 
-### **2. Group Description**
+### **2. Group description**
 ```
 🔒 Verified Humans Only
 
-Join: https://[ihre-url]?source=telegram
+Join: https://[your-url]?source=telegram
 
 ✅ No bots | ✅ Score ≥50 required
-Powered by AEra-Gate
+Powered by VEra-Resonance
 ```
 
-### **3. Welcome Message (via Bot oder Pinned)**
+### **3. Welcome message (via bot or pinned)**
 ```
 Welcome to [Group Name]! 🎉
 
@@ -125,16 +125,16 @@ To join:
 Type /verify to get link
 ```
 
-### **4. Member Approval Workflow**
+### **4. Member approval workflow**
 
 #### **Manual:**
 ```
-1. User schickt PM mit Wallet-Address
-2. Sie prüfen: https://[ihre-url]/api/user/[address]
-3. Score ≥50? → Invite Link senden
+1. User sends PM with wallet address
+2. You check: https://[your-url]/api/user/[address]
+3. Score ≥50? → Send invite link
 ```
 
-#### **Mit Bot (Optional):**
+#### **With bot (optional):**
 ```python
 # Telegram Bot Code (Python)
 @bot.command('/verify')
@@ -143,7 +143,7 @@ async def verify_command(ctx):
 
 @bot.command('/request')
 async def request_invite(ctx, wallet_address):
-    # Check AEra API
+    # Check VEra API
     response = requests.get(f"{API_URL}/api/user/{wallet_address}")
     data = response.json()
     
@@ -158,9 +158,9 @@ async def request_invite(ctx, wallet_address):
 
 # 💬 Discord
 
-## Setup (15 Minuten)
+## Setup (15 minutes)
 
-### **1. Server auf Invite-Only**
+### **1. Set server to invite-only**
 ```
 Server Settings
   → Moderation
@@ -168,11 +168,11 @@ Server Settings
   → Remove all public invite links
 ```
 
-### **2. Server Description**
+### **2. Server description**
 ```
 🔐 Human-Verified Server
 
-Join: https://[ihre-url]?source=discord
+Join: https://[your-url]?source=discord
 
 How:
 1. Verify your humanity
@@ -183,7 +183,7 @@ How:
 No bots allowed.
 ```
 
-### **3. Welcome Channel**
+### **3. Welcome channel**
 ```
 # 🚪 welcome
 
@@ -192,7 +192,7 @@ Welcome to [Server Name]!
 You're here because you're **verified human**! 🎉
 
 ## Your Resonance Score
-Check your score: https://[ihre-url]/api/user/[your-wallet]
+Check your score: https://[your-url]/api/user/[your-wallet]
 
 ## Server Rules
 1. Be respectful
@@ -202,14 +202,14 @@ Check your score: https://[ihre-url]/api/user/[your-wallet]
 Questions? Ask @Admin
 ```
 
-### **4. Verification Channel (Optional)**
+### **4. Verification channel (optional)**
 ```
 # 🔐 verification
 
 ## Want to join this server?
 
 **Step 1:** Verify your humanity
-👉 https://[ihre-url]?source=discord
+👉 https://[your-url]?source=discord
 
 **Step 2:** DM an admin with your wallet address
 Format: `!verify 0xYourWalletAddress`
@@ -221,7 +221,7 @@ Format: `!verify 0xYourWalletAddress`
 ✅ Accept server rules
 ```
 
-### **5. Discord Bot für Auto-Invite**
+### **5. Discord bot for auto-invite**
 
 ```python
 # Discord Bot (Python with discord.py)
@@ -238,7 +238,7 @@ MIN_SCORE = 50
 async def verify(ctx, wallet_address: str):
     """Check if user is verified and send invite"""
     
-    # Check AEra API
+    # Check VEra API
     try:
         response = requests.get(f"{AERA_API}/api/user/{wallet_address}")
         data = response.json()
@@ -277,9 +277,9 @@ bot.run('YOUR_BOT_TOKEN')
 
 # 📷 Instagram
 
-## Setup (5 Minuten)
+## Setup (5 minutes)
 
-### **1. Private Account**
+### **1. Private account**
 ```
 Settings → Privacy → Private Account ✅
 ```
@@ -289,14 +289,14 @@ Settings → Privacy → Private Account ✅
 🔒 Humans Only | Verify ↓
 ```
 
-### **3. Link in Bio**
+### **3. Link in bio**
 ```
-Linktree/Beacons mit:
+Linktree/Beacons with:
 🔐 Verify to Follow
-→ https://[ihre-url]?source=instagram
+→ https://[your-url]?source=instagram
 ```
 
-### **4. Story Highlights "How to Follow"**
+### **4. Story highlights "How to follow"**
 
 **Slide 1:**
 ```
@@ -331,11 +331,11 @@ Questions?
 DM me after verifying!
 ```
 
-### **5. Follow-Request Approval**
+### **5. Follow-request approval**
 ```
-1. User sendet Follow-Request
-2. Sie erhalten Notification
-3. Prüfen: https://[ihre-url]/api/user/[wallet]
+1. User sends follow request
+2. You receive notification
+3. Check: https://[your-url]/api/user/[wallet]
 4. Score ≥50? → Accept
 ```
 
@@ -343,19 +343,19 @@ DM me after verifying!
 
 # 👔 LinkedIn
 
-## Setup (10 Minuten)
+## Setup (10 minutes)
 
-### **1. Private Group erstellen**
+### **1. Create private group**
 ```
 LinkedIn → Groups → Create Group
 → "Members must be approved by an admin" ✅
 ```
 
-### **2. Group Description**
+### **2. Group description**
 ```
 🏢 Professional Network | Human-Verified
 
-Join: https://[ihre-url]?source=linkedin
+Join: https://[your-url]?source=linkedin
 
 Requirements:
 ✅ Wallet verification
@@ -365,7 +365,7 @@ Requirements:
 Quality > Quantity
 ```
 
-### **3. Pinned Post**
+### **3. Pinned post**
 ```
 👋 Welcome to [Group Name]
 
@@ -383,7 +383,7 @@ Why? Because professionals deserve spam-free networking.
 Questions? Message admin.
 ```
 
-### **4. Approval Workflow**
+### **4. Approval workflow**
 ```
 1. User requests membership
 2. LinkedIn notifies you
@@ -395,14 +395,14 @@ Questions? Message admin.
 
 # 🔴 YouTube
 
-## Setup (10 Minuten)
+## Setup (10 minutes)
 
-### **1. Channel Description**
+### **1. Channel description**
 ```
 🎥 Human-Verified Channel
 
 Comment/Member verification:
-👉 https://[ihre-url]?source=youtube
+👉 https://[your-url]?source=youtube
 
 ✅ No spam comments
 ✅ Real viewers only
@@ -410,9 +410,9 @@ Comment/Member verification:
 #ProofOfHuman
 ```
 
-### **2. Community Post**
+### **2. Community post**
 ```
-🔐 NEW: Comment Verification!
+🔐 NEW: Comment verification!
 
 To comment or become a member:
 1. Visit: [link]
@@ -426,19 +426,19 @@ This channel is different. Real people only.
 Already verified? You're good! ✅
 ```
 
-### **3. Pinned Comment (on every video)**
+### **3. Pinned comment (on every video)**
 ```
 🔒 Verified humans only!
 
 Want to comment? Verify here: [link]
 
-This channel uses AEra-Gate to keep discussions authentic.
+This channel uses VEra-Resonance to keep discussions authentic.
 No bots. No spam. Real viewers.
 
 Questions? Read pinned community post.
 ```
 
-### **4. Comment Moderation**
+### **4. Comment moderation**
 ```
 YouTube Studio → Comments → Hold for review
    ↓
@@ -454,9 +454,9 @@ Score <50? → Hold/Delete
 
 # 🎵 TikTok
 
-## Setup (5 Minuten)
+## Setup (5 minutes)
 
-### **1. Private Account**
+### **1. Private account**
 ```
 Settings → Privacy → Private Account ✅
 ```
@@ -468,14 +468,14 @@ Verify ↓ [Link in Bio]
 #ProofOfHuman
 ```
 
-### **3. Link in Bio**
+### **3. Link in bio**
 ```
-Linktree mit:
+Linktree with:
 🔐 Verify to Follow
-→ https://[ihre-url]?source=tiktok
+→ https://[your-url]?source=tiktok
 ```
 
-### **4. Pinned Video**
+### **4. Pinned video**
 
 **Script:**
 ```
@@ -498,19 +498,19 @@ Link in bio! 👆"
 
 # 📰 Reddit
 
-## Setup (10 Minuten)
+## Setup (10 minutes)
 
-### **1. Private Subreddit erstellen**
+### **1. Create private subreddit**
 ```
 Create Community
 → Community type: Private ✅
 ```
 
-### **2. Description & Sidebar**
+### **2. Description & sidebar**
 ```
 🔒 r/YourSubreddit - Human-Verified
 
-Join: https://[ihre-url]?source=reddit
+Join: https://[your-url]?source=reddit
 
 Requirements:
 ✅ Wallet verification
@@ -530,7 +530,7 @@ No bots. Quality discussions.
 4. Message mods with wallet address
 5. Approval within 24h
 
-# Why Human Verification?
+# Why human verification?
 
 - No bot accounts
 - No vote manipulation
@@ -543,7 +543,7 @@ No bots. Quality discussions.
 3. Contribute meaningfully
 ```
 
-### **3. Moderator Note**
+### **3. Moderator note**
 ```
 When user requests to join:
 1. User sends modmail with wallet address
@@ -556,20 +556,20 @@ When user requests to join:
 
 # 📘 Facebook
 
-## Setup (10 Minuten)
+## Setup (10 minutes)
 
-### **1. Private Group erstellen**
+### **1. Create private group**
 ```
 Facebook → Groups → Create Group
 → Privacy: Private ✅
 → Membership approval required ✅
 ```
 
-### **2. Group Description**
+### **2. Group description**
 ```
 🔒 Human-Verified Community
 
-Join: https://[ihre-url]?source=facebook
+Join: https://[your-url]?source=facebook
 
 ✅ No bots
 ✅ No fake accounts
@@ -578,7 +578,7 @@ Join: https://[ihre-url]?source=facebook
 Score ≥50 required
 ```
 
-### **3. Pinned Post**
+### **3. Pinned post**
 ```
 🛡️ Welcome to [Group Name]!
 
@@ -596,10 +596,10 @@ QUESTIONS?
 Message admins.
 
 ---
-Powered by AEra-Gate
+Powered by VEra-Resonance
 ```
 
-### **4. Approval Workflow**
+### **4. Approval workflow**
 ```
 User requests to join
    ↓
@@ -616,7 +616,7 @@ Score ≥50? → Approve
 
 ## 🔧 Advanced: Cross-Platform Bot/Integration
 
-### **Universal API Check Function**
+### **Universal API check function**
 
 ```python
 import requests
@@ -632,7 +632,7 @@ def check_user_verified(wallet_address, platform="unknown"):
     try:
         response = requests.get(
             f"{AERA_API}/api/user/{wallet_address}",
-            headers={"User-Agent": f"AEra-Bot/{platform}"}
+            headers={"User-Agent": f"VEra-Bot/{platform}"}
         )
         
         if response.status_code == 200:
@@ -661,7 +661,7 @@ else:
 
 ---
 
-## 📊 Multi-Platform Dashboard (Concept)
+## 📊 Multi-Platform Dashboard (concept)
 
 ```
 User: 0xabc...xyz
@@ -682,46 +682,46 @@ Recommendation: APPROVE for all platforms
 
 ---
 
-## ✅ Universal Checklist
+## ✅ Universal checklist
 
-### **Per Platform:**
-- [ ] Account/Group auf privat
-- [ ] AEra-Link hinzufügen (mit ?source= parameter)
-- [ ] Welcome/Info Post erstellen
-- [ ] Approval-Workflow definieren
-- [ ] Test mit eigenem Account
-- [ ] Erste 10 User manuell prüfen
-- [ ] Optional: Bot für Automatisierung
+### **Per platform:**
+- [ ] Account/Group set to private
+- [ ] Add VEra-Resonance link (with ?source= parameter)
+- [ ] Create welcome/info post
+- [ ] Define approval workflow
+- [ ] Test with own account
+- [ ] Manually review first 10 users
+- [ ] Optional: set up bot for automation
 
 ### **Tracking:**
-- [ ] Referrer-Stats prüfen: `/api/referrer-stats`
-- [ ] Beste Plattform identifizieren
-- [ ] Conversion-Raten messen
-- [ ] Cross-Platform-User identifizieren
+- [ ] Check referrer stats: `/api/referrer-stats`
+- [ ] Identify best platform
+- [ ] Measure conversion rates
+- [ ] Identify cross-platform users
 
 ---
 
-## 🎯 Pro-Tipps
+## 🎯 Pro tips
 
-### **1. Plattform-Priorität**
-Starten Sie mit den Plattformen, wo Sie bereits Audience haben:
-1. X/Twitter (einfachster Start)
-2. Telegram (tech-savvy Audience)
-3. Discord (Gaming/Web3)
-4. Instagram (Creator)
-5. LinkedIn (Professional)
+### **1. Platform priority**
+Start with platforms where you already have an audience:
+1. X/Twitter (easiest start)
+2. Telegram (tech-savvy audience)
+3. Discord (gaming/Web3)
+4. Instagram (creators)
+5. LinkedIn (professional)
 
-### **2. Cross-Promotion**
+### **2. Cross-promotion**
 ```
 "Verified on X/Twitter? You're already verified for:
-- Telegram Group
-- Discord Server
-- Instagram Account
+- Telegram group
+- Discord server
+- Instagram account
 
 Same wallet, instant access everywhere!"
 ```
 
-### **3. Score-Boost für Multi-Platform**
+### **3. Score boost for multi-platform**
 ```python
 # In server.py - bonus for cross-platform users
 platforms_used = len(set([event['referrer'] for event in user_events]))
@@ -732,15 +732,17 @@ if platforms_used >= 3:
 
 ---
 
-## 🚀 Next Steps
+## 🚀 Next steps
 
-1. **Wählen Sie 2-3 Haupt-Plattformen**
-2. **Setup parallel durchführen**
-3. **Cross-promote zwischen Plattformen**
-4. **Messen & optimieren**
+1. **Choose 2-3 main platforms**
+2. **Perform setup in parallel**
+3. **Cross-promote between platforms**
+4. **Measure & optimize**
 
 ---
 
-**🌐 AEra-Gate: Ein Gate, alle Plattformen!**
+**🌐 VEra-Resonance: One gateway, all platforms!**
 
-*Version 1.0 | 20. November 2025*
+*Version 1.0 | November 21, 2025*
+
+© 2025 Karlheinz Beismann — Apache License 2.0

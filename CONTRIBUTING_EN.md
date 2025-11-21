@@ -1,6 +1,6 @@
 # 🤝 Contributing to VEra-Resonance
 
-First off, thank you for considering contributing to **VEra-Resonance**! It's people like you that make this project a reality.
+First off, thank you for considering contributing to **VEra-Resonance**! It's people like you that make this decentralized Proof-of-Human system a reality.
 
 ---
 
@@ -36,7 +36,7 @@ This project adheres to the Contributor Covenant [Code of Conduct](CODE_OF_CONDU
 - Python 3.9+
 - Git
 - MetaMask or compatible wallet
-- Basic understanding of Web3
+- Basic understanding of Web3 and Ethereum
 ```
 
 ### Fork & Clone
@@ -89,7 +89,7 @@ Error: "Invalid signature"
 
 **Before suggesting:**
 - Check [existing feature requests](https://github.com/vera-resonanz/AEraLogin/issues?q=label%3Aenhancement)
-- Make sure it aligns with project goals
+- Make sure it aligns with project goals (Proof-of-Human, privacy-first, bot-resistant)
 
 **When suggesting:**
 ```markdown
@@ -128,8 +128,8 @@ Documentation is crucial! You can help by:
 # Python dependencies
 pip install -r requirements.txt
 
-# Development dependencies
-pip install -r requirements-dev.txt
+# Development dependencies (optional)
+pip install pytest pytest-cov black flake8
 
 # Pre-commit hooks (optional)
 pip install pre-commit
@@ -142,7 +142,7 @@ pre-commit install
 # Copy template
 cp .env.example .env
 
-# Edit with your values
+# Edit with your values (use Sepolia testnet only for development!)
 nano .env
 ```
 
@@ -300,8 +300,8 @@ def calculate_resonance_score(wallet_address: str, login_count: int) -> int:
     return base_score + increment
 
 # Bad
-def calc_score(addr, cnt):
-    return 50 + cnt
+def calc_score(addr,cnt):
+    return 50+cnt
 ```
 
 ### JavaScript Style
@@ -349,7 +349,7 @@ def verify_signature(address: str, message: str, signature: str) -> bool:
         ValueError: If address format is invalid
         
     Example:
-        >>> verify_signature("0xabc...", "Login to VEra-Resonance", "0x123...")
+        >>> verify_signature("0xabc...", "Login to VEra", "0x123...")
         True
     """
 ```
@@ -479,8 +479,8 @@ git push origin v0.2.0
 
 - **GitHub Issues** - Bug reports, feature requests
 - **GitHub Discussions** - Questions, ideas
-- **Discord** - [discord.gg/vera](https://discord.gg/vera)
-- **Telegram** - [t.me/VeraResonance](https://t.me/VeraResonance)
+- **Discord** - [discord.gg/aera](https://discord.gg/aera)
+- **Telegram** - [t.me/AEraLogin](https://t.me/AEraLogin)
 - **Twitter/X** - [@VeraResonanz](https://twitter.com/VeraResonanz)
 
 ### Getting Help
@@ -519,7 +519,7 @@ Contributors are recognized in:
 
 ## 📜 License
 
-By contributing, you agree that your contributions will be licensed under the **Apache License 2.0** license.
+By contributing, you agree that your contributions will be licensed under the **Apache License 2.0**.
 
 See [LICENSE](LICENSE) for details.
 
@@ -529,19 +529,15 @@ See [LICENSE](LICENSE) for details.
 
 Don't hesitate to reach out:
 - Open a [Discussion](https://github.com/vera-resonanz/AEraLogin/discussions)
-- Join our [Discord](https://discord.gg/vera)
+- Join our [Discord](https://discord.gg/aera)
 - Email: contributors@vera-resonanz.org
 
 ---
 
 **Thank you for contributing to VEra-Resonance!** 🎉
 
-Every contribution, no matter how small, helps build a better future for decentralized proof-of-humanity.
+Every contribution, no matter how small, helps build a better future for human-centric authentication.
 
 ---
 
 *This document is adapted from the [Contributor Covenant](https://www.contributor-covenant.org/) and various open-source project guidelines.*
-
----
-
-**VEra-Resonance © 2025 Karlheinz Beismann** ⸻ Apache License 2.0

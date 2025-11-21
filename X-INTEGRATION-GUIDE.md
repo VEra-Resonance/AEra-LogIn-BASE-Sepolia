@@ -1,494 +1,496 @@
-# 📘 AEra-Gate für X (Twitter) - Komplette Integrations-Anleitung
+# 📘 VEra-Resonance for X (Twitter) - Complete Integration Guide
 
-## 🎯 Was Sie erreichen werden
+## 🎯 What you will achieve
 
-Am Ende dieser Anleitung haben Sie:
-- ✅ Einen privaten X-Account mit AEra-Gate
-- ✅ Automatische Proof-of-Human-Verifizierung für Follower
-- ✅ Bot-freie, authentische Community
-- ✅ Vollständige Kontrolle über Ihre Follower
-
----
-
-## 📋 Voraussetzungen
-
-### **Technisch:**
-- ✅ AEra Login Server läuft (Port 8820)
-- ✅ ngrok oder feste Domain
-- ✅ MetaMask oder kompatible Wallet
-
-### **X-Account:**
-- ✅ Bestehender X/Twitter Account
-- ✅ Zugriff auf Account-Einstellungen
-- ✅ Bereitschaft, Account auf privat zu setzen
+By the end of this guide, you will have:
+- ✅ A private X account with VEra-Resonance
+- ✅ Automatic proof-of-human verification for followers
+- ✅ Bot-free, authentic community
+- ✅ Complete control over your followers
 
 ---
 
-## 🚀 Teil 1: Server-Setup
+## 📋 Prerequisites
 
-### **Schritt 1.1: Server starten**
+### **Technical:**
+- ✅ VEra-Resonance server running (port 8820)
+- ✅ ngrok or fixed domain
+- ✅ MetaMask or compatible wallet
+
+### **X account:**
+- ✅ Existing X/Twitter account
+- ✅ Access to account settings
+- ✅ Willingness to set account to private
+
+---
+
+## 🚀 Part 1: Server setup
+
+### **Step 1.1: Start server**
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 python3 server.py
 ```
 
-**Erwartete Ausgabe:**
+**Expected output:**
 ```
-✓ AEra Login Server gestartet
-🌐 Öffentliche URL: http://localhost:8820
+✓ VEra-Resonance Server started
+🌐 Public URL: http://localhost:8820
 📍 Host: 0.0.0.0:8820
 ```
 
-### **Schritt 1.2: ngrok-Tunnel einrichten**
+### **Step 1.2: Set up ngrok tunnel**
 
 ```bash
 ngrok http 8820
 ```
 
-**Wichtig:** Notieren Sie Ihre öffentliche URL:
+**Important:** Note your public URL:
 ```
-https://[ihre-unique-url].ngrok-free.dev
-```
-
-### **Schritt 1.3: Server testen**
-
-Öffnen Sie in Ihrem Browser:
-```
-https://[ihre-url]/api/health
+https://[your-unique-url].ngrok-free.dev
 ```
 
-**Erwartete Antwort:**
+### **Step 1.3: Test server**
+
+Open in your browser:
+```
+https://[your-url]/api/health
+```
+
+**Expected response:**
 ```json
 {
   "status": "healthy",
-  "service": "AEra Login v0.1",
+  "service": "VEra-Resonance v0.1",
   "database": "connected"
 }
 ```
 
-✅ **Server läuft!** Weiter zu Teil 2.
+✅ **Server is running!** Continue to part 2.
 
 ---
 
-## 🔒 Teil 2: X-Account auf privat setzen
+## 🔒 Part 2: Set X account to private
 
-### **Schritt 2.1: Account-Einstellungen öffnen**
+### **Step 2.1: Open account settings**
 
-1. Gehen Sie zu **X.com**
-2. Klicken Sie auf Ihr **Profilbild** (links oben)
-3. Wählen Sie **"Settings and privacy"**
+1. Go to **X.com**
+2. Click your **profile picture** (top left)
+3. Select **"Settings and privacy"**
 
-### **Schritt 2.2: Privacy-Einstellungen**
+### **Step 2.2: Privacy settings**
 
-1. Navigieren Sie zu: **"Privacy and safety"**
-2. Dann zu: **"Audience and tagging"**
-3. Aktivieren Sie: **"Protect your posts"** (oder "Protect your Tweets")
+1. Navigate to: **"Privacy and safety"**
+2. Then to: **"Audience and tagging"**
+3. Enable: **"Protect your posts"** (or "Protect your Tweets")
 
-### **Schritt 2.3: Bestätigen**
+### **Step 2.3: Confirm**
 
-- ✅ Sie werden gewarnt, dass Ihre Tweets nur noch für Follower sichtbar sind
-- ✅ Bestätigen Sie mit **"Protect"**
+- ✅ You will be warned that your tweets are only visible to followers
+- ✅ Confirm with **"Protect"**
 
-**Ergebnis:** 
-- 🔒 Ihr Account ist jetzt privat
-- 🔒 Neue Follower müssen anfragen
-- 🔒 Sie müssen jeden Follower manuell bestätigen
+**Result:**
+- 🔒 Your account is now private
+- 🔒 New followers must request
+- 🔒 You must manually approve each follower
 
 ---
 
-## 📝 Teil 3: Bio mit AEra-Gate Link
+## 📝 Part 3: Bio with VEra-Resonance link
 
-### **Schritt 3.1: Bio bearbeiten**
+### **Step 3.1: Edit bio**
 
-1. Gehen Sie zu Ihrem **Profil**
-2. Klicken Sie auf **"Edit profile"**
-3. Scrollen Sie zu **"Bio"**
+1. Go to your **profile**
+2. Click **"Edit profile"**
+3. Scroll to **"Bio"**
 
-### **Schritt 3.2: Template auswählen**
+### **Step 3.2: Choose template**
 
-Wählen Sie aus `X-BIO-TEMPLATES.md` ein passendes Template, z.B.:
+Select a suitable template from `X-BIO-TEMPLATES.md`, e.g.:
 
 ```
 🔒 Protected Account - Real Humans Only
 
 Want to follow? Prove you're human:
-👉 https://[ihre-url].ngrok-free.dev
+👉 https://[your-url].ngrok-free.dev
 
 ✓ No bots | ✓ No spam | ✓ Real conversations
-Powered by AEra Resonance
+Powered by VEra-Resonance
 
 #ProofOfHuman #Web3Social
 ```
 
-### **Schritt 3.3: URL einfügen**
+### **Step 3.3: Insert URL**
 
-Ersetzen Sie `[ihre-url]` mit Ihrer echten ngrok-URL:
+Replace `[your-url]` with your real ngrok URL:
 ```
 👉 https://ronna-unmagnetised-unaffrightedly.ngrok-free.dev
 ```
 
-### **Schritt 3.4: Speichern**
+### **Step 3.4: Save**
 
-- ✅ Klicken Sie **"Save"**
-- ✅ Prüfen Sie, ob der Link klickbar ist
+- ✅ Click **"Save"**
+- ✅ Check that the link is clickable
 
 ---
 
-## 📌 Teil 4: Pinned Tweet erstellen
+## 📌 Part 4: Create pinned tweet
 
-### **Schritt 4.1: Tweet erstellen**
+### **Step 4.1: Create tweet**
 
-Erstellen Sie einen neuen Tweet mit dieser Anleitung:
+Create a new tweet with this guide:
 
 ```
-🔐 WICHTIG: So folgst du diesem Account
+🔐 IMPORTANT: How to follow this account
 
-1️⃣ Klicke auf den Link in meiner Bio
-2️⃣ Verbinde deine Wallet (MetaMask)
-3️⃣ Signiere die Nachricht (kostenlos, kein Gas)
-4️⃣ Erreiche Resonanz-Score ≥50
-5️⃣ Stelle Follow-Anfrage bei X
-6️⃣ Ich bestätige innerhalb 24h
+1️⃣ Click the link in my bio
+2️⃣ Connect your wallet (MetaMask)
+3️⃣ Sign the message (free, no gas)
+4️⃣ Achieve Resonance Score ≥50
+5️⃣ Send follow request to X
+6️⃣ I approve within 24h
 
-Warum? Weil ich NUR echte Menschen als Follower will.
-Keine Bots. Keine Fakes. Nur authentische Connections.
+Why? Because I want ONLY real humans as followers.
+No bots. No fakes. Only authentic connections.
 
-🔗 Verify now: https://[ihre-url]
+🔗 Verify now: https://[your-url]
 
-#ProofOfHuman #AEraGate
+#ProofOfHuman #VEraResonance
 ```
 
-### **Schritt 4.2: Tweet pinnen**
+### **Step 4.2: Pin tweet**
 
-1. Klicken Sie auf die **drei Punkte** beim Tweet
-2. Wählen Sie **"Pin to your profile"**
-3. Bestätigen Sie
+1. Click the **three dots** on the tweet
+2. Select **"Pin to your profile"**
+3. Confirm
 
-✅ **Der Tweet ist jetzt oben fixiert!**
-
----
-
-## 👥 Teil 5: Erste Follower verifizieren
-
-### **Schritt 5.1: User-Perspektive (Testing)**
-
-Testen Sie den Flow selbst:
-
-1. **Öffnen Sie Ihr X-Profil** (im Inkognito-Tab)
-2. **Klicken Sie auf den Bio-Link**
-3. **Verifizieren Sie sich** mit MetaMask
-4. **Prüfen Sie Ihren Score**
-
-### **Schritt 5.2: Follow-Request senden**
-
-Nach erfolgreicher Verifizierung:
-
-1. User geht zurück zu Ihrem X-Profil
-2. User klickt **"Follow"**
-3. X zeigt: **"Follow request sent"**
-
-### **Schritt 5.3: Follow-Request annehmen**
-
-Sie als Account-Besitzer:
-
-1. Gehen Sie zu **"Notifications"**
-2. Sehen Sie die **"Follow request"**
-3. Öffnen Sie AEra Dashboard:
-   ```
-   https://[ihre-url]/api/user/[wallet-address]
-   ```
-4. Prüfen Sie den **Resonanz-Score**
-5. Wenn Score ≥50: **"Accept"** bei X
-6. Wenn Score <50: **"Decline"**
+✅ **The tweet is now pinned at the top!**
 
 ---
 
-## 🎛️ Teil 6: Follow-Management-Workflow
+## 👥 Part 5: Verify first followers
+
+### **Step 5.1: User perspective (testing)**
+
+Test the flow yourself:
+
+1. **Open your X profile** (in incognito tab)
+2. **Click the bio link**
+3. **Verify yourself** with MetaMask
+4. **Check your score**
+
+### **Step 5.2: Send follow request**
+
+After successful verification:
+
+1. User goes back to your X profile
+2. User clicks **"Follow"**
+3. X shows: **"Follow request sent"**
+
+### **Step 5.3: Accept follow request**
+
+You as account owner:
+
+1. Go to **"Notifications"**
+2. See the **"Follow request"**
+3. Open VEra-Resonance dashboard:
+   ```
+   https://[your-url]/api/user/[wallet-address]
+   ```
+4. Check the **Resonance Score**
+5. If score ≥50: **"Accept"** on X
+6. If score <50: **"Decline"**
+
+---
+
+## 🎛️ Part 6: Follow management workflow
 
 ### **Workflow:**
 
 ```
-1. User sieht Ihr X-Profil (privat)
+1. User sees your X profile (private)
    ↓
-2. User klickt Bio-Link → AEra-Gate
+2. User clicks bio link → VEra-Resonance
    ↓
-3. User verifiziert sich mit Wallet
+3. User verifies with wallet
    ↓
-4. AEra erstellt/updated Resonanz-Score
+4. VEra-Resonance creates/updates Resonance Score
    ↓
-5. User geht zurück zu X
+5. User goes back to X
    ↓
-6. User sendet Follow-Request
+6. User sends follow request
    ↓
-7. Sie prüfen Score in AEra-System
+7. You check score in VEra system
    ↓
 8. Score ≥50? → Accept
    Score <50? → Decline
    ↓
-9. User ist jetzt Follower (oder nicht)
+9. User is now follower (or not)
 ```
 
-### **Best Practices:**
+### **Best practices:**
 
-#### ✅ **Akzeptieren wenn:**
-- Resonanz-Score ≥50
-- Erste Anmeldung vor >24h
-- Natürliches Aktivitätsmuster
-- Keine Massen-Anfragen von ähnlichen Wallets
+#### ✅ **Accept when:**
+- Resonance Score ≥50
+- First login more than 24h ago
+- Natural activity pattern
+- No mass requests from similar wallets
 
-#### ❌ **Ablehnen wenn:**
-- Resonanz-Score <50
-- Verdächtiges Wallet-Muster
-- Zu viele Anfragen in kurzer Zeit
-- Unnatürliche On-Chain-Aktivität
+#### ❌ **Decline when:**
+- Resonance Score <50
+- Suspicious wallet pattern
+- Too many requests in short time
+- Unnatural on-chain activity
 
 ---
 
-## 📊 Teil 7: Monitoring & Analytics
+## 📊 Part 7: Monitoring & Analytics
 
-### **Dashboard-URLs:**
+### **Dashboard URLs:**
 
-#### **1. Server-Health:**
+#### **1. Server health:**
 ```
-https://[ihre-url]/api/health
-```
-
-#### **2. Gesamt-Statistiken:**
-```
-https://[ihre-url]/api/stats
+https://[your-url]/api/health
 ```
 
-**Zeigt:**
+#### **2. Overall statistics:**
+```
+https://[your-url]/api/stats
+```
+
+**Shows:**
 - Total Users
 - Average Score
 - Total Logins
 
-#### **3. Einzelner User:**
+#### **3. Individual user:**
 ```
-https://[ihre-url]/api/user/0x[wallet-address]
+https://[your-url]/api/user/0x[wallet-address]
 ```
 
-**Zeigt:**
-- Resonanz-Score
+**Shows:**
+- Resonance Score
 - First Seen
 - Last Login
 - Login Count
 
-#### **4. User-Events:**
+#### **4. User events:**
 ```
-https://[ihre-url]/api/events/0x[wallet-address]
+https://[your-url]/api/events/0x[wallet-address]
 ```
 
-**Zeigt:**
-- Login-Historie
-- Score-Änderungen
-- Event-Timeline
+**Shows:**
+- Login history
+- Score changes
+- Event timeline
 
-### **ngrok Web Interface:**
+### **ngrok web interface:**
 
-Für Live-Monitoring aller Requests:
+For live monitoring of all requests:
 ```
 http://127.0.0.1:4040
 ```
 
-**Zeigt:**
-- Alle eingehenden Requests
+**Shows:**
+- All incoming requests
 - Timestamps
-- Response Codes
-- Request/Response Bodies
+- Response codes
+- Request/response bodies
 
 ---
 
-## 🔧 Teil 8: Erweiterte Konfiguration
+## 🔧 Part 8: Advanced configuration
 
-### **Minimum Score anpassen**
+### **Adjust minimum score**
 
-Bearbeiten Sie `.env`:
+Edit `.env`:
 ```bash
 INITIAL_SCORE=50
-MIN_SCORE_FOR_FOLLOW=50  # Fügen Sie diese Zeile hinzu
+MIN_SCORE_FOR_FOLLOW=50  # Add this line
 ```
 
-### **Auto-Approval (optional)**
+### **Auto-approval (optional)**
 
-Für vollautomatische Approval könnten Sie einen Bot erstellen, der:
-1. Follow-Requests bei X abholt
-2. Wallet-Adresse mit Score abgleicht
-3. Automatisch Accept/Decline sendet
+For fully automatic approval, you could create a bot that:
+1. Fetches follow requests from X
+2. Matches wallet address with score
+3. Automatically sends accept/decline
 
-**Hinweis:** Benötigt X API Access (kostenpflichtig)
+**Note:** Requires X API access (paid)
 
-### **UTM-Tracking aktivieren**
+### **Enable UTM tracking**
 
-Verwenden Sie in Ihrer Bio:
+Use in your bio:
 ```
-https://[ihre-url]?source=x&campaign=bio&account=[ihr-handle]
+https://[your-url]?source=x&campaign=bio&account=[your-handle]
 ```
 
-Im Server-Code können Sie dann tracken, woher User kommen.
+In the server code you can then track where users come from.
 
 ---
 
-## 🚨 Teil 9: Troubleshooting
+## 🚨 Part 9: Troubleshooting
 
-### **Problem: Link funktioniert nicht**
+### **Problem: Link doesn't work**
 
-**Lösung:**
+**Solution:**
 ```bash
-# Prüfen Sie, ob Server läuft:
+# Check if server is running:
 ps aux | grep "python3 server.py"
 
-# Prüfen Sie, ob ngrok läuft:
+# Check if ngrok is running:
 ps aux | grep ngrok
 
-# Neu starten:
+# Restart:
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 python3 server.py &
 ngrok http 8820
 ```
 
-### **Problem: Wallet-Verbindung schlägt fehl**
+### **Problem: Wallet connection fails**
 
-**Lösung:**
-- Prüfen Sie MetaMask-Extension
-- Prüfen Sie Browser-Console (F12)
-- Prüfen Sie CORS-Settings in `.env`
+**Solution:**
+- Check MetaMask extension
+- Check browser console (F12)
+- Check CORS settings in `.env`
 
-### **Problem: Score wird nicht angezeigt**
+### **Problem: Score not displayed**
 
-**Lösung:**
+**Solution:**
 ```bash
-# Prüfen Sie Datenbank:
+# Check database:
 sqlite3 /home/karlheinz/krypto/aera-token/webside-wallet-login/aera.db
 sqlite> SELECT * FROM users;
 sqlite> .quit
 ```
 
-### **Problem: ngrok-URL ändert sich ständig**
+### **Problem: ngrok URL changes constantly**
 
-**Lösung:**
-- Option 1: Bezahlter ngrok-Plan (feste URL)
-- Option 2: Eigene Domain mit Cloudflare Tunnel
-- Option 3: VPS mit fester IP
+**Solution:**
+- Option 1: Paid ngrok plan (fixed URL)
+- Option 2: Own domain with Cloudflare Tunnel
+- Option 3: VPS with fixed IP
 
 ---
 
-## 📈 Teil 10: Skalierung & Optimierung
+## 📈 Part 10: Scaling & optimization
 
-### **Wenn Sie >100 Follow-Requests haben:**
+### **When you have >100 follow requests:**
 
-1. **Bulk-Check-Tool erstellen:**
+1. **Create bulk-check tool:**
    ```bash
-   # Script das alle pending Requests checkt
-   # und Score-Liste ausgibt
+   # Script that checks all pending requests
+   # and outputs score list
    ```
 
-2. **Minimum Score erhöhen:**
+2. **Increase minimum score:**
    ```
-   MIN_SCORE_FOR_FOLLOW=60  # oder 70
-   ```
-
-3. **Time-Gate einbauen:**
-   ```
-   # Nur Wallets die >7 Tage alt sind
+   MIN_SCORE_FOR_FOLLOW=60  # or 70
    ```
 
-### **Automatisierung:**
+3. **Add time gate:**
+   ```
+   # Only wallets that are >7 days old
+   ```
 
-Erstellen Sie ein Dashboard, das:
-- ✅ Alle Follow-Requests anzeigt
-- ✅ Scores neben jedem Request
-- ✅ One-Click Accept/Decline
-- ✅ Bulk-Actions
+### **Automation:**
+
+Create a dashboard that:
+- ✅ Shows all follow requests
+- ✅ Scores next to each request
+- ✅ One-click accept/decline
+- ✅ Bulk actions
 
 ---
 
-## 🎯 Teil 11: Marketing & Community-Building
+## 🎯 Part 11: Marketing & community building
 
-### **Ankündigen:**
+### **Announce:**
 
-**Twitter-Thread:**
+**Twitter thread:**
 ```
-🧵 Thread: Warum mein Account jetzt privat ist
+🧵 Thread: Why my account is now private
 
-1/5 Ab heute ist mein Account privat. ABER anders als sonst.
-Ich lasse NUR verifizierte Menschen rein.
+1/5 Starting today, my account is private. BUT different than usual.
+I only let verified humans in.
 
-2/5 Wie? Durch Wallet-Signatur. Kein KYC, keine Daten.
-Nur Beweis, dass du ein echter Mensch bist.
+2/5 How? Through wallet signature. No KYC, no data.
+Just proof that you're a real human.
 
-3/5 Warum? Weil ich keine Bots, Fakes oder Spam will.
-Nur echte Connections, echte Gespräche.
+3/5 Why? Because I don't want bots, fakes, or spam.
+Only real connections, real conversations.
 
-4/5 Wie folgst du mir?
-→ Link in Bio
-→ Wallet verbinden
-→ Signatur geben (kostenlos)
-→ Follow-Request senden
+4/5 How do you follow me?
+→ Link in bio
+→ Connect wallet
+→ Give signature (free)
+→ Send follow request
 
-5/5 Willkommen in der Zukunft von Social Media.
+5/5 Welcome to the future of social media.
 Human-verified. Bot-free. Real.
 
-#ProofOfHuman #AEraGate
+#ProofOfHuman #VEraResonance
 ```
 
-### **Cross-Promotion:**
+### **Cross-promotion:**
 
-- Post in Crypto-Communities
-- Share in Discord-Servern
-- Erwähnen in Podcasts
-- Case Study erstellen
-
----
-
-## ✅ Checkliste: Bereit für Go-Live?
-
-- [ ] Server läuft und ist erreichbar
-- [ ] ngrok-Tunnel aktiv
-- [ ] X-Account auf privat gestellt
-- [ ] Bio mit AEra-Link aktualisiert
-- [ ] Pinned Tweet erstellt
-- [ ] Selbst getestet (mit zweiter Wallet)
-- [ ] Dashboard-URLs funktionieren
-- [ ] Monitoring läuft (ngrok web interface)
-- [ ] Backup-Plan bei Ausfall (Server-Restart-Script)
-- [ ] Community informiert
+- Post in crypto communities
+- Share in Discord servers
+- Mention in podcasts
+- Create case study
 
 ---
 
-## 🎉 Glückwunsch!
+## ✅ Checklist: Ready for go-live?
 
-Sie haben erfolgreich das **erste Proof-of-Human-Gate für X** eingerichtet!
-
-**Ihre Community ist jetzt:**
-- ✅ Bot-frei
-- ✅ Authentisch
-- ✅ Wertvoll
-- ✅ Einzigartig
+- [ ] Server running and reachable
+- [ ] ngrok tunnel active
+- [ ] X account set to private
+- [ ] Bio updated with VEra-Resonance link
+- [ ] Pinned tweet created
+- [ ] Self-tested (with second wallet)
+- [ ] Dashboard URLs working
+- [ ] Monitoring running (ngrok web interface)
+- [ ] Backup plan for outage (server restart script)
+- [ ] Community informed
 
 ---
 
-## 📞 Support & Updates
+## 🎉 Congratulations!
 
-**Server-Logs prüfen:**
+You have successfully set up the **first proof-of-human gate for X**!
+
+**Your community is now:**
+- ✅ Bot-free
+- ✅ Authentic
+- ✅ Valuable
+- ✅ Unique
+
+---
+
+## 📞 Support & updates
+
+**Check server logs:**
 ```bash
 tail -f /tmp/server_8820.log
 ```
 
-**Datenbank-Status:**
+**Check database status:**
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 sqlite3 aera.db "SELECT COUNT(*) FROM users;"
 ```
 
-**ngrok-Status:**
+**Check ngrok status:**
 ```bash
 curl http://127.0.0.1:4040/api/tunnels
 ```
 
 ---
 
-**Viel Erfolg mit Ihrem AEra-Gate! 🚀**
+**Good luck with your VEra-Resonance! 🚀**
 
-*Erstellt für AEra - Das erste Proof-of-Human-Gate für Social Media*
+*Created for VEra-Resonance - The first proof-of-human gate for social media*
+
+© 2025 Karlheinz Beismann — Apache License 2.0

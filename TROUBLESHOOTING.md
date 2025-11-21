@@ -1,278 +1,278 @@
-# 🔧 AEra Login – Troubleshooting Guide
+# 🔧 VEra-Resonance – Troubleshooting Guide
 
-Lösungen für häufige Probleme.
+Solutions for common problems.
 
 ---
 
-## ❌ Problem: Webseite öffnet sich nicht
+## ❌ Problem: Website won't open
 
 ### Symptom
-- Browser zeigt "Die Seite konnte nicht geöffnet werden"
-- oder "Connection refused"
+- Browser shows "This site can't be reached"
+- or "Connection refused"
 
-### Lösung
+### Solution
 
-**Schritt 1: Prüfe ob Server läuft**
+**Step 1: Check if server is running**
 ```bash
 ps aux | grep uvicorn | grep -v grep
 ```
 
-Falls nichts angezeigt wird → Server läuft nicht!
+If nothing is shown → Server is not running!
 
-**Schritt 2: Server starten**
+**Step 2: Start the server**
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 source venv/bin/activate
-uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+uvicorn server:app --host 0.0.0.0 --port 8820 --reload
 ```
 
-**Schritt 3: Teste mit curl**
+**Step 3: Test with curl**
 ```bash
-curl http://localhost:8000
+curl http://localhost:8820
 ```
 
-Sollte HTML zurückgeben (nicht Error).
+Should return HTML (not an error).
 
-**Schritt 4: Browser URL richtig?**
-- ✅ Richtig: `http://localhost:8000`
-- ❌ Falsch: `http://localhost:8000/index.html`
-- ❌ Falsch: `localhost:8000` (ohne http://)
-- ❌ Falsch: `http://localhost:3000` (falscher Port)
+**Step 4: Browser URL correct?**
+- ✅ Correct: `http://localhost:8820`
+- ❌ Wrong: `http://localhost:8820/index.html`
+- ❌ Wrong: `localhost:8820` (missing http://)
+- ❌ Wrong: `http://localhost:3000` (wrong port)
 
 ---
 
-## ❌ Problem: QR-Code nicht sichtbar
+## ❌ Problem: QR code not visible
 
 ### Symptom
-- Webseite lädt
-- Aber QR-Code ist leer
-- Oder nur Text sichtbar
+- Website loads
+- But QR code is empty
+- Or only text visible
 
-### Lösung
+### Solution
 
-**Schritt 1: Browser Console öffnen**
+**Step 1: Open browser console**
 ```
-F12 → Console (unten)
-```
-
-**Schritt 2: Sollte Logs zeigen:**
-```
-[AEra] === AEra Login gestartet ===
-[AEra] URL: http://localhost:8000/
-[AEra] QR-Code generiert für: http://localhost:8000/
+F12 → Console (bottom)
 ```
 
-Falls nicht → JavaScript lädt nicht!
+**Step 2: Should show logs:**
+```
+[VEra-Resonance] === VEra-Resonance started ===
+[VEra-Resonance] URL: http://localhost:8820/
+[VEra-Resonance] QR code generated for: http://localhost:8820/
+```
 
-**Schritt 3: Seite neu laden**
+If not → JavaScript is not loading!
+
+**Step 3: Reload page**
 ```
 Ctrl+R  (Windows/Linux)
 Cmd+R   (Mac)
 ```
 
-**Schritt 4: Cache leeren**
+**Step 4: Clear cache**
 ```
-Ctrl+Shift+Delete → Cookies & Cache löschen
+Ctrl+Shift+Delete → Delete cookies & cache
 ```
 
-**Schritt 5: Ganz neuer Browser-Tab**
+**Step 5: Brand new browser tab**
 ```
-Ctrl+T → http://localhost:8000 eingeben
+Ctrl+T → Enter http://localhost:8820
 ```
 
 ---
 
-## ❌ Problem: URL wird nicht angezeigt
+## ❌ Problem: URL not displayed
 
 ### Symptom
-- QR-Code sichtbar aber leer
-- URL Box zeigt "loading..."
-- Oder "—"
+- QR code visible but empty
+- URL box shows "loading..."
+- Or "—"
 
-### Lösung
+### Solution
 
-Wahrscheinlich CSS-Problem. Versuche:
+Probably a CSS issue. Try:
 
 ```javascript
-// Browser Console (F12) eingeben:
+// Enter in browser console (F12):
 console.log('PUBLIC_URL:', window.location.href);
 document.getElementById('urlDisplay').textContent = window.location.href;
 ```
 
-Falls das funktioniert → CSS/Layout-Bug.
+If that works → CSS/layout bug.
 
 ---
 
-## ❌ Problem: "Wallet Verbinden" funktioniert nicht
+## ❌ Problem: "Connect Wallet" doesn't work
 
 ### Symptom
-- Button klickbar aber nichts passiert
-- Oder Error-Message
-- Oder MetaMask PopUp öffnet sich nicht
+- Button is clickable but nothing happens
+- Or error message
+- Or MetaMask popup doesn't open
 
-### Lösung A: MetaMask installiert?
+### Solution A: MetaMask installed?
 
 ```
 Chrome: https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn
 Firefox: https://addons.mozilla.org/en-US/firefox/addon/ether-metamask/
 ```
 
-### Lösung B: MetaMask entsperrt?
+### Solution B: MetaMask unlocked?
 
-1. MetaMask Icon oben rechts klicken
-2. Falls "Locked" → Password eingeben
+1. Click MetaMask icon in top right
+2. If "Locked" → enter password
 
-### Lösung C: Richtige Chain?
+### Solution C: Correct chain?
 
-MetaMask könnte auf falscher Chain sein:
-1. MetaMask öffnen
-2. Oben "Ethereum Mainnet" klicken
-3. Test-Netzwerk wählen oder Sepolia
+MetaMask might be on the wrong chain:
+1. Open MetaMask
+2. Click "Ethereum Mainnet" at top
+3. Select test network or Sepolia
 
-### Lösung D: Console Errors?
+### Solution D: Console errors?
 
 ```
-F12 → Console → Red Errors anschauen
+F12 → Console → Look at red errors
 ```
 
-Häufige Errors:
+Common errors:
 ```
 ❌ "Cannot read property 'ethereum' of undefined"
-   → MetaMask nicht installiert
+   → MetaMask not installed
 
 ❌ "User denied account access"
-   → MetaMask PopUp abgelehnt
+   → MetaMask popup was rejected
 
 ❌ "eth_requestAccounts" failed
-   → MetaMask-Error, MetaMask neu starten
+   → MetaMask error, restart MetaMask
 ```
 
 ---
 
-## ❌ Problem: Verifizierung funktioniert nicht
+## ❌ Problem: Verification doesn't work
 
 ### Symptom
-- Wallet verbunden
-- "Verifizieren" Button klickbar
-- Aber nach Klick nichts passiert
-- Oder Error: "Verifizierungsfehler"
+- Wallet connected
+- "Verify" button is clickable
+- But nothing happens after clicking
+- Or error: "Verification failed"
 
-### Lösung
+### Solution
 
-**Schritt 1: API erreichbar?**
+**Step 1: API reachable?**
 ```bash
-curl http://localhost:8000/api/verify \
+curl http://localhost:8820/api/verify \
   -H "Content-Type: application/json" \
   -d '{"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}'
 ```
 
-Sollte JSON zurückgeben mit `"is_human": true`.
+Should return JSON with `"is_human": true`.
 
-Falls Error → API läuft nicht!
+If error → API is not running!
 
-**Schritt 2: Datenbank OK?**
+**Step 2: Database OK?**
 ```bash
 sqlite3 aera.db "SELECT COUNT(*) FROM users;"
 ```
 
-Sollte Zahl zurückgeben (z.B. 0 oder 5).
+Should return a number (e.g. 0 or 5).
 
-Falls Error → Datenbank kaputt!
+If error → Database is corrupted!
 
-**Schritt 3: Browser Console anschauen**
+**Step 3: Check browser console**
 ```
 F12 → Console
-Sollte zeigen: [INFO] Response Data: {...}
+Should show: [INFO] Response Data: {...}
 ```
 
 ---
 
-## ❌ Problem: Externe IP nicht erreichbar
+## ❌ Problem: External IP not reachable
 
 ### Symptom
-- Lokal funktioniert `http://localhost:8000`
-- Aber vom Smartphone `http://192.168.1.100:8000` funktioniert nicht
+- Locally works: `http://localhost:8820`
+- But from phone: `http://192.168.1.100:8820` doesn't work
 
-### Lösung
+### Solution
 
-**Schritt 1: Server auf 0.0.0.0 binden**
+**Step 1: Bind server to 0.0.0.0**
 ```bash
-# FALSCH:
-uvicorn server:app --host 127.0.0.1 --port 8000
+# WRONG:
+uvicorn server:app --host 127.0.0.1 --port 8820
 
-# RICHTIG:
-uvicorn server:app --host 0.0.0.0 --port 8000
+# CORRECT:
+uvicorn server:app --host 0.0.0.0 --port 8820
 ```
 
-**Schritt 2: Externe IP finden**
+**Step 2: Find external IP**
 ```bash
 hostname -I
-# z.B. 192.168.1.100
+# e.g. 192.168.1.100
 ```
 
-**Schritt 3: Vom Smartphone testen**
+**Step 3: Test from phone**
 ```
-http://192.168.1.100:8000
+http://192.168.1.100:8820
 ```
 
-**Schritt 4: Firewall prüfen**
+**Step 4: Check firewall**
 ```bash
-# Port 8000 freigeben
-sudo ufw allow 8000
+# Allow port 8820
+sudo ufw allow 8820
 ```
 
-oder
+or
 
 ```bash
-# Firewall komplett deaktivieren (nur Testing!)
+# Disable firewall completely (testing only!)
 sudo ufw disable
 ```
 
 ---
 
-## ❌ Problem: Port 8000 schon belegt
+## ❌ Problem: Port 8820 already in use
 
 ### Symptom
 ```
 bind() exception: Address already in use
-ERROR:     Uvicorn server failed to start. A server process is probably running already on port 8000.
+ERROR:     Uvicorn server failed to start. A server process is probably running already on port 8820.
 ```
 
-### Lösung
+### Solution
 
-**Schritt 1: Alte Prozesse finden**
+**Step 1: Find old processes**
 ```bash
-ps aux | grep 8000
-# oder
-lsof -ti:8000
+ps aux | grep 8820
+# or
+lsof -ti:8820
 ```
 
-**Schritt 2: Prozess beenden**
+**Step 2: Kill process**
 ```bash
-# Sanft:
+# Gently:
 kill <PID>
 
-# Erzwungen:
+# Forced:
 kill -9 <PID>
 
-# Oder direkt:
-lsof -ti:8000 | xargs kill -9
+# Or directly:
+lsof -ti:8820 | xargs kill -9
 ```
 
-**Schritt 3: Neu starten**
+**Step 3: Restart**
 ```bash
-uvicorn server:app --host 0.0.0.0 --port 8000
+uvicorn server:app --host 0.0.0.0 --port 8820
 ```
 
-**Schritt 4: Anderen Port verwenden**
+**Step 4: Use different port**
 ```bash
-uvicorn server:app --host 0.0.0.0 --port 8001
-# Dann: http://localhost:8001
+uvicorn server:app --host 0.0.0.0 --port 8821
+# Then: http://localhost:8821
 ```
 
 ---
 
-## ❌ Problem: Python Import Error
+## ❌ Problem: Python import error
 
 ### Symptom
 ```
@@ -280,70 +280,70 @@ ModuleNotFoundError: No module named 'fastapi'
 ModuleNotFoundError: No module named 'uvicorn'
 ```
 
-### Lösung
+### Solution
 
-**Schritt 1: Virtual Environment aktivieren**
+**Step 1: Activate virtual environment**
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 source venv/bin/activate
 ```
 
-Sollte so aussehen: `(venv) user@machine ~$`
+Should look like: `(venv) user@machine ~$`
 
-**Schritt 2: Dependencies installieren**
+**Step 2: Install dependencies**
 ```bash
 pip install -r requirements.txt
 ```
 
-**Schritt 3: Neu starten**
+**Step 3: Restart**
 ```bash
-uvicorn server:app --host 0.0.0.0 --port 8000
+uvicorn server:app --host 0.0.0.0 --port 8820
 ```
 
 ---
 
-## ❌ Problem: CORS Error
+## ❌ Problem: CORS error
 
 ### Symptom
 ```
-Access to XMLHttpRequest at 'http://localhost:8000/api/verify' 
+Access to XMLHttpRequest at 'http://localhost:8820/api/verify' 
 from origin 'http://localhost:3000' has been blocked by CORS policy
 ```
 
-### Lösung
+### Solution
 
-CORS ist in `server.py` bereits aktiviert:
+CORS is already enabled in `server.py`:
 
 ```python
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ← Erlaubt alle Origins
+    allow_origins=["*"],  # ← Allows all origins
     allow_methods=["*"],
     allow_headers=["*"],
 )
 ```
 
-Falls Problem bleibt:
+If problem persists:
 
-**Schritt 1: .env prüfen**
+**Step 1: Check .env**
 ```bash
 cat .env | grep CORS
 ```
 
-Sollte zeigen:
+Should show:
 ```
 CORS_ORIGINS=*
 ```
 
-**Schritt 2: Server neu starten**
+**Step 2: Restart server**
 ```bash
 pkill -f uvicorn
-uvicorn server:app --host 0.0.0.0 --port 8000
+uvicorn server:app --host 0.0.0.0 --port 8820
 ```
 
 ---
 
-## ❌ Problem: Datenbank Error
+## ❌ Problem: Database error
 
 ### Symptom
 ```
@@ -351,105 +351,105 @@ sqlite3.OperationalError: unable to open database file
 sqlite3.DatabaseError: database disk image is malformed
 ```
 
-### Lösung
+### Solution
 
-**Schritt 1: Datenbank löschen**
+**Step 1: Delete database**
 ```bash
 rm aera.db
 ```
 
-**Schritt 2: Server neu starten**
+**Step 2: Restart server**
 ```bash
-uvicorn server:app --host 0.0.0.0 --port 8000
+uvicorn server:app --host 0.0.0.0 --port 8820
 ```
 
-Die Datenbank wird automatisch neu erstellt.
+The database will be automatically recreated.
 
-**Schritt 3: Prüfe ob neu DB erstellt wurde**
+**Step 3: Check if new database was created**
 ```bash
 ls -la aera.db
 ```
 
-Sollte Datei anzeigen.
+Should show the file.
 
 ---
 
-## ✅ Quick Debug Checklist
+## ✅ Quick debug checklist
 
 ```bash
-# 1. Server läuft?
+# 1. Server running?
 ps aux | grep uvicorn
 
-# 2. Antwortet auf Requests?
-curl http://localhost:8000
+# 2. Responds to requests?
+curl http://localhost:8820
 
-# 3. API erreichbar?
-curl http://localhost:8000/api/health
+# 3. API reachable?
+curl http://localhost:8820/api/health
 
-# 4. Datenbank OK?
+# 4. Database OK?
 sqlite3 aera.db "SELECT 1;"
 
-# 5. Ports frei?
-lsof -i :8000
+# 5. Ports free?
+lsof -i :8820
 
-# 6. venv aktiviert?
-which python  # Sollte venv/bin/python zeigen
+# 6. venv activated?
+which python  # Should show venv/bin/python
 
-# 7. Logs ansehen?
-# Öffne neuen Terminal
+# 7. View logs?
+# Open new terminal
 cd webside-wallet-login
 source venv/bin/activate
-uvicorn server:app --host 0.0.0.0 --port 8000 --log-level debug
+uvicorn server:app --host 0.0.0.0 --port 8820 --log-level debug
 ```
 
 ---
 
-## 🎯 Advanced Debugging
+## 🎯 Advanced debugging
 
-### Full Log Capture
+### Full log capture
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 source venv/bin/activate
-uvicorn server:app --host 0.0.0.0 --port 8000 --log-level debug 2>&1 | tee server.log
+uvicorn server:app --host 0.0.0.0 --port 8820 --log-level debug 2>&1 | tee server.log
 ```
 
-Dann öffne Seite → Logs in `server.log` anschauen.
+Then open page → view logs in `server.log`.
 
-### Browser Network Tab
+### Browser network tab
 ```
 F12 → Network Tab
-Dann jeden Request klicken für Details:
-- Status Code?
+Then click each request for details:
+- Status code?
 - Response?
 - Headers?
 ```
 
-### API Test mit Postman/Insomnia
+### API test with Postman/Insomnia
 ```
-POST http://localhost:8000/api/verify
+POST http://localhost:8820/api/verify
 Headers: Content-Type: application/json
 Body: {"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}
 ```
 
 ---
 
-## 📞 Wenn nichts funktioniert
+## 📞 If nothing works
 
-1. **Logs exportieren:**
+1. **Export logs:**
    ```bash
-   curl http://localhost:8000/api/debug | python3 -m json.tool > debug.json
+   curl http://localhost:8820/api/debug | python3 -m json.tool > debug.json
    ```
 
-2. **Browser Console Screenshot** (F12)
+2. **Browser console screenshot** (F12)
 
-3. **Terminal Output kopieren:**
+3. **Copy terminal output:**
    ```bash
    ps aux | grep uvicorn
    sqlite3 aera.db ".tables"
    ```
 
-4. **Alle Infos zusammen posten** mit Beschreibung des Problems
+4. **Post all info together** with problem description
 
 ---
 
-**AEra Login Troubleshooting © 2025 Karlheinz**
+**VEra-Resonance Troubleshooting © 2025 Karlheinz Beismann** ⸻ Apache License 2.0

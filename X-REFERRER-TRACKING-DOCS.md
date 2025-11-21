@@ -1,16 +1,16 @@
-# 🔍 AEra-Gate Server-Erweiterung: X-Referrer-Tracking
+# 🔍 VEra-Resonance Server Extension: X Referrer Tracking
 
-## ✅ Implementiert
+## ✅ Implemented
 
-Die Server-Erweiterung ist jetzt vollständig implementiert und trackt automatisch, von wo User kommen!
+The server extension is now fully implemented and automatically tracks where users come from!
 
 ---
 
-## 📊 Was wurde hinzugefügt?
+## 📊 What was added?
 
-### **1. Erweiterte Datenbank-Schema**
+### **1. Extended Database Schema**
 
-#### Users-Tabelle (erweitert):
+#### Users table (extended):
 ```sql
 CREATE TABLE users (
     address TEXT PRIMARY KEY,
@@ -19,12 +19,12 @@ CREATE TABLE users (
     score INTEGER DEFAULT 50,
     login_count INTEGER DEFAULT 0,
     created_at TEXT,
-    first_referrer TEXT,      -- NEU: Erste Quelle
-    last_referrer TEXT         -- NEU: Letzte Quelle
+    first_referrer TEXT,      -- NEW: First source
+    last_referrer TEXT         -- NEW: Last source
 );
 ```
 
-#### Events-Tabelle (erweitert):
+#### Events table (extended):
 ```sql
 CREATE TABLE events (
     id INTEGER PRIMARY KEY,
@@ -34,19 +34,19 @@ CREATE TABLE events (
     score_after INTEGER,
     timestamp INTEGER,
     created_at TEXT,
-    referrer TEXT,             -- NEU: Quelle (twitter, telegram, etc.)
-    user_agent TEXT,           -- NEU: Browser/Device-Info
-    ip_address TEXT            -- NEU: IP für Sybil-Detection
+    referrer TEXT,             -- NEW: Source (twitter, telegram, etc.)
+    user_agent TEXT,           -- NEW: Browser/device info
+    ip_address TEXT            -- NEW: IP for sybil detection
 );
 ```
 
 ---
 
-## 🎯 Automatische Quellen-Erkennung
+## 🎯 Automatic Source Detection
 
-### **Funktion: `extract_referrer_source()`**
+### **Function: `extract_referrer_source()`**
 
-Erkennt automatisch die Quelle aus dem HTTP-Referer-Header:
+Automatically detects source from HTTP referer header:
 
 #### **Social Media:**
 - `twitter.com`, `x.com`, `t.co` → `"twitter"`
@@ -59,7 +59,7 @@ Erkennt automatisch die Quelle aus dem HTTP-Referer-Header:
 - `linkedin.com` → `"linkedin"`
 - `tiktok.com` → `"tiktok"`
 
-#### **Suchmaschinen:**
+#### **Search Engines:**
 - `google.com` → `"google"`
 - `bing.com` → `"bing"`
 - `duckduckgo.com` → `"duckduckgo"`
@@ -68,45 +68,45 @@ Erkennt automatisch die Quelle aus dem HTTP-Referer-Header:
 - `etherscan.io` → `"etherscan"`
 - `opensea.io` → `"opensea"`
 
-#### **Sonstiges:**
-- Kein Referer → `"direct"`
-- Unbekannte Quelle → `"other"`
+#### **Other:**
+- No referer → `"direct"`
+- Unknown source → `"other"`
 
 ---
 
-## 🔄 Automatisches Tracking
+## 🔄 Automatic Tracking
 
-### **Bei jedem Login/Signup:**
+### **On every login/signup:**
 
 ```python
-# Server extrahiert automatisch:
-referrer = req.headers.get("referer")           # HTTP-Header
-user_agent = req.headers.get("user-agent")      # Browser-Info
-client_ip = req.client.host                     # IP-Adresse
-referrer_source = extract_referrer_source(referrer)  # z.B. "twitter"
+# Server automatically extracts:
+referrer = req.headers.get("referer")           # HTTP header
+user_agent = req.headers.get("user-agent")      # Browser info
+client_ip = req.client.host                     # IP address
+referrer_source = extract_referrer_source(referrer)  # e.g. "twitter"
 
-# Speichert in Events:
+# Stores in events:
 INSERT INTO events (
     address, event_type, score_before, score_after,
     timestamp, created_at,
-    referrer, user_agent, ip_address          -- NEU
+    referrer, user_agent, ip_address          -- NEW
 ) VALUES (...)
 
-# Bei Neu-Registrierung auch in Users:
+# On registration also in users:
 INSERT INTO users (
     address, first_seen, last_login, score, login_count,
-    created_at, first_referrer, last_referrer  -- NEU
+    created_at, first_referrer, last_referrer  -- NEW
 ) VALUES (...)
 ```
 
 ---
 
-## 📡 Neue API-Endpoints
+## 📡 New API Endpoints
 
-### **1. `/api/referrer-stats` - Referrer-Statistiken**
+### **1. `/api/referrer-stats` - Referrer Statistics**
 
 ```bash
-curl https://[ihre-url]/api/referrer-stats
+curl https://[your-url]/api/referrer-stats
 ```
 
 **Response:**
@@ -130,12 +130,12 @@ curl https://[ihre-url]/api/referrer-stats
 }
 ```
 
-### **2. `/api/user/{address}` - Erweiterte User-Info**
+### **2. `/api/user/{address}` - Extended User Info**
 
-Jetzt mit Referrer-Daten:
+Now with referrer data:
 
 ```bash
-curl https://[ihre-url]/api/user/0xabc...xyz
+curl https://[your-url]/api/user/0xabc...xyz
 ```
 
 **Response:**
@@ -147,14 +147,14 @@ curl https://[ihre-url]/api/user/0xabc...xyz
   "last_login": 1700001000,
   "login_count": 5,
   "created_at": "2025-11-20T18:30:00",
-  "first_referrer": "twitter",     // NEU
-  "last_referrer": "telegram"      // NEU
+  "first_referrer": "twitter",     // NEW
+  "last_referrer": "telegram"      // NEW
 }
 ```
 
-### **3. `/api/events/{address}` - Erweiterte Event-Info**
+### **3. `/api/events/{address}` - Extended Event Info**
 
-Events enthalten jetzt Referrer-Daten:
+Events now contain referrer data:
 
 ```json
 {
@@ -168,9 +168,9 @@ Events enthalten jetzt Referrer-Daten:
       "score_after": 55,
       "timestamp": 1700001000,
       "created_at": "2025-11-20T18:45:00",
-      "referrer": "telegram",              // NEU
-      "user_agent": "Mozilla/5.0...",      // NEU
-      "ip_address": "192.168.1.100"        // NEU
+      "referrer": "telegram",              // NEW
+      "user_agent": "Mozilla/5.0...",      // NEW
+      "ip_address": "192.168.1.100"        // NEW
     }
   ]
 }
@@ -178,42 +178,42 @@ Events enthalten jetzt Referrer-Daten:
 
 ---
 
-## 🎨 Verwendung der Daten
+## 🎨 Using the Data
 
-### **1. X-Follower identifizieren**
+### **1. Identify X followers**
 
 ```sql
--- Alle User die von X kamen:
+-- All users who came from X:
 SELECT address, score, login_count
 FROM users
 WHERE first_referrer = 'twitter'
 ORDER BY score DESC;
 ```
 
-### **2. Beste Traffic-Quelle finden**
+### **2. Find best traffic source**
 
 ```sql
--- Top Traffic-Quellen:
+-- Top traffic sources:
 SELECT first_referrer, COUNT(*) as users, AVG(score) as avg_score
 FROM users
 GROUP BY first_referrer
 ORDER BY users DESC;
 ```
 
-### **3. User-Journey analysieren**
+### **3. Analyze user journey**
 
 ```sql
--- User der von X kam, aber jetzt von Telegram kommt:
+-- User who came from X but now from Telegram:
 SELECT *
 FROM users
 WHERE first_referrer = 'twitter'
   AND last_referrer = 'telegram';
 ```
 
-### **4. Conversion-Rate per Quelle**
+### **4. Conversion rate per source**
 
 ```sql
--- Signups vs. Logins per Quelle:
+-- Signups vs. logins per source:
 SELECT 
     referrer,
     SUM(CASE WHEN event_type='signup' THEN 1 ELSE 0 END) as signups,
@@ -224,12 +224,12 @@ GROUP BY referrer;
 
 ---
 
-## 🔍 Dashboard-Queries
+## 🔍 Dashboard Queries
 
-### **Für Ihr Follow-Management:**
+### **For your follow management:**
 
 ```sql
--- Zeige alle X-User mit Score ≥50 die heute verifiziert wurden:
+-- Show all X users with score ≥50 verified today:
 SELECT 
     u.address, 
     u.score, 
@@ -244,10 +244,10 @@ WHERE e.referrer = 'twitter'
 ORDER BY e.timestamp DESC;
 ```
 
-### **Traffic-Analyse:**
+### **Traffic analysis:**
 
 ```sql
--- Stündliche Traffic-Verteilung von X:
+-- Hourly traffic distribution from X:
 SELECT 
     strftime('%H:00', datetime(timestamp, 'unixepoch')) as hour,
     COUNT(*) as visits
@@ -260,31 +260,31 @@ ORDER BY hour;
 
 ---
 
-## 🚀 Erweiterte Features (möglich)
+## 🚀 Advanced Features (possible)
 
-### **1. UTM-Parameter-Tracking**
+### **1. UTM parameter tracking**
 
-Erweitern Sie die URL in Ihrer X-Bio:
+Extend URL in your X bio:
 ```
-https://[ihre-url]?utm_source=twitter&utm_campaign=bio&utm_medium=social
+https://[your-url]?utm_source=twitter&utm_campaign=bio&utm_medium=social
 ```
 
-Dann im Server extrahieren:
+Then extract in server:
 ```python
 utm_source = request.query_params.get("utm_source")
 utm_campaign = request.query_params.get("utm_campaign")
-# Speichern in Events
+# Store in events
 ```
 
-### **2. Bonus-Score für X-Referrals**
+### **2. Bonus score for X referrals**
 
 ```python
 if referrer_source == "twitter":
-    initial_score = 55  # +5 Bonus
+    initial_score = 55  # +5 bonus
     message = "Welcome from X! Bonus score: +5"
 ```
 
-### **3. Source-Specific Landing Pages**
+### **3. Source-specific landing pages**
 
 ```python
 if referrer_source == "twitter":
@@ -293,10 +293,10 @@ elif referrer_source == "telegram":
     return FileResponse("index-telegram.html")
 ```
 
-### **4. Anti-Sybil via IP-Clustering**
+### **4. Anti-sybil via IP clustering**
 
 ```sql
--- Finde verdächtige Wallets (mehrere von gleicher IP):
+-- Find suspicious wallets (multiple from same IP):
 SELECT ip_address, COUNT(DISTINCT address) as wallet_count
 FROM events
 WHERE timestamp > (unixepoch() - 3600)
@@ -306,12 +306,12 @@ HAVING wallet_count > 5;
 
 ---
 
-## 🔧 Migration für bestehende DB
+## 🔧 Migration for existing DB
 
-Falls Ihre Datenbank bereits User hat, führen Sie aus:
+If your database already has users, run:
 
 ```sql
--- Füge neue Spalten hinzu (falls noch nicht vorhanden):
+-- Add new columns (if not already present):
 ALTER TABLE users ADD COLUMN first_referrer TEXT;
 ALTER TABLE users ADD COLUMN last_referrer TEXT;
 
@@ -319,18 +319,18 @@ ALTER TABLE events ADD COLUMN referrer TEXT;
 ALTER TABLE events ADD COLUMN user_agent TEXT;
 ALTER TABLE events ADD COLUMN ip_address TEXT;
 
--- Setze Default-Werte für bestehende User:
+-- Set default values for existing users:
 UPDATE users SET first_referrer = 'unknown' WHERE first_referrer IS NULL;
 UPDATE users SET last_referrer = 'unknown' WHERE last_referrer IS NULL;
 ```
 
-**Hinweis:** Beim nächsten Server-Start wird `init_db()` automatisch die neuen Spalten erstellen (falls noch nicht vorhanden).
+**Note:** On next server restart, `init_db()` will automatically create new columns (if not already present).
 
 ---
 
-## 📊 Beispiel-Auswertung
+## 📊 Example Report
 
-### **Nach 1 Woche mit X-Bio-Link:**
+### **After 1 week with X bio link:**
 
 ```
 Total Users: 234
@@ -350,16 +350,16 @@ Conversion Rate:
 └─ Direct → Follow Request: 45%
 ```
 
-**Insight:** Telegram-User haben höheren Score und bessere Conversion!
+**Insight:** Telegram users have higher score and better conversion!
 
 ---
 
 ## ✅ Testing
 
-### **Test 1: Von X kommend**
+### **Test 1: Coming from X**
 
 ```bash
-curl -X POST https://[ihre-url]/api/verify \
+curl -X POST https://[your-url]/api/verify \
   -H "Content-Type: application/json" \
   -H "Referer: https://twitter.com/your-profile" \
   -d '{
@@ -369,14 +369,14 @@ curl -X POST https://[ihre-url]/api/verify \
   }'
 ```
 
-**Erwartete DB-Einträge:**
+**Expected DB entries:**
 - `users.first_referrer = "twitter"`
 - `events.referrer = "twitter"`
 
-### **Test 2: Direkter Zugriff**
+### **Test 2: Direct access**
 
 ```bash
-curl -X POST https://[ihre-url]/api/verify \
+curl -X POST https://[your-url]/api/verify \
   -H "Content-Type: application/json" \
   -d '{
     "address": "0xtest456...",
@@ -385,24 +385,24 @@ curl -X POST https://[ihre-url]/api/verify \
   }'
 ```
 
-**Erwartete DB-Einträge:**
+**Expected DB entries:**
 - `users.first_referrer = "direct"`
 - `events.referrer = "direct"`
 
 ---
 
-## 🎯 Nächste Schritte
+## 🎯 Next Steps
 
-1. ✅ **Server neu starten** (um neue DB-Spalten zu erstellen)
-2. ✅ **Erste Verifikation testen** (prüfe Referrer in DB)
-3. ✅ **Statistiken abrufen** (`/api/referrer-stats`)
-4. ✅ **Dashboard bauen** (optional)
+1. ✅ **Restart server** (to create new DB columns)
+2. ✅ **Test first verification** (check referrer in DB)
+3. ✅ **Get statistics** (`/api/referrer-stats`)
+4. ✅ **Build dashboard** (optional)
 
 ---
 
 ## 📝 Logging
 
-Alle Referrer-Aktivitäten werden geloggt:
+All referrer activities are logged:
 
 ```
 [INFO] AUTH: Verify request received | address=0xabc...xyz | referrer_source=twitter
@@ -412,6 +412,6 @@ Alle Referrer-Aktivitäten werden geloggt:
 
 ---
 
-**🚀 Server-Erweiterung komplett! Jetzt wissen Sie immer, woher Ihre User kommen!**
+**🚀 Server extension complete! Now you'll always know where your users come from!**
 
-*Erstellt für AEra-Gate - Tracking für authentische Communities*
+*Built for VEra-Resonance - Tracking for authentic communities*

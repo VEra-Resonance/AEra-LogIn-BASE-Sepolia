@@ -1,92 +1,92 @@
-# 🚀 AEra-Gate für X (Twitter) - Komplettpaket
+# 🚀 VEra-Resonance for X (Twitter) - Complete Package
 
-## ✅ Alle Komponenten erfolgreich erstellt!
+## ✅ All Components Successfully Created!
 
 ---
 
-## 📦 Was wurde erstellt?
+## 📦 What was Created?
 
 ### **1. X-BIO-TEMPLATES.md**
-📝 **Bio-Vorlagen für verschiedene Account-Typen**
-- Influencer/Creator-Templates
-- Business/Brand-Templates
-- Personal/Professional-Templates
-- Web3/Crypto-fokussierte Templates
-- Mehrsprachige Versionen
-- Emoji-Guide & Best Practices
-- Pinned-Tweet-Vorlagen
+📝 **Bio templates for various account types**
+- Influencer/Creator templates
+- Business/Brand templates
+- Personal/Professional templates
+- Web3/Crypto-focused templates
+- Multilingual versions
+- Emoji guide & best practices
+- Pinned tweet templates
 
-**Verwendung:** Wählen Sie ein Template, fügen Sie Ihre URL ein, und aktualisieren Sie Ihre X-Bio!
+**Usage:** Choose a template, add your URL, and update your X bio!
 
 ---
 
 ### **2. X-INTEGRATION-GUIDE.md**
-📘 **Komplette Step-by-Step Anleitung**
-- Server-Setup (10 Min)
-- X-Account auf privat setzen
-- Bio mit AEra-Link aktualisieren
-- Follow-Management-Workflow
-- Monitoring & Analytics
+📘 **Complete step-by-step guide**
+- Server setup (10 min)
+- Set X account to private
+- Update bio with VEra-Resonance link
+- Follow management workflow
+- Monitoring & analytics
 - Troubleshooting
-- Skalierungs-Tipps
+- Scaling tips
 
-**Verwendung:** Folgen Sie der Anleitung Schritt für Schritt - von null bis production-ready!
+**Usage:** Follow the guide step by step - from zero to production-ready!
 
 ---
 
 ### **3. X-FLOW-DIAGRAM.md**
-📊 **Visuelles Ablauf-Diagramm**
-- Kompletter User-Flow (ASCII-Art)
-- Alternative Flows (Bestehender User, Bot-Blockierung)
-- Zeitlicher Ablauf
-- Sicherheits-Checkpoints
-- Data-Flow-Diagramm
-- Mobile vs. Desktop Flow
-- Success Metrics
+📊 **Visual flow diagram**
+- Complete user flow (ASCII art)
+- Alternative flows (existing user, bot blocking)
+- Timeline
+- Security checkpoints
+- Data flow diagram
+- Mobile vs. desktop flow
+- Success metrics
 
-**Verwendung:** Zeigen Sie dieses Diagramm Investoren, Partnern oder zur eigenen Orientierung!
+**Usage:** Show this diagram to investors, partners, or for your own understanding!
 
 ---
 
 ### **4. INFLUENCER-PITCH.md**
-💰 **Marketing-Dokument für Influencer**
-- Problem-Solution-Framework
-- ROI-Berechnung
-- Vorher/Nachher-Vergleich
-- Use Cases für verschiedene Creator-Typen
-- Pricing-Informationen
-- FAQ für Influencer
-- Call-to-Action
+💰 **Marketing document for influencers**
+- Problem-solution framework
+- ROI calculation
+- Before/after comparison
+- Use cases for different creator types
+- Pricing information
+- FAQ for influencers
+- Call-to-action
 
-**Verwendung:** Senden Sie dieses Dokument an Influencer, die Sie für AEra-Gate gewinnen möchten!
+**Usage:** Send this document to influencers you want to recruit for VEra-Resonance!
 
 ---
 
 ### **5. AERA-GATE-WHITEPAPER.md**
-📄 **Technisches Whitepaper**
-- System-Architektur
-- Resonanz-Score-System
-- Proof-of-Human-Mechanismus
-- AEra Token (Soulbound)
-- Sicherheit & Privacy
+📄 **Technical whitepaper**
+- System architecture
+- Resonance score system
+- Proof-of-human mechanism
+- VEra token (soulbound)
+- Security & privacy
 - Roadmap
-- Vergleich mit Alternativen
-- Technische Spezifikationen
+- Comparison with alternatives
+- Technical specifications
 
-**Verwendung:** Für technisch versierte Leser, Investoren, Partner, und zur Dokumentation!
+**Usage:** For technically savvy readers, investors, partners, and documentation!
 
 ---
 
-### **6. Server-Erweiterung (server.py)**
-💻 **Code-Erweiterung für X-Tracking**
+### **6. Server Extension (server.py)**
+💻 **Code extension for X tracking**
 
-#### **Neue Funktionen:**
-- `extract_referrer_source()` - Erkennt automatisch Twitter/X
-- Erweiterte Datenbank (Referrer-Tracking)
-- User-Agent & IP-Tracking
-- Neuer API-Endpoint: `/api/referrer-stats`
+#### **New Features:**
+- `extract_referrer_source()` - Automatically detects Twitter/X
+- Extended database (referrer tracking)
+- User agent & IP tracking
+- New API endpoint: `/api/referrer-stats`
 
-#### **Neue DB-Felder:**
+#### **New DB Fields:**
 ```sql
 users:
   - first_referrer TEXT
@@ -98,99 +98,99 @@ events:
   - ip_address TEXT
 ```
 
-**Verwendung:** Server neu starten - Tracking läuft automatisch!
+**Usage:** Restart server - tracking runs automatically!
 
 ---
 
 ### **7. X-REFERRER-TRACKING-DOCS.md**
-🔍 **Tracking-Dokumentation**
-- Erklärung der Server-Erweiterung
-- API-Endpoints-Dokumentation
-- SQL-Queries für Analytics
-- Dashboard-Beispiele
-- Migration-Guide für bestehende DB
-- Testing-Anleitung
+🔍 **Tracking documentation**
+- Explanation of server extension
+- API endpoints documentation
+- SQL queries for analytics
+- Dashboard examples
+- Migration guide for existing DB
+- Testing guide
 
-**Verwendung:** Verstehen Sie, wie das Tracking funktioniert und nutzen Sie die Daten!
+**Usage:** Understand how tracking works and use the data!
 
 ---
 
 ### **8. index-x.html**
-🎨 **Spezielle Landing Page für X-User**
+🎨 **Special landing page for X users**
 
 #### **Features:**
-- ✅ X-Branding (Twitter-Blau)
-- ✅ "FROM X/TWITTER"-Badge
-- ✅ Schritt-für-Schritt-Anleitung
-- ✅ "Why Verify?"-Box
-- ✅ Responsive Design
-- ✅ Animationen & UX-Optimierungen
-- ✅ "Return to X"-Button nach Verifizierung
-- ✅ Security-Badges
+- ✅ X branding (Twitter blue)
+- ✅ "FROM X/TWITTER" badge
+- ✅ Step-by-step guide
+- ✅ "Why verify?" box
+- ✅ Responsive design
+- ✅ Animations & UX optimizations
+- ✅ "Return to X" button after verification
+- ✅ Security badges
 
-**Verwendung:** Verwenden Sie diese Seite speziell für X-Traffic (erkennt automatisch Referrer)!
+**Usage:** Use this page specifically for X traffic (automatically detects referrer)!
 
 ---
 
 ## 🚀 Quick Start Guide
 
-### **Schritt 1: Server-Update**
+### **Step 1: Server Update**
 ```bash
-# Server neu starten (um neue DB-Spalten zu erstellen)
+# Restart server (to create new DB columns)
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 pkill -f "python3 server.py"
 python3 server.py &
 ```
 
-### **Schritt 2: ngrok neu starten**
+### **Step 2: Restart ngrok**
 ```bash
 pkill ngrok
 ngrok http 8820
 ```
-**Notieren Sie Ihre neue URL!**
+**Note your new URL!**
 
-### **Schritt 3: X-Bio aktualisieren**
-1. Öffnen Sie `X-BIO-TEMPLATES.md`
-2. Wählen Sie ein Template
-3. Fügen Sie Ihre ngrok-URL ein
-4. Aktualisieren Sie Ihre X-Bio
+### **Step 3: Update X bio**
+1. Open `X-BIO-TEMPLATES.md`
+2. Choose a template
+3. Add your ngrok URL
+4. Update your X bio
 
-### **Schritt 4: Account auf privat setzen**
+### **Step 4: Set account to private**
 1. X → Settings → Privacy → "Protect your posts"
-2. Bestätigen
+2. Confirm
 
-### **Schritt 5: Pinned Tweet erstellen**
-1. Kopieren Sie den Text aus `X-BIO-TEMPLATES.md`
-2. Erstellen Sie einen Tweet
-3. Pinnen Sie ihn
+### **Step 5: Create pinned tweet**
+1. Copy text from `X-BIO-TEMPLATES.md`
+2. Create a tweet
+3. Pin it
 
-### **Schritt 6: Testen!**
-1. Öffnen Sie Ihr X-Profil (Inkognito-Tab)
-2. Klicken Sie auf den Bio-Link
-3. Verifizieren Sie sich
-4. Senden Sie Follow-Request
-5. Akzeptieren Sie sich selbst (als Account-Owner)
+### **Step 6: Test!**
+1. Open your X profile (incognito tab)
+2. Click the bio link
+3. Verify yourself
+4. Send follow request
+5. Accept yourself (as account owner)
 
-✅ **Fertig!**
+✅ **Done!**
 
 ---
 
-## 📊 Verwendung der neuen Features
+## 📊 Using the New Features
 
-### **Referrer-Statistiken abrufen:**
+### **Get referrer statistics:**
 ```bash
-curl https://[ihre-url]/api/referrer-stats
+curl https://[your-url]/api/referrer-stats
 ```
 
-### **Alle X-User anzeigen:**
+### **Show all X users:**
 ```bash
 # In SQLite:
 sqlite3 aera.db "SELECT * FROM users WHERE first_referrer='twitter'"
 ```
 
-### **Dashboard-Queries:**
+### **Dashboard queries:**
 ```sql
--- Top-Quellen der letzten 24h:
+-- Top sources in last 24h:
 SELECT referrer, COUNT(*) as count
 FROM events
 WHERE timestamp > (unixepoch() - 86400)
@@ -200,105 +200,105 @@ ORDER BY count DESC;
 
 ---
 
-## 🎯 Nächste Schritte
+## 🎯 Next Steps
 
-### **Sofort:**
-1. ✅ Server mit neuen Features neu starten
-2. ✅ X-Bio aktualisieren
-3. ✅ Ersten Test durchführen
-4. ✅ Referrer-Tracking validieren
+### **Immediately:**
+1. ✅ Restart server with new features
+2. ✅ Update X bio
+3. ✅ Perform first test
+4. ✅ Validate referrer tracking
 
-### **Diese Woche:**
-1. 🔄 Influencer anschreiben (mit INFLUENCER-PITCH.md)
-2. 🔄 Community in Discord/Telegram informieren
-3. 🔄 Twitter-Thread über AEra-Gate posten
-4. 🔄 Case Study mit ersten Usern erstellen
+### **This Week:**
+1. 🔄 Contact influencers (with INFLUENCER-PITCH.md)
+2. 🔄 Inform community in Discord/Telegram
+3. 🔄 Post Twitter thread about VEra-Resonance
+4. 🔄 Create case study with first users
 
-### **Diesen Monat:**
-1. 🔮 Feste Domain kaufen (statt ngrok)
-2. 🔮 Analytics-Dashboard bauen
-3. 🔮 Auto-Follow-Approval implementieren
-4. 🔮 Multi-Platform-Support (Discord, Telegram)
+### **This Month:**
+1. 🔮 Buy fixed domain (instead of ngrok)
+2. 🔮 Build analytics dashboard
+3. 🔮 Implement auto-follow approval
+4. 🔮 Multi-platform support (Discord, Telegram)
 
 ---
 
-## 📁 Datei-Übersicht
+## 📁 File Overview
 
 ```
 /home/karlheinz/krypto/aera-token/webside-wallet-login/
-├── server.py (✅ ERWEITERT)
+├── server.py (✅ EXTENDED)
 ├── index.html (Original)
-├── index-x.html (✅ NEU - für X-User)
-├── X-BIO-TEMPLATES.md (✅ NEU)
-├── X-INTEGRATION-GUIDE.md (✅ NEU)
-├── X-FLOW-DIAGRAM.md (✅ NEU)
-├── INFLUENCER-PITCH.md (✅ NEU)
-├── AERA-GATE-WHITEPAPER.md (✅ NEU)
-├── X-REFERRER-TRACKING-DOCS.md (✅ NEU)
-├── NGROK_SETUP.md (bereits vorhanden)
-└── aera.db (✅ WIRD AUTOMATISCH ERWEITERT)
+├── index-x.html (✅ NEW - for X users)
+├── X-BIO-TEMPLATES.md (✅ NEW)
+├── X-INTEGRATION-GUIDE.md (✅ NEW)
+├── X-FLOW-DIAGRAM.md (✅ NEW)
+├── INFLUENCER-PITCH.md (✅ NEW)
+├── AERA-GATE-WHITEPAPER.md (✅ NEW)
+├── X-REFERRER-TRACKING-DOCS.md (✅ NEW)
+├── NGROK_SETUP.md (already present)
+└── aera.db (✅ AUTOMATICALLY EXTENDED)
 ```
 
 ---
 
-## 🔗 Wichtige URLs
+## 🔗 Important URLs
 
-### **Ihre Server:**
-- **Haupt-URL:** `https://[ihre-ngrok-url]`
-- **Health-Check:** `https://[ihre-url]/api/health`
-- **Referrer-Stats:** `https://[ihre-url]/api/referrer-stats`
+### **Your Servers:**
+- **Main URL:** `https://[your-ngrok-url]`
+- **Health Check:** `https://[your-url]/api/health`
+- **Referrer Stats:** `https://[your-url]/api/referrer-stats`
 - **ngrok Dashboard:** `http://127.0.0.1:4040`
 
 ### **Landing Pages:**
-- **Standard:** `https://[ihre-url]/` (index.html)
-- **X-optimiert:** `https://[ihre-url]/index-x.html`
+- **Standard:** `https://[your-url]/` (index.html)
+- **X-optimized:** `https://[your-url]/index-x.html`
 
 ---
 
-## 💡 Pro-Tipps
+## 💡 Pro Tips
 
-### **1. Optional: Automatische Landing-Page-Weiterleitung**
+### **1. Optional: Automatic landing page redirect**
 
-Fügen Sie in `server.py` hinzu:
+Add to `server.py`:
 
 ```python
 @app.get("/")
 async def root(req: Request):
     referrer = req.headers.get("referer", "")
     
-    # Wenn von X kommend, zeige X-optimierte Seite
+    # If coming from X, show X-optimized page
     if "twitter.com" in referrer or "x.com" in referrer:
         return FileResponse("index-x.html")
     else:
         return FileResponse("index.html")
 ```
 
-### **2. URL-Shortener verwenden**
+### **2. Use URL shortener**
 
-Statt langer ngrok-URL in Bio:
+Instead of long ngrok URL in bio:
 ```
-bit.ly/verify-human → https://[ihre-ngrok-url]
+bit.ly/verify-human → https://[your-ngrok-url]
 ```
 
-### **3. A/B-Testing verschiedener Bios**
+### **3. A/B test different bios**
 
-Testen Sie verschiedene Templates und messen Sie:
-- Click-Through-Rate
-- Verification-Rate
-- Follow-Request-Rate
+Test different templates and measure:
+- Click-through rate
+- Verification rate
+- Follow request rate
 
 ---
 
-## 🎉 Glückwunsch!
+## 🎉 Congratulations!
 
-Sie haben jetzt das **komplette AEra-Gate-System für X** inklusive:
+You now have the **complete VEra-Resonance system for X** including:
 
-✅ 7 professionelle Dokumente
-✅ Server mit vollständigem Tracking
-✅ Optimierte Landing Page
-✅ Influencer-Marketing-Material
-✅ Technisches Whitepaper
-✅ Komplette Anleitungen
+✅ 7 professional documents
+✅ Server with full tracking
+✅ Optimized landing page
+✅ Influencer marketing material
+✅ Technical whitepaper
+✅ Complete guides
 
 **Ihr System ist production-ready!** 🚀
 

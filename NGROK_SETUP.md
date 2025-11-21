@@ -1,118 +1,118 @@
-# ngrok Setup für AEra Server (Port 8820)
+# ngrok Setup for VEra-Resonance Server (Port 8820)
 
-## 🚀 Schnellstart
+## 🚀 Quick Start
 
-### 1. ngrok Account erstellen
-1. Gehen Sie zu: **https://dashboard.ngrok.com/signup**
-2. Registrieren Sie sich (kostenlos mit GitHub, Google oder Email)
-3. Bestätigen Sie Ihre Email-Adresse
+### 1. Create ngrok account
+1. Go to: **https://dashboard.ngrok.com/signup**
+2. Sign up (free with GitHub, Google, or Email)
+3. Verify your email address
 
-### 2. Authtoken holen
-1. Nach dem Login gehen Sie zu: **https://dashboard.ngrok.com/get-started/your-authtoken**
-2. Kopieren Sie Ihren Authtoken (sieht aus wie: `2abc...xyz`)
+### 2. Get your authtoken
+1. After login, go to: **https://dashboard.ngrok.com/get-started/your-authtoken**
+2. Copy your authtoken (looks like: `2abc...xyz`)
 
-### 3. Authtoken konfigurieren
+### 3. Configure authtoken
 ```bash
-ngrok config add-authtoken IHR_TOKEN_HIER
+ngrok config add-authtoken YOUR_TOKEN_HERE
 ```
 
-### 4. Server über ngrok freigeben
+### 4. Expose server through ngrok
 ```bash
 ngrok http 8820
 ```
 
-## 📋 Vollständige Anleitung
+## 📋 Complete Instructions
 
-### Schritt-für-Schritt
+### Step-by-step
 
-**1. Server starten (falls noch nicht läuft)**
+**1. Start server (if not already running)**
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 nohup python3 server.py > /tmp/server_8820.log 2>&1 &
 ```
 
-**2. Authtoken einmalig konfigurieren**
+**2. Configure authtoken (one time)**
 ```bash
-# Ersetzen Sie <IHR_TOKEN> mit Ihrem echten Token
-ngrok config add-authtoken <IHR_TOKEN>
+# Replace <YOUR_TOKEN> with your actual token
+ngrok config add-authtoken <YOUR_TOKEN>
 ```
 
-**3. ngrok starten**
+**3. Start ngrok**
 ```bash
 ngrok http 8820
 ```
 
-**4. Öffentliche URL verwenden**
-Nach dem Start zeigt ngrok Ihnen eine URL an, z.B.:
+**4. Use public URL**
+After startup, ngrok will show you a URL, e.g.:
 ```
 Forwarding  https://abc123.ngrok.io -> http://localhost:8820
 ```
 
-Diese URL können Sie dann von überall verwenden!
+You can use this URL from anywhere!
 
-## 🔧 Automatisiertes Start-Script
+## 🔧 Automated Start Script
 
-Nach der Konfiguration des Authtokens können Sie dieses Script verwenden:
+After configuring your authtoken, you can use this script:
 
 ```bash
 #!/bin/bash
 # start_server_with_ngrok.sh
 
-# Server im Hintergrund starten
+# Start server in background
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 nohup python3 server.py > /tmp/server_8820.log 2>&1 &
 
-# Kurz warten, bis Server bereit ist
+# Wait briefly for server to be ready
 sleep 3
 
-# ngrok starten (blockiert Terminal, zeigt Live-Status)
+# Start ngrok (blocks terminal, shows live status)
 ngrok http 8820
 ```
 
-## 🌐 Zugriffsmöglichkeiten nach ngrok-Setup
+## 🌐 Access options after ngrok setup
 
-1. **Lokal:** `http://localhost:8820`
+1. **Local:** `http://localhost:8820`
 2. **LAN:** `http://192.168.178.50:8820`
 3. **Tailscale:** `http://[tailscale-ip]:8820`
-4. **Internet (ngrok):** `https://xyz.ngrok.io` (die URL, die ngrok anzeigt)
+4. **Internet (ngrok):** `https://xyz.ngrok.io` (the URL ngrok displays)
 
-## 🔐 Sicherheitshinweise
+## 🔐 Security notes
 
-⚠️ **WICHTIG:** Mit ngrok ist Ihr Server öffentlich zugänglich!
+⚠️ **IMPORTANT:** With ngrok, your server is publicly accessible!
 
-- ✅ Stellen Sie sicher, dass Ihre Authentifizierung funktioniert
-- ✅ Verwenden Sie HTTPS (ngrok macht das automatisch)
-- ✅ Überwachen Sie die Logs: `tail -f /tmp/server_8820.log`
-- ✅ Beachten Sie die CORS-Einstellungen
-- ⚠️ Teilen Sie die ngrok-URL nur mit vertrauenswürdigen Personen
+- ✅ Make sure your authentication works
+- ✅ Use HTTPS (ngrok does this automatically)
+- ✅ Monitor logs: `tail -f /tmp/server_8820.log`
+- ✅ Check CORS settings
+- ⚠️ Only share the ngrok URL with trusted people
 
-## 📱 ngrok Alternativen
+## 📱 ngrok alternatives
 
-Falls Sie einen dauerhaften Tunnel brauchen, gibt es auch:
-- **ngrok bezahlter Account** (feste URL, mehrere Tunnel)
-- **Tailscale** (VPN, bereits installiert)
-- **Cloudflare Tunnel** (kostenlos)
-- **Portainer** mit Reverse Proxy
+If you need a permanent tunnel, there are also:
+- **ngrok paid account** (fixed URL, multiple tunnels)
+- **Tailscale** (VPN, already installed)
+- **Cloudflare Tunnel** (free)
+- **Portainer** with reverse proxy
 
 ## 🛠️ Troubleshooting
 
 ### "ERR_NGROK_4018"
-→ Authtoken nicht konfiguriert. Siehe Schritt 2 oben.
+→ Authtoken not configured. See Step 2 above.
 
-### Server nicht erreichbar
+### Server not reachable
 ```bash
-# Prüfen Sie, ob Server läuft:
+# Check if server is running:
 ps aux | grep "python3 server.py"
 
-# Prüfen Sie, ob Port offen ist:
+# Check if port is open:
 ss -tlnp | grep 8820
 ```
 
-### ngrok Tunnel beenden
-Drücken Sie `Ctrl+C` im Terminal wo ngrok läuft.
+### Stop ngrok tunnel
+Press `Ctrl+C` in the terminal where ngrok is running.
 
-## 📚 Weitere Ressourcen
+## 📚 Further resources
 
 - ngrok Dashboard: https://dashboard.ngrok.com/
-- ngrok Dokumentation: https://ngrok.com/docs
+- ngrok Documentation: https://ngrok.com/docs
 - ngrok Download: https://ngrok.com/download

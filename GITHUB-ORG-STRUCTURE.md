@@ -1,16 +1,17 @@
-# 🏗️ AEra Ecosystem - Repository Structure
+# 🏗️ VEra-Resonance Ecosystem - Repository Structure
 
 **Organization:** `vera-resonanz`  
-**Date:** November 20, 2025
+**Date:** November 21, 2025  
+**License:** Apache 2.0
 
 ---
 
-## 📁 Repository Overview
+## 📁 Repository overview
 
-### 🟢 Active Repositories
+### 🟢 Active repositories
 
 #### 1. **AEraLogin** ⭐ Core
-> Decentralized Proof-of-Human Login System
+> Decentralized Proof-of-Human login system
 
 **URL:** `https://github.com/vera-resonanz/AEraLogin`
 
@@ -18,16 +19,16 @@
 - Python (FastAPI)
 - SQLite → PostgreSQL
 - Web3.py, eth_account
-- Jinja2 Templates
+- Jinja2 templates
 
-**Status:** ✅ Active Development (v0.1.0)
+**Status:** ✅ Active development (v0.1.0)
 
 ---
 
-#### 2. **AEraUtilityToken**
-> ERA v2 Smart Contract + Tokenomics
+#### 2. **VEra-Resonance Utility Token**
+> VEra Token Smart Contract + Tokenomics
 
-**URL:** `https://github.com/vera-resonanz/AEraUtilityToken`
+**URL:** `https://github.com/vera-resonanz/VEraToken`
 
 **Tech Stack:**
 - Solidity 0.8+
@@ -35,7 +36,7 @@
 - OpenZeppelin Contracts
 - Sepolia Testnet
 
-**Status:** 🔄 In Development
+**Status:** 🔄 In development
 
 **Features:**
 - Soulbound token (non-transferable)
@@ -45,10 +46,10 @@
 
 ---
 
-#### 3. **AEraWeb**
-> Frontend UI for AEraLogin
+#### 3. **VEra-Resonance Web**
+> Frontend UI for VEra-Resonance
 
-**URL:** `https://github.com/vera-resonanz/AEraWeb`
+**URL:** `https://github.com/vera-resonanz/VEraWeb`
 
 **Tech Stack:**
 - HTML5, CSS3, JavaScript (ES6+)
@@ -56,7 +57,7 @@
 - Dynamic templates (Jinja2)
 - Responsive design
 
-**Status:** 🔄 In Development
+**Status:** 🔄 In development
 
 **Features:**
 - Multi-platform landing pages
@@ -66,10 +67,10 @@
 
 ---
 
-#### 4. **AEraGate**
-> Platform Integrations (Twitter, Telegram, Discord, etc.)
+#### 4. **VEra-Resonance Gate**
+> Platform integrations (Twitter, Telegram, Discord, etc.)
 
-**URL:** `https://github.com/vera-resonanz/AEraGate`
+**URL:** `https://github.com/vera-resonanz/VEraGate`
 
 **Tech Stack:**
 - Node.js
@@ -77,7 +78,7 @@
 - Twitter API v2
 - Webhooks
 
-**Status:** 🔄 In Development
+**Status:** 🔄 In development
 
 **Features:**
 - Twitter/X private account verification
@@ -87,14 +88,14 @@
 
 ---
 
-### 🔵 Planned Repositories
+### 🔵 Planned repositories
 
-#### 5. **AEraScoreEngine**
-> Advanced Scoring Algorithm
+#### 5. **VEra-Resonance Score Engine**
+> Advanced scoring algorithm
 
-**URL:** `https://github.com/vera-resonanz/AEraScoreEngine`
+**URL:** `https://github.com/vera-resonanz/VEraScoreEngine`
 
-**Planned Tech:**
+**Planned tech:**
 - Python (NumPy, Pandas)
 - Machine Learning (scikit-learn)
 - Pattern recognition
@@ -110,13 +111,13 @@
 
 ---
 
-#### 6. **AEraProofLedger**
-> Event Logging & Proof-of-Activity
+#### 6. **VEra-Resonance Proof Ledger**
+> Event logging & proof-of-activity
 
-**URL:** `https://github.com/vera-resonanz/AEraProofLedger`
+**URL:** `https://github.com/vera-resonanz/VEraProofLedger`
 
-**Planned Tech:**
-- Solidity (Smart Contracts)
+**Planned tech:**
+- Solidity (smart contracts)
 - IPFS / Arweave
 - Event indexing
 - Merkle proofs
@@ -131,12 +132,12 @@
 
 ---
 
-#### 7. **AEraDocs**
-> Documentation Hub
+#### 7. **VEra-Resonance Docs**
+> Documentation hub
 
-**URL:** `https://github.com/vera-resonanz/AEraDocs`
+**URL:** `https://github.com/vera-resonanz/VEraDocs`
 
-**Planned Tech:**
+**Planned tech:**
 - Markdown
 - MkDocs / Docusaurus
 - GitHub Pages
@@ -153,12 +154,12 @@
 
 ---
 
-#### 8. **AEraDevTools** (Optional)
-> CLI Tools & Developer Utilities
+#### 8. **VEra-Resonance DevTools** (optional)
+> CLI tools & developer utilities
 
-**URL:** `https://github.com/vera-resonanz/AEraDevTools`
+**URL:** `https://github.com/vera-resonanz/VEraDevTools`
 
-**Planned Tech:**
+**Planned tech:**
 - Node.js CLI
 - Python scripts
 - Docker compose
@@ -174,7 +175,7 @@
 
 ---
 
-## 🗂️ Folder Structure (per Repository)
+## 🗂️ Folder structure (per repository)
 
 ### Example: AEraLogin
 
@@ -193,7 +194,7 @@ AEraLogin/
 │   ├── db/
 │   ├── scoring/
 │   └── utils/
-├── tests/                  # Unit + Integration tests
+├── tests/                  # Unit + integration tests
 │   ├── test_api.py
 │   ├── test_scoring.py
 │   └── test_db.py
@@ -214,16 +215,16 @@ AEraLogin/
 ├── .gitignore              # Git ignore rules
 ├── README.md               # Main documentation
 ├── CONTRIBUTING.md         # Contribution guidelines
-├── LICENSE                 # CC BY-NC-SA 4.0
+├── LICENSE                 # Apache 2.0
 ├── requirements.txt        # Python dependencies
 └── server.py               # Main entry point
 ```
 
 ---
 
-## 🎯 Project Board Structure
+## 🎯 Project board structure
 
-### Organization-Level Project: **"AEra Ecosystem Roadmap"**
+### Organization-level project: **"VEra-Resonance Ecosystem Roadmap"**
 
 **Board:** `https://github.com/orgs/vera-resonanz/projects/1`
 
@@ -234,7 +235,7 @@ AEraLogin/
    - Ideas
    - Research tasks
 
-2. **🔄 In Progress**
+2. **🔄 In progress**
    - Active development
    - Assigned tasks
 
@@ -243,7 +244,7 @@ AEraLogin/
    - QA phase
    - Staging deployment
 
-4. **✅ Ready for Deploy**
+4. **✅ Ready for deploy**
    - Approved PRs
    - Production-ready
 
@@ -260,38 +261,38 @@ AEraLogin/
 - `type: feature` ✨
 - `type: docs` 📚
 - `repo: AEraLogin` 🔐
-- `repo: AEraToken` 💎
+- `repo: VEraToken` 💎
 - `status: blocked` 🚫
 
 ---
 
-## 📊 Repository Dependencies
+## 📊 Repository dependencies
 
 ```
-AEraLogin (Core)
+AEraLogin (core)
     ↓
-    ├─→ AEraScoreEngine (Scoring)
-    ├─→ AEraProofLedger (Logging)
-    └─→ AEraUtilityToken (Rewards)
+    ├─→ VEra-Resonance Score Engine (scoring)
+    ├─→ VEra-Resonance Proof Ledger (logging)
+    └─→ VEra Token (rewards)
 
-AEraWeb (Frontend)
+VEra-Resonance Web (frontend)
     ↓
     └─→ AEraLogin (API calls)
 
-AEraGate (Integrations)
+VEra-Resonance Gate (integrations)
     ↓
-    └─→ AEraLogin (Auth API)
+    └─→ AEraLogin (auth API)
 
-AEraDocs (Documentation)
+VEra-Resonance Docs (documentation)
     ↓
     └─→ All repositories (references)
 ```
 
 ---
 
-## 🚀 First Commits (Checklist)
+## 🚀 First commits (checklist)
 
-### AEraLogin (Main Repository)
+### AEraLogin (main repository)
 
 ```bash
 # 1. Create repo on GitHub
@@ -307,7 +308,7 @@ rm -rf __pycache__ *.pyc *.log *.db
 git add .gitignore .env.example README.md
 
 # 5. First commit
-git commit -m "feat: initial commit - AEraLogin v0.1.0
+git commit -m "feat: initial commit - VEra-Resonance v0.1.0
 
 - Wallet-based authentication (EIP-191)
 - Multi-platform referrer tracking
@@ -323,15 +324,15 @@ git branch -M main
 git push -u origin main
 
 # 7. Create release tag
-git tag -a v0.1.0 -m "Alpha Release - Core Authentication"
+git tag -a v0.1.0 -m "Alpha Release - Core authentication"
 git push origin v0.1.0
 ```
 
 ---
 
-## 🔄 Development Workflow
+## 🔄 Development workflow
 
-### Branching Strategy
+### Branching strategy
 
 ```
 main (production)
@@ -343,7 +344,7 @@ bugfix/critical-fix
 hotfix/security-patch
 ```
 
-### Commit Convention
+### Commit convention
 
 ```bash
 # Types:
@@ -363,19 +364,19 @@ git commit -m "docs: update API documentation"
 
 ---
 
-## 📈 Metrics & Monitoring
+## 📈 Metrics & monitoring
 
-### GitHub Insights to Track
+### GitHub insights to track
 
 - **Stars** ⭐
 - **Forks** 🍴
 - **Contributors** 👥
 - **Issues** 🐛
-- **Pull Requests** 🔄
+- **Pull requests** 🔄
 - **Releases** 📦
 - **Traffic** 📊
 
-### External Tools
+### External tools
 
 - **CircleCI / GitHub Actions** - CI/CD
 - **Codecov** - Code coverage
@@ -384,49 +385,49 @@ git commit -m "docs: update API documentation"
 
 ---
 
-## 🌍 Public Presence
+## 🌍 Public presence
 
-### Organization Profile (`vera-resonanz`)
+### Organization profile (`vera-resonanz`)
 
 **Bio:**
 ```
-🌐 Vera Resonanz - Decentralized Human Verification
+🌐 VEra-Resonance - Decentralized human verification
 
 Building the future of KYC-free authentication through 
 resonance-based proof-of-humanity.
 
-🔐 AEraLogin | 💎 AEra Token | 🤖 Bot Detection
+🔐 AEraLogin | 💎 VEra Token | 🤖 Bot detection
 ```
 
-**Website:** `https://vera-resonanz.org`  
-**Twitter:** `@VeraResonanz`  
-**Telegram:** `t.me/AEraEcosystem`
+**Website:** `https://vera-resonance.org`  
+**Twitter/X:** `@VeraResonanz`  
+**Telegram:** `t.me/VEraResonance`
 
 ---
 
-## 🎯 Next Steps
+## 🎯 Next steps
 
-### Immediate (This Week)
+### Immediate (this week)
 
 - [ ] Create `AEraLogin` repository
 - [ ] Upload code with README.md
 - [ ] Set up .gitignore & .env.example
 - [ ] Create first release (v0.1.0)
-- [ ] Add LICENSE file (CC BY-NC-SA 4.0)
+- [ ] Add LICENSE file (Apache 2.0)
 
-### Short-term (This Month)
+### Short-term (this month)
 
-- [ ] Create `AEraUtilityToken` repository
-- [ ] Create `AEraWeb` repository
-- [ ] Create `AEraGate` repository
+- [ ] Create `VEraToken` repository
+- [ ] Create `VEraWeb` repository
+- [ ] Create `VEraGate` repository
 - [ ] Set up organization project board
 - [ ] Write CONTRIBUTING.md
 
 ### Long-term (Q1 2026)
 
-- [ ] Create `AEraScoreEngine` repository
-- [ ] Create `AEraProofLedger` repository
-- [ ] Create `AEraDocs` repository
+- [ ] Create `VEraScoreEngine` repository
+- [ ] Create `VEraProofLedger` repository
+- [ ] Create `VEraDocs` repository
 - [ ] GitHub Pages documentation site
 - [ ] Smart contract audit
 
@@ -435,3 +436,5 @@ resonance-based proof-of-humanity.
 **Ready to build the ecosystem!** 🚀
 
 Organization: `https://github.com/vera-resonanz`
+
+© 2025 Karlheinz Beismann — Apache License 2.0

@@ -1,40 +1,40 @@
-# 🚀 GitHub Repository erstellen - Anleitung
+# 🚀 Create GitHub repository - Guide
 
-## Schritt 1: Gehe zu GitHub
+## Step 1: Go to GitHub
 
 **URL:** https://github.com/vera-resonanz
 
-## Schritt 2: Erstelle neues Repository
+## Step 2: Create new repository
 
-1. Klicke oben rechts auf **"New"** (grüner Button)
+1. Click **"New"** button (green, top right)
    
-   ODER
+   OR
    
-2. Gehe direkt zu: https://github.com/organizations/vera-resonanz/repositories/new
+2. Go directly to: https://github.com/organizations/vera-resonanz/repositories/new
 
-## Schritt 3: Repository-Einstellungen
+## Step 3: Repository settings
 
 ```
-Owner:              vera-resonanz  ✓ (schon ausgewählt)
+Owner:              vera-resonanz  ✓ (already selected)
 Repository name:    AEraLogin
-Description:        Decentralized Proof-of-Human Login System (Wallet-based, KYC-free, Bot-resistant)
+Description:        Decentralized Proof-of-Human login system (Wallet-based, KYC-free, Bot-resistant)
 
-Public:             ✓ (Radio button auswählen)
+Public:             ✓ (select radio button)
 Private:            ☐
 
 Initialize with:
-  ☐ Add a README file       (NICHT ankreuzen - haben wir schon!)
-  ☐ Add .gitignore          (NICHT ankreuzen - haben wir schon!)
-  ☐ Choose a license        (NICHT ankreuzen - haben wir schon!)
+  ☐ Add a README file       (DO NOT check - we already have it!)
+  ☐ Add .gitignore          (DO NOT check - we already have it!)
+  ☐ Choose a license        (DO NOT check - we already have it!)
 ```
 
-## Schritt 4: Erstellen
+## Step 4: Create
 
-Klicke auf **"Create repository"** (grüner Button unten)
+Click **"Create repository"** (green button at bottom)
 
-## Schritt 5: Push (automatisch)
+## Step 5: Push (automatically)
 
-Sobald das Repo erstellt ist, führe aus:
+Once the repo is created, run:
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
@@ -43,36 +43,36 @@ git push -u origin main
 
 ---
 
-## ✅ Nach dem Push
+## ✅ After the push
 
-Das Repository sollte jetzt enthalten:
+The repository should now contain:
 
-- ✅ 36 Dateien
+- ✅ 36 files
 - ✅ README.md
 - ✅ CONTRIBUTING.md
 - ✅ LICENSE
 - ✅ .gitignore
-- ✅ Komplette Dokumentation
-- ✅ Source Code (server.py, logger.py, etc.)
-- ✅ HTML Templates (index.html, index-x.html)
-- ✅ KEINE sensiblen Daten (.env, .db, .log)
+- ✅ Complete documentation
+- ✅ Source code (server.py, logger.py, etc.)
+- ✅ HTML templates (index.html, index-x.html)
+- ✅ NO sensitive data (.env, .db, .log)
 
 ---
 
-## 📋 Optional: Repository Settings
+## 📋 Optional: Repository settings
 
-Nach dem Push, auf GitHub:
+After push, on GitHub:
 
-### **1. About Section** (rechts oben)
-- **Description:** Decentralized Proof-of-Human Login System
-- **Website:** https://vera-resonanz.org
+### **1. About section** (top right)
+- **Description:** Decentralized Proof-of-Human login system
+- **Website:** https://vera-resonance.org
 - **Topics:** `web3` `authentication` `ethereum` `defi` `bot-detection` `kyc-free` `wallet` `fastapi` `python`
 
-### **2. Enable Features**
+### **2. Enable features**
 - ✅ Issues
 - ✅ Discussions (optional)
-- ✅ Projects (link zu Organization Project)
-- ☐ Wiki (später)
+- ✅ Projects (link to organization project)
+- ☐ Wiki (later)
 
 ### **3. Security**
 - ✅ Enable Dependabot alerts
@@ -81,13 +81,13 @@ Nach dem Push, auf GitHub:
 
 ---
 
-## 🏷️ Erstelle Release Tag
+## 🏷️ Create release tag
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# Erstelle Tag
-git tag -a v0.1.0 -m "Alpha Release - Core Authentication
+# Create tag
+git tag -a v0.1.0 -m "Alpha Release - Core authentication
 
 Features:
 - Wallet-based authentication (EIP-191)
@@ -99,21 +99,21 @@ Features:
 
 Status: Alpha - Testnet only"
 
-# Push Tag
+# Push tag
 git push origin v0.1.0
 ```
 
-Dann auf GitHub:
-1. Gehe zu **Releases**
-2. Klicke **"Draft a new release"**
-3. Wähle Tag **v0.1.0**
-4. Release title: **AEraLogin v0.1.0 - Alpha Release**
-5. Kopiere Release Notes
+Then on GitHub:
+1. Go to **Releases**
+2. Click **"Draft a new release"**
+3. Select tag **v0.1.0**
+4. Release title: **VEra-Resonance v0.1.0 - Alpha Release**
+5. Copy release notes
 6. Publish release
 
 ---
 
-## 📊 Erwartetes Ergebnis
+## 📊 Expected result
 
 **Repository URL:**
 ```
@@ -124,9 +124,11 @@ https://github.com/vera-resonanz/AEraLogin
 - 📁 36 files
 - 💻 13,032 additions
 - 🐍 Python (primary language)
-- 📄 License: CC BY-NC-SA 4.0
-- ⭐ 0 stars (wird wachsen!)
+- 📄 License: Apache 2.0
+- ⭐ 0 stars (will grow!)
 
 ---
 
-**Sobald du das Repo auf GitHub erstellt hast, sag Bescheid und ich pushe!** 🚀
+**Once you create the repo on GitHub, let me know and I'll push!** 🚀
+
+© 2025 Karlheinz Beismann — Apache License 2.0

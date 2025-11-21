@@ -1,156 +1,156 @@
-# 🚀 AEra Login – START HIER
+# 🚀 VEra-Resonance – START HERE
 
-## Schnelle Links
+## Quick Links
 
-| Link | Beschreibung |
+| Link | Description |
 |------|-------------|
-| 📖 [README.md](README.md) | Vollständige Dokumentation |
-| ⚙️ [INSTALLATION.md](INSTALLATION.md) | Schritt-für-Schritt Installation |
-| 📱 [MOBILE-SETUP.md](MOBILE-SETUP.md) | Mobile & QR-Code Setup |
-| 🌍 [GLOBAL-DEPLOYMENT.md](GLOBAL-DEPLOYMENT.md) | Global erreichbar machen |
-| ✅ [CHECKLIST.md](CHECKLIST.md) | Funktions-Checklist |
+| 📖 [README.md](README.md) | Complete Documentation |
+| ⚙️ [INSTALLATION.md](INSTALLATION.md) | Step-by-Step Setup |
+| 📱 [MOBILE-SETUP.md](MOBILE-SETUP.md) | Mobile & QR Code Setup |
+| 🌍 [GLOBAL-DEPLOYMENT.md](GLOBAL-DEPLOYMENT.md) | Make it globally accessible |
+| ✅ [CHECKLIST.md](CHECKLIST.md) | Feature Checklist |
 
 ---
 
-## 60-Sekunden Quick Start
+## 60-Second Quick Start
 
 ```bash
-# 1. In den Ordner gehen
+# 1. Navigate to folder
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# 2. Virtuelle Umgebung aktivieren
+# 2. Activate virtual environment
 source venv/bin/activate
 
-# 3. Server starten
-uvicorn server:app --host 0.0.0.0 --port 8000 --reload
+# 3. Start the server
+uvicorn server:app --host 0.0.0.0 --port 8820 --reload
 
-# 4. Browser öffnen
-# http://localhost:8000
+# 4. Open in browser
+# http://localhost:8820
 ```
 
 ---
 
-## Was soll funktionieren?
+## What Should Work?
 
-✅ **QR-Code sichtbar** – Im "📱 QR-Code" Tab  
-✅ **URL angezeigt** – Unter QR-Code  
-✅ **Wallet verbindbar** – Desktop mit MetaMask  
-✅ **Verifizierung funktioniert** – Score wird berechnet  
-✅ **Logins gezählt** – Bei mehrfachen Verifizierungen  
-
----
-
-## Probleme?
-
-1. **QR-Code nicht sichtbar?**
-   - Browser F12 → Console
-   - Sollte Logs zeigen
-   - Seite neu laden (Ctrl+R)
-
-2. **Wallet verbindet nicht?**
-   - MetaMask installiert?
-   - MetaMask entsperrt?
-   - Auf http://localhost:8000 testen
-
-3. **API nicht erreichbar?**
-   - `curl http://localhost:8000/api/health`
-   - Server läuft?
-   - Port 8000 frei?
+✅ **QR Code visible** – In the "📱 QR Code" tab  
+✅ **URL displayed** – Below QR code  
+✅ **Wallet connectable** – Desktop with MetaMask  
+✅ **Verification works** – Score is calculated  
+✅ **Logins counted** – On multiple verifications  
 
 ---
 
-## Dateistruktur
+## Troubleshooting
+
+1. **QR Code not visible?**
+   - Open browser F12 → Console
+   - Should show logs
+   - Reload page (Ctrl+R)
+
+2. **Wallet won't connect?**
+   - MetaMask installed?
+   - MetaMask unlocked?
+   - Test on http://localhost:8820
+
+3. **API not reachable?**
+   - `curl http://localhost:8820/api/health`
+   - Server running?
+   - Port 8820 available?
+
+---
+
+## File Structure
 
 ```
 webside-wallet-login/
 ├── index.html                    # Frontend (HTML+JS)
 ├── server.py                     # Backend (FastAPI)
-├── aera.db                       # SQLite Datenbank
-├── .env                          # Konfiguration
+├── aera.db                       # SQLite Database
+├── .env                          # Configuration
 ├── requirements.txt              # Python Dependencies
-├── venv/                         # Virtuelle Umgebung
+├── venv/                         # Virtual Environment
 │
-├── README.md                     # Vollständige Docs
-├── INSTALLATION.md               # Installation
+├── README.md                     # Complete Docs
+├── INSTALLATION.md               # Installation Guide
 ├── MOBILE-SETUP.md              # Mobile Setup
-├── GLOBAL-DEPLOYMENT.md         # Production
-├── CHECKLIST.md                 # Tests
-└── START.md                      # Diese Datei
+├── GLOBAL-DEPLOYMENT.md         # Production Deployment
+├── CHECKLIST.md                 # Feature Tests
+└── START.md                      # This file
 ```
 
 ---
 
 ## API Endpoints
 
-| Methode | Endpoint | Beschreibung |
-|---------|----------|-------------|
+| Method | Endpoint | Description |
+|--------|----------|-------------|
 | GET | `/` | Frontend HTML |
 | GET | `/api/health` | Health Check |
-| POST | `/api/verify` | Wallet verifizieren |
-| GET | `/api/user/{address}` | Nutzer-Daten |
-| GET | `/api/stats` | Statistiken |
-| GET | `/api/events/{address}` | Login-History |
+| POST | `/api/verify` | Verify Wallet |
+| GET | `/api/user/{address}` | User Data |
+| GET | `/api/stats` | Statistics |
+| GET | `/api/events/{address}` | Login History |
 
 ---
 
-## Environment Konfiguration
+## Environment Configuration
 
-Wichtigste `.env` Variablen:
+Most important `.env` variables:
 
 ```env
 # Server
-HOST=0.0.0.0          # 0.0.0.0 = extern erreichbar
-PORT=8000
-PUBLIC_URL=http://localhost:8000
+HOST=0.0.0.0          # 0.0.0.0 = externally accessible
+PORT=8820
+PUBLIC_URL=http://localhost:8820
 
-# Für Production
-PUBLIC_URL=https://aera-login.example.com
+# For Production
+PUBLIC_URL=https://vera-resonance.example.com
 
 # CORS
-CORS_ORIGINS=*        # "*" für Development
+CORS_ORIGINS=*        # "*" for development
 ```
 
 ---
 
-## Nächste Schritte
+## Next Steps
 
-1. ✅ Lokal starten (`http://localhost:8000`)
-2. ✅ QR-Code & URL überprüfen
-3. ✅ Wallet verbinden & verifizieren
-4. ✅ Mit ngrok global erreichbar machen
-5. ✅ [CHECKLIST.md](CHECKLIST.md) durchgehen
-6. ✅ Production deployen
+1. ✅ Start locally (`http://localhost:8820`)
+2. ✅ Verify QR code & URL
+3. ✅ Connect wallet & verify
+4. ✅ Make globally accessible with ngrok
+5. ✅ Go through [CHECKLIST.md](CHECKLIST.md)
+6. ✅ Deploy to production
 
 ---
 
 ## Support
 
-**Logs anschauen:**
+**View Logs:**
 ```bash
-# Terminal mit Server
-# Drücke Ctrl+C um zu stoppen
-# Neu starten mit Debug:
-uvicorn server:app --host 0.0.0.0 --port 8000 --log-level debug
+# In server terminal
+# Press Ctrl+C to stop
+# Restart with debug logging:
+uvicorn server:app --host 0.0.0.0 --port 8820 --log-level debug
 ```
 
 **Browser Console:**
 ```
 F12 → Console
-Sollte Logs mit [AEra] Prefix zeigen
+Should show logs with [VEra-Resonance] prefix
 ```
 
 **API Test:**
 ```bash
-curl http://localhost:8000/api/health | python3 -m json.tool
+curl http://localhost:8820/api/health | python3 -m json.tool
 ```
 
 ---
 
-## Lizenz
+## License
 
-CC BY-NC-SA 4.0 – Siehe [LICENSE](LICENSE)
+Apache License 2.0 – See [LICENSE](LICENSE)
 
 ---
 
-**AEra Login © 2025 Karlheinz**  
-*Proof of Human via Resonance – Global Edition*
+**VEra-Resonance © 2025 Karlheinz Beismann**  
+*Decentralized Proof-of-Human – No KYC, No Identity Theft*

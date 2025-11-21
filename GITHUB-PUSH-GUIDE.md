@@ -1,88 +1,88 @@
 # 🚀 GitHub Repository Setup - Step by Step
 
-## ✅ Status: Lokales Repository bereit zum Push!
+## ✅ Status: Local repository ready for push!
 
-**Commit:** ✅ Erstellt (36 Dateien, keine sensiblen Daten)  
+**Commit:** ✅ Created (36 files, no sensitive data)  
 **Branch:** main  
-**Remote:** https://github.com/vera-resonanz/AEraLogin.git (noch nicht erstellt)
+**Remote:** https://github.com/vera-resonanz/AEraLogin.git (not yet created)
 
 ---
 
-## 📋 Schritt-für-Schritt Anleitung
+## 📋 Step-by-Step Instructions
 
-### **Schritt 1: Auf GitHub einloggen**
+### **Step 1: Log in to GitHub**
 
-1. Gehe zu: https://github.com
-2. Logge dich ein
-3. Wechsle zur Organisation `vera-resonanz`
+1. Go to: https://github.com
+2. Log in
+3. Switch to the `vera-resonanz` organization
 
 ---
 
-### **Schritt 2: Neues Repository erstellen**
+### **Step 2: Create new repository**
 
-1. **Klicke auf:** "New repository" (grüner Button)
+1. **Click:** "New repository" (green button)
    
-2. **Fülle aus:**
+2. **Fill in:**
    ```
    Owner: vera-resonanz
    Repository name: AEraLogin
    Description: Decentralized Proof-of-Human Login System
    ```
 
-3. **Einstellungen:**
+3. **Settings:**
    ```
-   ✅ Public (nicht Private!)
-   ❌ NICHT "Add a README file" (haben wir schon!)
-   ❌ NICHT ".gitignore" hinzufügen (haben wir schon!)
-   ❌ NICHT "Choose a license" (haben wir schon!)
+   ✅ Public (not Private!)
+   ❌ DO NOT "Add a README file" (we already have one!)
+   ❌ DO NOT add ".gitignore" (we already have it!)
+   ❌ DO NOT "Choose a license" (we already have it!)
    ```
 
-4. **Klicke:** "Create repository"
+4. **Click:** "Create repository"
 
 ---
 
-### **Schritt 3: Repository wurde erstellt**
+### **Step 3: Repository has been created**
 
-GitHub zeigt dir jetzt eine Seite mit Anweisungen.
+GitHub will now show you a page with instructions.
 
-**IGNORIERE die Anweisungen!** (wir haben schon alles vorbereitet)
+**IGNORE the instructions!** (we've already prepared everything)
 
 ---
 
-### **Schritt 4: Push von deinem Terminal**
+### **Step 4: Push from your terminal**
 
-Jetzt kannst du pushen:
+Now you can push:
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# Push (das Remote ist schon gesetzt)
+# Push (the remote is already set)
 git push -u origin main
 ```
 
-**Falls Authentifizierung nötig:**
+**If authentication is required:**
 
-Option A: **Personal Access Token** (empfohlen)
+Option A: **Personal Access Token** (recommended)
 ```bash
 # GitHub → Settings → Developer settings → Personal access tokens → Tokens (classic)
-# Generate new token → Alle "repo" permissions auswählen
-# Token kopieren
+# Generate new token → Select all "repo" permissions
+# Copy token
 
-# Beim Push:
-Username: dein-github-username
-Password: ghp_dein_token_hier
+# On push:
+Username: your-github-username
+Password: ghp_your_token_here
 ```
 
-Option B: **SSH Key** (alternativ)
+Option B: **SSH Key** (alternative)
 ```bash
-# SSH Key generieren
-ssh-keygen -t ed25519 -C "deine-email@example.com"
+# Generate SSH Key
+ssh-keygen -t ed25519 -C "your-email@example.com"
 
-# Public Key zu GitHub hinzufügen
+# Add public key to GitHub
 cat ~/.ssh/id_ed25519.pub
-# Kopieren und in GitHub → Settings → SSH Keys einfügen
+# Copy and paste in GitHub → Settings → SSH Keys
 
-# Remote URL ändern
+# Change remote URL
 git remote set-url origin git@github.com:vera-resonanz/AEraLogin.git
 
 # Push
@@ -91,24 +91,24 @@ git push -u origin main
 
 ---
 
-### **Schritt 5: Nach erfolgreichem Push**
+### **Step 5: After successful push**
 
-1. **Gehe zu:** https://github.com/vera-resonanz/AEraLogin
+1. **Go to:** https://github.com/vera-resonanz/AEraLogin
 
-2. **Du solltest sehen:**
-   - ✅ README.md als Hauptseite
-   - ✅ 36 Dateien
+2. **You should see:**
+   - ✅ README.md as main page
+   - ✅ 36 files
    - ✅ Commit: "feat: initial commit - AEraLogin v0.1.0"
-   - ✅ Keine .env, .db, .log Dateien
+   - ✅ No .env, .db, .log files
 
 ---
 
-## 🎯 Nach dem Push - Repository konfigurieren
+## 🎯 After push - Configure repository
 
 ### **About Section**
 
-1. **Klicke auf:** ⚙️ (Zahnrad neben "About")
-2. **Fülle aus:**
+1. **Click on:** ⚙️ (gear icon next to "About")
+2. **Fill in:**
    ```
    Description: Decentralized Proof-of-Human Login System
    Website: https://vera-resonanz.org
@@ -118,9 +118,9 @@ git push -u origin main
 
 ### **Settings → General**
 
-- ✅ Issues aktivieren
-- ✅ Discussions aktivieren (optional)
-- ✅ Projects aktivieren
+- ✅ Enable Issues
+- ✅ Enable Discussions (optional)
+- ✅ Enable Projects
 
 ### **Settings → Security**
 
@@ -129,12 +129,12 @@ git push -u origin main
 
 ---
 
-## 🏷️ Release erstellen (optional, aber empfohlen)
+## 🏷️ Create release (optional, but recommended)
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# Tag erstellen
+# Create tag
 git tag -a v0.1.0 -m "Alpha Release - Core Authentication System
 
 Features:
@@ -149,15 +149,15 @@ Tech Stack:
 - Web3.py, eth_account
 - MetaMask integration"
 
-# Tag pushen
+# Push tag
 git push origin v0.1.0
 ```
 
-**Dann auf GitHub:**
+**Then on GitHub:**
 1. Releases → Draft a new release
 2. Choose tag: v0.1.0
 3. Title: AEraLogin v0.1.0 - Alpha Release
-4. Description: Copy von Release Notes
+4. Description: Copy from Release Notes
 5. ✅ Set as pre-release
 6. Publish release
 
@@ -165,74 +165,74 @@ git push origin v0.1.0
 
 ## 📊 Checklist
 
-### **Vor dem Push:**
-- [x] ✅ Git Repository initialisiert
-- [x] ✅ .gitignore erstellt
-- [x] ✅ Sensible Daten entfernt
-- [x] ✅ README.md erstellt
-- [x] ✅ CONTRIBUTING.md erstellt
-- [x] ✅ LICENSE hinzugefügt
-- [x] ✅ Commit erstellt (36 Dateien)
+### **Before push:**
+- [x] ✅ Git repository initialized
+- [x] ✅ .gitignore created
+- [x] ✅ Sensitive data removed
+- [x] ✅ README.md created
+- [x] ✅ CONTRIBUTING.md created
+- [x] ✅ LICENSE added
+- [x] ✅ Commit created (36 files)
 - [x] ✅ Branch: main
-- [x] ✅ Remote gesetzt
+- [x] ✅ Remote set
 
-### **Nach dem Push:**
-- [ ] ⏳ GitHub Repository erstellen
+### **After push:**
+- [ ] ⏳ Create GitHub repository
 - [ ] ⏳ git push -u origin main
-- [ ] ⏳ About Section konfigurieren
-- [ ] ⏳ Topics hinzufügen
-- [ ] ⏳ Issues/Discussions aktivieren
-- [ ] ⏳ Release v0.1.0 erstellen
-- [ ] ⏳ Repository prüfen
+- [ ] ⏳ Configure About section
+- [ ] ⏳ Add topics
+- [ ] ⏳ Enable Issues/Discussions
+- [ ] ⏳ Create release v0.1.0
+- [ ] ⏳ Review repository
 
 ---
 
 ## 🚨 Troubleshooting
 
 ### **"Repository not found"**
-→ Repository auf GitHub noch nicht erstellt  
-→ Gehe zu Schritt 2 und erstelle es
+→ Repository on GitHub not yet created  
+→ Go to Step 2 and create it
 
 ### **"Permission denied"**
-→ Keine Push-Berechtigung  
-→ Prüfe ob du Admin/Member der Organisation bist  
-→ Oder: Erstelle Personal Access Token
+→ No push permissions  
+→ Check if you're an admin/member of the organization  
+→ Or: Create Personal Access Token
 
 ### **"Authentication failed"**
-→ Nutze Personal Access Token statt Passwort  
-→ GitHub Passwörter werden nicht mehr akzeptiert
+→ Use Personal Access Token instead of password  
+→ GitHub no longer accepts passwords
 
-### **".env wird gepusht"**
-→ Sollte NICHT passieren (durch .gitignore geschützt)  
-→ Falls doch: `git rm --cached .env`
+### **".env is being pushed"**
+→ Should NOT happen (protected by .gitignore)  
+→ If it does: `git rm --cached .env`
 
 ---
 
-## ✅ Final Check nach Push
+## ✅ Final check after push
 
 ```bash
-# Zeige Remote Repository
+# Show remote repository
 git remote show origin
 
-# Prüfe ob Push erfolgreich
+# Check if push was successful
 git log --oneline
 
-# Prüfe ob sensible Dateien geschützt sind
+# Check if sensitive files are protected
 git ls-files | grep -E "\.env$|\.db$|\.log$"
-# Sollte LEER sein!
+# Should be EMPTY!
 ```
 
-**Auf GitHub prüfen:**
-- ✅ README.md wird angezeigt
-- ✅ Dateien sind da
-- ✅ Keine .env, .db, .log sichtbar
-- ✅ License Badge funktioniert
+**Check on GitHub:**
+- ✅ README.md is displayed
+- ✅ Files are there
+- ✅ No .env, .db, .log visible
+- ✅ License badge works
 
 ---
 
-## 🎉 Fertig!
+## 🎉 Done!
 
-**Wenn alles geklappt hat:**
+**If everything worked:**
 
 ```
 Repository URL:
@@ -246,10 +246,10 @@ Status: ✅ LIVE
 
 ---
 
-**Nächste Schritte:**
-1. Repository Settings konfigurieren
-2. Release v0.1.0 erstellen
-3. Social Media ankündigen
-4. Community einladen
+**Next steps:**
+1. Configure repository settings
+2. Create release v0.1.0
+3. Announce on social media
+4. Invite community
 
 **Ready to launch!** 🚀

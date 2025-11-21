@@ -1,160 +1,160 @@
-# 🚀 AEra-Gate: Proof of Human für Ihren X-Account
+# 🚀 VEra-Resonance: Proof of Human for Your X Account
 
-## 📱 Für Influencer, Creator & Community-Builder
-
----
-
-## 🔥 Das Problem (das Sie kennen)
-
-**Sie haben 100.000 Follower. Aber:**
-
-- ❌ 30% sind **Bots**
-- ❌ 20% sind **Fake-Accounts**
-- ❌ 15% sind **gekaufte Follower**
-- ❌ 10% sind **inaktive Accounts**
-- ✅ Nur **25% sind echte, aktive Menschen**
-
-**Resultat:**
-- 📉 Engagement-Rate im Keller
-- 📉 Ihre Posts verschwinden im Bot-Rauschen
-- 📉 Authentische Gespräche unmöglich
-- 📉 Werbe-ROI leidet
-- 📉 Ihr echter Wert wird unterschätzt
+## 📱 For Influencers, Creators & Community Builders
 
 ---
 
-## 💡 Die Lösung: AEra-Gate
+## 🔥 The Problem (that you know)
 
-### Was ist AEra-Gate?
+**You have 100,000 followers. But:**
 
-**Das erste Proof-of-Human-Gate für X (Twitter)**
+- ❌ 30% are **bots**
+- ❌ 20% are **fake accounts**
+- ❌ 15% are **bought followers**
+- ❌ 10% are **inactive accounts**
+- ✅ Only **25% are real, active humans**
 
-Ein System, das **NUR echte Menschen** als Follower zulässt:
+**Result:**
+- 📉 Engagement rate in the basement
+- 📉 Your posts disappear in bot noise
+- 📉 Authentic conversations impossible
+- 📉 Advertising ROI suffers
+- 📉 Your real value is underestimated
+
+---
+
+## 💡 The Solution: VEra-Resonance
+
+### What is VEra-Resonance?
+
+**The first Proof-of-Human gate for X (Twitter)**
+
+A system that **ONLY allows real humans** as followers:
 
 ```
-Privater X-Account
+Private X Account
        +
-Wallet-Verifizierung
+Wallet Verification
        +
-Resonanz-Score
+Resonance Score
        =
-100% echte Follower
+100% real followers
 ```
 
 ---
 
-## 🎯 Was Sie bekommen
+## 🎯 What You Get
 
-### ✅ **100% Bot-Freie Community**
-Kein einziger Bot kann Ihnen folgen. Unmöglich.
+### ✅ **100% Bot-Free Community**
+Not a single bot can follow you. Impossible.
 
-### ✅ **Echtes Engagement**
-Jeder Like, Reply, Retweet kommt von einem echten Menschen.
+### ✅ **Real Engagement**
+Every like, reply, retweet comes from a real human.
 
-### ✅ **Wertsteigerung**
-1.000 echte Follower > 100.000 Fake-Follower
+### ✅ **Value Increase**
+1,000 real followers > 100,000 fake followers
 
-### ✅ **Keine Spam-DMs**
-Nur verifizierte Menschen können Ihnen Nachrichten senden.
+### ✅ **No Spam DMs**
+Only verified humans can message you.
 
-### ✅ **Premium-Positioning**
-"Dieser Account hat nur echte Follower" = Unique Selling Point
+### ✅ **Premium Positioning**
+"This account has only real followers" = Unique Selling Point
 
-### ✅ **Authentische Insights**
-Analytics zeigen echte Interessen, keine Bot-Patterns.
+### ✅ **Authentic Insights**
+Analytics show real interests, no bot patterns.
 
 ---
 
-## 📊 Vorher/Nachher-Vergleich
+## 📊 Before/After Comparison
 
-| Metric | Vor AEra-Gate | Mit AEra-Gate |
+| Metric | Before VEra-Resonance | With VEra-Resonance |
 |--------|---------------|---------------|
-| **Follower-Qualität** | 25% echt | **100% echt** |
-| **Engagement-Rate** | 0.5% | **5-15%** |
-| **Bot-Anteil** | 30% | **0%** |
-| **DM-Spam** | Täglich 50+ | **0** |
-| **Werbe-ROI** | Niedrig | **10x höher** |
-| **Community-Trust** | Niedrig | **Sehr hoch** |
+| **Follower Quality** | 25% real | **100% real** |
+| **Engagement Rate** | 0.5% | **5-15%** |
+| **Bot Share** | 30% | **0%** |
+| **DM Spam** | 50+ daily | **0** |
+| **Advertising ROI** | Low | **10x higher** |
+| **Community Trust** | Low | **Very high** |
 
 ---
 
-## 🛠️ Wie es funktioniert (für Sie als Influencer)
+## 🛠️ How it Works (for You as Influencer)
 
-### **Schritt 1: Account auf privat setzen** (2 Minuten)
+### **Step 1: Make account private** (2 minutes)
 → Settings → Privacy → "Protect your posts"
 
-### **Schritt 2: AEra-Link in Bio** (2 Minuten)
+### **Step 2: VEra-Resonance link in bio** (2 minutes)
 → "Want to follow? Prove you're human: [LINK]"
 
-### **Schritt 3: Auto-Verifizierung läuft** (passiv)
-→ Jeder Follower muss sich verifizieren
+### **Step 3: Auto-verification runs** (passive)
+→ Every follower must verify
 
-### **Schritt 4: Sie entscheiden** (manuell oder automatisch)
-→ Accept nur Follower mit Score ≥50
+### **Step 4: You decide** (manual or automatic)
+→ Accept only followers with score ≥50
 
-**Gesamtaufwand:** 4 Minuten Setup + 10 Minuten/Woche Management
+**Total effort:** 4 minutes setup + 10 minutes/week management
 
 ---
 
-## 💰 ROI für Influencer
+## 💰 ROI for Influencers
 
-### **Für Brand-Deals:**
+### **For Brand Deals:**
 ```
-Vorher: "Ich habe 100K Follower"
-→ Brand: "Ja, aber wie viele sind echt?"
-→ Antwort: "Ehm... keine Ahnung"
+Before: "I have 100K followers"
+→ Brand: "Yes, but how many are real?"
+→ You: "Umm... no idea"
 
-Nachher: "Ich habe 10K verifizierte, echte Follower"
-→ Brand: "Wow, das ist authentisches Engagement!"
-→ Deal: 3x höhere Rate
-```
-
-### **Für Engagement:**
-```
-Vorher: 
-100K Follower → 500 Likes pro Post = 0.5%
-
-Nachher:
-10K echte Follower → 1500 Likes pro Post = 15%
-
-→ Bessere Sichtbarkeit
-→ Mehr organische Reichweite
-→ Höherer Social Proof
+After: "I have 10K verified, real followers"
+→ Brand: "Wow, that's authentic engagement!"
+→ Deal: 3x higher rate
 ```
 
-### **Für Community:**
+### **For Engagement:**
 ```
-Vorher: Masse an unbekannten Followern
+Before: 
+100K followers → 500 likes per post = 0.5%
 
-Nachher: Kuratierte Community echter Fans
-→ Tiefere Bindung
-→ Bessere Feedback-Loops
-→ Authentische Connections
+After:
+10K real followers → 1500 likes per post = 15%
+
+→ Better visibility
+→ More organic reach
+→ Higher social proof
+```
+
+### **For Community:**
+```
+Before: Mass of unknown followers
+
+After: Curated community of real fans
+→ Deeper connection
+→ Better feedback loops
+→ Authentic connections
 ```
 
 ---
 
 ## 🎯 Use Cases
 
-### **1. Creator mit 50K+ Followern**
-**Problem:** "Niemand interagiert, obwohl ich viele Follower habe"
-**Lösung:** AEra-Gate → Nur echte Menschen → Engagement explodiert
+### **1. Creator with 50K+ followers**
+**Problem:** "Nobody interacts, even though I have many followers"
+**Solution:** VEra-Resonance → Only real humans → Engagement explodes
 
-### **2. Neuer Account-Start**
-**Problem:** "Ich will von Anfang an clean wachsen"
-**Lösung:** AEra-Gate von Tag 1 → Organisches, authentisches Wachstum
+### **2. New account start**
+**Problem:** "I want to grow clean from the start"
+**Solution:** VEra-Resonance from day 1 → Organic, authentic growth
 
-### **3. Brand-Account**
-**Problem:** "Unser Bot-Anteil schadet unserer Reputation"
-**Lösung:** AEra-Gate → "Official verified-human community"
+### **3. Brand Account**
+**Problem:** "Our bot share damages our reputation"
+**Solution:** VEra-Resonance → "Official verified-human community"
 
 ### **4. Paid Community**
-**Problem:** "Ich will nur zahlende/engagierte Follower"
-**Lösung:** AEra-Gate + Score ≥70 → Premium-Filter
+**Problem:** "I only want paying/engaged followers"
+**Solution:** VEra-Resonance + score ≥70 → Premium filter
 
 ### **5. Web3 Influencer**
-**Problem:** "Meine Community sollte Web3-native sein"
-**Lösung:** AEra-Gate → Jeder Follower hat Wallet → Perfekte Zielgruppe
+**Problem:** "My community should be Web3-native"
+**Solution:** VEra-Resonance → Every follower has wallet → Perfect audience
 
 ---
 
@@ -169,228 +169,228 @@ Nachher: Kuratierte Community echter Fans
 - ✅ AEra-Gate: Bots scheitern an Wallet-Signatur
 
 ### **vs. Manual Screening:**
-- ❌ Manual: Sie müssen jeden Follower googeln
-- ✅ AEra-Gate: Automatische Verifizierung
+- ❌ Manual: You need to google every follower
+- ✅ VEra-Resonance: Automatic verification
 
-### **vs. KYC-Lösungen:**
-- ❌ KYC: Datenschutz-Albtraum, kompliziert
-- ✅ AEra-Gate: Privacy-first, nur Wallet-Signatur
-
----
-
-## 📈 Growth Strategy mit AEra-Gate
-
-### **Phase 1: Migration (Woche 1-2)**
-1. Ankündigen: "Ab nächster Woche: Nur noch echte Follower"
-2. Current Follower informieren
-3. AEra-Gate aktivieren
-4. Followers "re-verifizieren" lassen (optional)
-
-### **Phase 2: Growth (Woche 3-8)**
-1. Neue Follower nur via AEra-Gate
-2. Content über "bot-free community" posten
-3. Case Study teilen (Engagement-Zahlen)
-4. Andere Influencer anwerben
-
-### **Phase 3: Monetization (Monat 3+)**
-1. Premium-Positioning bei Brand-Deals
-2. Höhere Raten rechtfertigen
-3. NFT/Token-Drops nur für verifizierte Follower
-4. Exklusive Events für Community
+### **vs. KYC solutions:**
+- ❌ KYC: Privacy nightmare, complicated
+- ✅ VEra-Resonance: Privacy-first, only wallet signature
 
 ---
 
-## 💬 Was Ihre Follower sagen werden
+## 📈 Growth Strategy with VEra-Resonance
 
-### **Positive Reaktionen (erwartet):**
-✅ "Endlich ein Account ohne Bot-Spam!"
-✅ "Ich respektiere, dass du Qualität über Quantität stellst"
-✅ "Das ist die Zukunft von Social Media"
-✅ "Wallet-Verifizierung ist genial - kein KYC!"
+### **Phase 1: Migration (Week 1-2)**
+1. Announce: "Starting next week: Only real followers"
+2. Inform current followers
+3. Activate VEra-Resonance
+4. Let followers "re-verify" (optional)
 
-### **Skeptische Reaktionen (anfangs):**
-❓ "Warum muss ich eine Wallet haben?"
-→ "Weil das der einzige Weg ist, Bots zu stoppen"
+### **Phase 2: Growth (Week 3-8)**
+1. New followers only via VEra-Resonance
+2. Post about "bot-free community"
+3. Share case study (engagement numbers)
+4. Recruit other influencers
 
-❓ "Ist das sicher?"
-→ "Ja, nur Signatur nötig, kein Gas, keine Transaktionen"
-
-❓ "Ich habe keine Wallet"
-→ "MetaMask in 2 Minuten installiert - ich zeige dir wie"
+### **Phase 3: Monetization (Month 3+)**
+1. Premium positioning for brand deals
+2. Justify higher rates
+3. NFT/token drops only for verified followers
+4. Exclusive events for community
 
 ---
 
-## 🎁 Bonus: Was Sie zusätzlich bekommen
+## 💬 What Your Followers Will Say
+
+### **Positive reactions (expected):**
+✅ "Finally an account without bot spam!"
+✅ "I respect that you choose quality over quantity"
+✅ "This is the future of social media"
+✅ "Wallet verification is genius - no KYC!"
+
+### **Skeptical reactions (initially):**
+❓ "Why do I need a wallet?"
+→ "Because it's the only way to stop bots"
+
+❓ "Is it safe?"
+→ "Yes, only signature needed, no gas, no transactions"
+
+❓ "I don't have a wallet"
+→ "MetaMask installed in 2 minutes - I'll show you how"
+
+---
+
+## 🎁 Bonus: What You Get Additionally
 
 ### **1. On-Chain Reputation**
-Jeder Follower baut einen "Resonanz-Score" auf
-→ Sichtbar, wer aktiv ist vs. wer nur folgt
+Every follower builds a "Resonance Score"
+→ Visible who is active vs. who just follows
 
 ### **2. Anti-Sybil Protection**
-System erkennt automatisch, wenn jemand mit 100 Wallets versucht reinzukommen
+System automatically detects when someone tries to join with 100 wallets
 
-### **3. Source-Tracking**
-Sie sehen, woher Follower kommen (Twitter, Telegram, Direct, etc.)
+### **3. Source Tracking**
+You see where followers come from (Twitter, Telegram, Direct, etc.)
 
 ### **4. Airdrop-Ready**
-Sie können sofort Token/NFTs an alle verifizierten Follower senden
+You can immediately send tokens/NFTs to all verified followers
 
 ### **5. Cross-Platform**
-Gleiche Verifizierung für Discord, Telegram, eigene Website
+Same verification for Discord, Telegram, own website
 
 ---
 
-## 🔐 Sicherheit & Privacy
+## 🔐 Security & Privacy
 
-### **Was AEra-Gate NICHT macht:**
-- ❌ Keine KYC
-- ❌ Keine persönlichen Daten
-- ❌ Keine Transaktionen
-- ❌ Kein Gas-Fee
-- ❌ Keine Email-Adressen
-- ❌ Kein Tracking außer Wallet-Adresse
+### **What VEra-Resonance does NOT do:**
+- ❌ No KYC
+- ❌ No personal data
+- ❌ No transactions
+- ❌ No gas fee
+- ❌ No email addresses
+- ❌ No tracking except wallet address
 
-### **Was AEra-Gate macht:**
-- ✅ Wallet-Signatur (kostenlos)
-- ✅ Resonanz-Score-Berechnung
-- ✅ Anonyme Verifizierung
-- ✅ On-Chain-Aktivitäts-Prüfung
+### **What VEra-Resonance does:**
+- ✅ Wallet signature (free)
+- ✅ Resonance score calculation
+- ✅ Anonymous verification
+- ✅ On-chain activity check
 
 ---
 
 ## 💵 Pricing
 
-### **Early Adopter (jetzt):**
-- ✅ **Kostenlos**
-- ✅ Unbegrenzte Verifizierungen
-- ✅ Voller Feature-Zugriff
-- ✅ Priority Support
+### **Early Adopter (now):**
+- ✅ **Free**
+- ✅ Unlimited verifications
+- ✅ Full feature access
+- ✅ Priority support
 
-### **Später (nach Beta):**
-- 💰 Free Tier: 1.000 Follower
-- 💰 Pro Tier: $29/Monat (unlimited)
-- 💰 Enterprise: Custom Pricing
+### **Later (after beta):**
+- 💰 Free Tier: 1,000 followers
+- 💰 Pro Tier: $29/month (unlimited)
+- 💰 Enterprise: Custom pricing
 
-**Jetzt einsteigen = Forever Free für Early Adopters!**
+**Join now = Forever free for early adopters!**
 
 ---
 
-## 📞 Setup in 10 Minuten
+## 📞 Setup in 10 Minutes
 
-**Bereit zu starten?**
+**Ready to start?**
 
-1. Server-Setup (2 Min)
-2. X-Account konfigurieren (3 Min)
-3. Bio-Update (2 Min)
-4. First Test (3 Min)
+1. Server setup (2 min)
+2. X account configuration (3 min)
+3. Bio update (2 min)
+4. First test (3 min)
 
-**→ Fertig!**
+**→ Done!**
 
 ---
 
 ## 🌟 Success Stories (Coming Soon)
 
-*Wenn Sie einer der ersten sind, können wir IHRE Story hier featuren!*
+*If you're one of the first, we can feature YOUR story here!*
 
-**Werden Sie Case Study:**
-- 📊 Vorher/Nachher-Daten
+**Become a case study:**
+- 📊 Before/after data
 - 📸 Screenshots
 - 💬 Testimonial
-- 🎁 Extra Visibility
+- 🎁 Extra visibility
 
 ---
 
 ## 🎯 Call to Action
 
-### **Option 1: DIY (jetzt starten)**
-→ Folgen Sie der [Integrations-Anleitung](X-INTEGRATION-GUIDE.md)
+### **Option 1: DIY (start now)**
+→ Follow the [Integration Guide](X-INTEGRATION-GUIDE.md)
 
-### **Option 2: Begleitet (empfohlen)**
-→ 1:1 Setup-Call (30 Min) inkl. Custom-Setup
+### **Option 2: Guided (recommended)**
+→ 1:1 setup call (30 min) including custom setup
 
 ### **Option 3: White-Label**
-→ Branded Version für Ihre Community
+→ Branded version for your community
 
 ---
 
-## 🤝 Perfekt für:
+## 🤝 Perfect for:
 
-✅ **Influencer** mit 10K+ Followern
-✅ **Content Creators** die Quality schätzen
-✅ **Brand Accounts** mit Reputations-Fokus
-✅ **Web3 Builders** mit Native Audience
-✅ **Community-Leaders** die echte Connections wollen
-✅ **Thought Leaders** die Diskussions-Qualität wollen
+✅ **Influencers** with 10K+ followers
+✅ **Content Creators** who value quality
+✅ **Brand Accounts** with reputation focus
+✅ **Web3 Builders** with native audience
+✅ **Community Leaders** who want real connections
+✅ **Thought Leaders** who want discussion quality
 
 ---
 
 ## ⚡ Quick Facts
 
-- ⏱️ **Setup-Zeit:** 10 Minuten
-- 💰 **Kosten:** Aktuell kostenlos
-- 🔧 **Tech-Level:** Kein Coding nötig
-- 🛡️ **Bot-Schutz:** 100%
-- 📈 **Engagement-Boost:** 10-30x
-- 🎯 **ROI:** Messbar in Woche 1
+- ⏱️ **Setup Time:** 10 minutes
+- 💰 **Cost:** Currently free
+- 🔧 **Tech Level:** No coding needed
+- 🛡️ **Bot Protection:** 100%
+- 📈 **Engagement Boost:** 10-30x
+- 🎯 **ROI:** Measurable in week 1
 
 ---
 
-## 🔮 Die Zukunft
+## 🔮 What's Next
 
-**Was kommt als nächstes:**
+**Coming soon:**
 
-- 🔄 Auto-Follow-Approval bei Score ≥X
-- 📊 Advanced Analytics Dashboard
-- 🎨 Custom Branding Options
-- 🔗 Multi-Platform-Integration
-- 💎 NFT-Badge für Verified Followers
-- 🎁 Token-Gated Features
+- 🔄 Auto-follow approval at score ≥X
+- 📊 Advanced analytics dashboard
+- 🎨 Custom branding options
+- 🔗 Multi-platform integration
+- 💎 NFT badge for verified followers
+- 🎁 Token-gated features
 
 ---
 
-## 💭 FAQ für Influencer
+## 💭 FAQ for Influencers
 
-**Q: Verliere ich Follower durch die Umstellung?**
-A: Ja, aber nur die Fake-Follower. Ihre echten Fans bleiben.
+**Q: Will I lose followers from the switch?**
+A: Yes, but only the fake followers. Your real fans stay.
 
-**Q: Was ist mit meiner Engagement-Rate?**
-A: Wird massiv steigen (von 0.5% auf 5-15%)
+**Q: What about my engagement rate?**
+A: Will increase massively (from 0.5% to 5-15%)
 
-**Q: Können Brands das verifizieren?**
-A: Ja! On-Chain, öffentlich einsehbar.
+**Q: Can brands verify this?**
+A: Yes! On-chain, publicly verifiable.
 
-**Q: Was wenn jemand keine Wallet hat?**
-A: 2 Minuten MetaMask-Installation. Oder sie folgen nicht.
+**Q: What if someone doesn't have a wallet?**
+A: 2 minutes MetaMask installation. Or they don't follow.
 
-**Q: Ist das legal/ToS-konform?**
-A: Ja. X erlaubt private Accounts + externe Links.
+**Q: Is this legal/ToS-compliant?**
+A: Yes. X allows private accounts + external links.
 
-**Q: Wie schnell sehe ich Resultate?**
-A: Innerhalb von 1-2 Wochen messbare Verbesserung.
+**Q: How quickly will I see results?**
+A: Within 1-2 weeks measurable improvement.
 
 ---
 
 ## 🎉 Join the Revolution
 
-**Seien Sie einer der ersten 100 Influencer, die beweisen:**
+**Be one of the first 100 influencers to prove:**
 
 → Quality > Quantity
 → Humans > Bots
-→ Authenticity > Vanity Metrics
+→ Authenticity > Vanity metrics
 
-**Die Zukunft von Social Media ist menschlich. Starten Sie heute.**
-
----
-
-## 📧 Kontakt
-
-**Fragen? Interesse?**
-→ DM auf X: @[Ihr-Handle]
-→ Email: [Ihre-Email]
-→ Discord: [Ihr-Server]
+**The future of social media is human. Start today.**
 
 ---
 
-**🚀 Erstellt für die nächste Generation von Social Media**
+## 📧 Contact
 
-*AEra-Gate - Proof of Human for X*
+**Questions? Interested?**
+→ DM on X: @[Your-Handle]
+→ Email: [Your-Email]
+→ Discord: [Your-Server]
+
+---
+
+**🚀 Built for the next generation of social media**
+
+*VEra-Resonance - Proof of Human for X*

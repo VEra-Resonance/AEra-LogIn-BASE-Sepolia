@@ -1,135 +1,135 @@
-# 🚨 SICHERHEITSWARNUNG - SENSIBLE DATEN GEFUNDEN!
+# 🚨 SECURITY WARNING - SENSITIVE DATA FOUND!
 
-## ⚠️ KRITISCH: Private Keys im Repository!
+## ⚠️ CRITICAL: Private Keys in Repository!
 
-**Datum:** 20. November 2025
+**Date:** 20. November 2025
 
 ---
 
-## 🔍 Was wurde gefunden:
+## 🔍 What Was Found:
 
-### **1. .env Datei mit PRIVATE KEY**
+### **1. .env File with PRIVATE KEY**
 
 ```
-Datei: .env
-Inhalt: ADMIN_PRIVATE_KEY=***REDACTED*** (64 characters)
-Status: ⚠️ KRITISCH - Privater Schlüssel im Klartext!
+File: .env
+Content: ADMIN_PRIVATE_KEY=***REDACTED*** (64 characters)
+Status: ⚠️ CRITICAL - Private key in plaintext!
 ```
 
 ---
 
-## ✅ Sofortmaßnahmen durchgeführt:
+## ✅ Immediate Actions Taken:
 
-### **1. .gitignore erstellt**
-- ✅ `.env` wird jetzt ignoriert
-- ✅ `*.db` (Datenbanken) ignoriert
-- ✅ `*.log` (Logs mit IPs/Wallets) ignoriert
-- ✅ Alle Private Keys, Tokens, Secrets ignoriert
+### **1. .gitignore Created**
+- ✅ `.env` is now ignored
+- ✅ `*.db` (databases) ignored
+- ✅ `*.log` (logs with IPs/wallets) ignored
+- ✅ All private keys, tokens, secrets ignored
 
-### **2. .env.example erstellt**
-- ✅ Sichere Vorlage ohne echte Keys
-- ✅ Dokumentiert welche Werte benötigt werden
-- ✅ Anleitung für Setup
+### **2. .env.example Created**
+- ✅ Safe template without real keys
+- ✅ Documents which values are needed
+- ✅ Setup instructions
 
 ---
 
-## 🔒 DRINGEND: Nächste Schritte
+## 🔒 URGENT: Next Steps
 
-### **1. SOFORT: Neue Wallet erstellen**
+### **1. IMMEDIATELY: Create New Wallet**
 
-⚠️ **Der Private Key in .env ist KOMPROMITTIERT!**
+⚠️ **The private key in .env is COMPROMISED!**
 
-Wenn dieser Key jemals in Git commitet wurde oder jemand Zugriff hatte:
+If this key was ever committed to Git or someone had access:
 
 ```bash
-# Erstelle NEUE Wallet
-# Option A: MetaMask -> Neue Wallet -> Export Private Key
+# Create NEW wallet
+# Option A: MetaMask -> New Wallet -> Export Private Key
 # Option B: Web3.py
 python3 -c "from eth_account import Account; acc = Account.create(); print(f'Address: {acc.address}\nPrivate Key: {acc.key.hex()}')"
 ```
 
-**Dann:**
-1. ✅ Transferiere alle Funds von alter Wallet zu neuer
-2. ✅ Aktualisiere `.env` mit neuem Private Key
-3. ✅ NIEMALS alte Wallet wieder nutzen
+**Then:**
+1. ✅ Transfer all funds from old wallet to new one
+2. ✅ Update `.env` with new private key
+3. ✅ NEVER use old wallet again
 
 ---
 
-### **2. Prüfe ob .env in Git History ist**
+### **2. Check if .env is in Git History**
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# Suche nach .env in Git History
+# Search for .env in Git history
 git log --all --full-history -- .env
 
-# Suche nach Private Key Pattern in allen Commits
+# Search for private key pattern in all commits
 git log -p | grep -i "private_key"
 ```
 
-**Falls gefunden:**
-- ⚠️ Git History bereinigen (schwierig!)
-- ⚠️ Oder: Neues Repository starten
-- ⚠️ DEFINITIV neue Wallet erstellen
+**If found:**
+- ⚠️ Clean Git history (difficult!)
+- ⚠️ Or: Start new repository
+- ⚠️ DEFINITELY create new wallet
 
 ---
 
-### **3. Prüfe andere sensible Dateien**
+### **3. Check Other Sensitive Files**
 
 ```bash
-# Gefundene Dateien:
-./airdrop_worker.log  # Kann Wallet-Adressen enthalten
-./aera.db             # User Wallets & Scores
-./.env                # Private Keys ⚠️
-./server.log          # IPs, Referrer URLs
-./airdrop.log         # Transaction Hashes
+# Files found:
+./airdrop_worker.log  # May contain wallet addresses
+./aera.db             # User wallets & scores
+./.env                # Private keys ⚠️
+./server.log          # IPs, referrer URLs
+./airdrop.log         # Transaction hashes
 ```
 
-**Alle werden jetzt ignoriert von Git!**
+**All are now ignored by Git!**
 
 ---
 
-## 📋 .gitignore Kategorien
+## 📋 .gitignore Categories
 
-### **Kritische Dateien (NIEMALS committen):**
-- ✅ `*.env` - Environment Variables
-- ✅ `*.key`, `*.pem` - Private Keys
-- ✅ `*.db`, `*.sqlite` - Datenbanken
+### **Critical Files (NEVER commit):**
+- ✅ `*.env` - Environment variables
+- ✅ `*.key`, `*.pem` - Private keys
+- ✅ `*.db`, `*.sqlite` - Databases
 - ✅ `*.log` - Logs
-- ✅ `private_key*` - Alle Private Key Files
-- ✅ `wallets/`, `keystore/` - Wallet-Verzeichnisse
+- ✅ `private_key*` - All private key files
+- ✅ `wallets/`, `keystore/` - Wallet directories
 
-### **Sensitive Dateien:**
-- ✅ `ngrok*` - ngrok Config & Auth
-- ✅ `*SECRET*`, `*PRIVATE*` - Alle Dateien mit diesen Namen
-- ✅ `config.json` - Configs mit Keys
-- ✅ `credentials*` - Credential Files
+### **Sensitive Files:**
+- ✅ `ngrok*` - ngrok config & auth
+- ✅ `*SECRET*`, `*PRIVATE*` - Files with these names
+- ✅ `config.json` - Configs with keys
+- ✅ `credentials*` - Credential files
 
-### **System-Dateien:**
-- ✅ `__pycache__/` - Python Cache
-- ✅ `venv/` - Virtual Environments
-- ✅ `node_modules/` - Node Packages
-- ✅ `.DS_Store` - Mac System Files
+### **System Files:**
+- ✅ `__pycache__/` - Python cache
+- ✅ `venv/` - Virtual environments
+- ✅ `node_modules/` - Node packages
+- ✅ `.DS_Store` - Mac system files
 
 ---
 
-## 🧪 Teste .gitignore
+## 🧪 Test .gitignore
 
 ```bash
 cd /home/karlheinz/krypto/aera-token/webside-wallet-login
 
-# Prüfe Git Status
+# Check Git status
 git status
 
-# Diese Dateien sollten NICHT erscheinen:
+# These files should NOT appear:
 # ❌ .env
 # ❌ aera.db
 # ❌ *.log
 
-# Diese Dateien sollten erscheinen:
+# These files should appear:
 # ✅ .gitignore
 # ✅ .env.example
-# ✅ *.py (Python Source)
+# ✅ *.py (Python source)
 # ✅ *.md (Documentation)
 ```
 
@@ -139,39 +139,39 @@ git status
 
 ### **1. Environment Variables**
 ```bash
-# NIEMALS:
+# NEVER:
 git add .env
 
-# IMMER:
+# ALWAYS:
 git add .env.example
 ```
 
 ### **2. Private Keys**
 ```bash
-# NIEMALS in Code:
+# NEVER hardcoded:
 PRIVATE_KEY = "***hardcoded***"
 
-# IMMER aus .env laden:
+# ALWAYS load from .env:
 PRIVATE_KEY = os.getenv("ADMIN_PRIVATE_KEY")
 ```
 
-### **3. Vor jedem Commit**
+### **3. Before Every Commit**
 ```bash
-# Prüfe was committed wird:
+# Check what's being committed:
 git diff --cached
 
-# Suche nach Keys:
+# Search for keys:
 git diff --cached | grep -i "private\|secret\|key"
 ```
 
 ### **4. Git Hooks (Optional)**
 ```bash
-# Pre-commit Hook erstellen
+# Create pre-commit hook
 cat > .git/hooks/pre-commit << 'EOF'
 #!/bin/bash
 if git diff --cached | grep -E "private_key|PRIVATE_KEY|SECRET"; then
-    echo "⚠️  WARNUNG: Möglicherweise sensibler Inhalt gefunden!"
-    echo "Commit abgebrochen. Prüfe deine Änderungen."
+    echo "⚠️  WARNING: Potentially sensitive content detected!"
+    echo "Commit aborted. Review your changes."
     exit 1
 fi
 EOF
@@ -183,55 +183,55 @@ chmod +x .git/hooks/pre-commit
 
 ## 📊 Checklist
 
-### **Sofort:**
-- [x] ✅ .gitignore erstellt
-- [x] ✅ .env.example erstellt
-- [ ] ⏳ Prüfe ob .env in Git History ist
-- [ ] ⏳ Neue Wallet erstellen (falls compromittiert)
-- [ ] ⏳ .env mit neuen Keys aktualisieren
+### **Immediately:**
+- [x] ✅ .gitignore created
+- [x] ✅ .env.example created
+- [ ] ⏳ Check if .env is in Git history
+- [ ] ⏳ Create new wallet (if compromised)
+- [ ] ⏳ Update .env with new keys
 
-### **Vor nächstem Commit:**
-- [ ] ⏳ `git status` prüfen
-- [ ] ⏳ Keine .env, .db, .log Dateien
-- [ ] ⏳ `git diff --cached` durchsehen
-- [ ] ⏳ Keine Private Keys im Diff
+### **Before Next Commit:**
+- [ ] ⏳ Review `git status`
+- [ ] ⏳ No .env, .db, .log files
+- [ ] ⏳ Review `git diff --cached`
+- [ ] ⏳ No private keys in diff
 
-### **Langfristig:**
-- [ ] ⏳ Pre-commit Hooks einrichten
-- [ ] ⏳ Secrets in Vault (z.B. HashiCorp Vault)
+### **Long-term:**
+- [ ] ⏳ Set up pre-commit hooks
+- [ ] ⏳ Use Vault (e.g., HashiCorp Vault)
 - [ ] ⏳ CI/CD secret scanning
-- [ ] ⏳ Team schulen über Git Security
+- [ ] ⏳ Team training on Git security
 
 ---
 
-## 🆘 Falls Keys bereits geleaked:
+## 🆘 If Keys Are Already Leaked:
 
 ### **1. GitHub Public Repository?**
 ```bash
-# SOFORT:
-1. Repository auf Private setzen
-2. Neue Wallet erstellen
-3. Funds transferieren
-4. Keys rotieren
-5. Git History bereinigen (schwierig!)
-   - Oder: Neues Repo, alte löschen
+# IMMEDIATELY:
+1. Set repository to private
+2. Create new wallet
+3. Transfer funds
+4. Rotate keys
+5. Clean Git history (difficult!)
+   - Or: New repo, delete old one
 ```
 
 ### **2. Keys in commit history?**
 ```bash
-# Option A: BFG Repo-Cleaner (einfacher)
-brew install bfg  # oder apt install bfg
+# Option A: BFG Repo-Cleaner (easier)
+brew install bfg  # or apt install bfg
 bfg --delete-files .env
 git reflog expire --expire=now --all
 git gc --prune=now --aggressive
 
-# Option B: git filter-branch (kompliziert)
+# Option B: git filter-branch (complicated)
 git filter-branch --force --index-filter \
   'git rm --cached --ignore-unmatch .env' \
   --prune-empty --tag-name-filter cat -- --all
 ```
 
-**Dann:**
+**Then:**
 ```bash
 git push origin --force --all
 ```
@@ -240,14 +240,14 @@ git push origin --force --all
 
 ## 📞 Support
 
-**Falls Sie unsicher sind:**
-1. 🔴 STOPP - Nichts mehr committen
-2. 🔍 Prüfe mit: `git log --all --full-history -- .env`
-3. 💬 Kontaktiere Security Team
-4. 🔒 Im Zweifel: Neue Wallet, neues Repo
+**If you are unsure:**
+1. 🔴 STOP - Don't commit anything
+2. 🔍 Check with: `git log --all --full-history -- .env`
+3. 💬 Contact security team
+4. 🔒 If in doubt: New wallet, new repo
 
 ---
 
-**Status:** ✅ .gitignore eingerichtet  
-**Nächster Schritt:** Prüfe Git History & erstelle neue Wallet falls nötig  
-**Priorität:** 🔴 HOCH
+**Status:** ✅ .gitignore configured  
+**Next Step:** Check Git history & create new wallet if needed  
+**Priority:** 🔴 HIGH

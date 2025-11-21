@@ -1,48 +1,48 @@
-# 🚀 AEra Login – Installation & Quick Start Guide
+# 🚀 VEra-Resonance – Installation & Quick Start Guide
 
-Vollständige Anleitung zum Starten des AEra Login Systems.
+Complete guide to start the VEra-Resonance system.
 
 ---
 
-## 📋 Inhaltsverzeichnis
+## 📋 Table of Contents
 
-1. [Systemvoraussetzungen](#systemvoraussetzungen)
-2. [Installation Schritt-für-Schritt](#installation-schrittfürschritt)
-3. [Server starten](#server-starten)
-4. [Testen & Verifizieren](#testen--verifizieren)
+1. [System Requirements](#system-requirements)
+2. [Installation Step-by-Step](#installation-step-by-step)
+3. [Starting the Server](#starting-the-server)
+4. [Testing & Verification](#testing--verification)
 5. [Troubleshooting](#troubleshooting)
 
 ---
 
-## 🖥️ Systemvoraussetzungen
+## 🖥️ System Requirements
 
-### Erforderlich
-- **Python 3.9+** (oder 3.11)
+### Required
+- **Python 3.9+** (or 3.11)
 - **pip** (Python Package Manager)
-- **Git** (zum klonen, optional)
-- **MetaMask** oder eine andere EVM-kompatible Wallet (für Frontend-Tests)
+- **Git** (for cloning, optional)
+- **MetaMask** or another EVM-compatible wallet (for frontend testing)
 
-### Empfohlen
-- **Virtual Environment** (venv) – für Isolation
-- **Postman oder cURL** – für API-Tests
-- **VS Code oder IDE** – zum Bearbeiten
+### Recommended
+- **Virtual Environment** (venv) – for isolation
+- **Postman or cURL** – for API testing
+- **VS Code or IDE** – for editing
 
 ### Optional
-- **Docker** – für containerisiertes Deployment
-- **PostgreSQL** – für Production (statt SQLite)
+- **Docker** – for containerized deployment
+- **PostgreSQL** – for production (instead of SQLite)
 
 ---
 
-## 📦 Installation Schritt-für-Schritt
+## 📦 Installation Step-by-Step
 
-### Schritt 1: Repository klonen / In Ordner gehen
+### Step 1: Clone Repository / Navigate to Folder
 
 ```bash
-# Falls noch nicht im webside-wallet-login Ordner:
+# If not already in webside-wallet-login folder:
 cd /path/to/webside-wallet-login
 ```
 
-### Schritt 2: Virtuelle Umgebung erstellen (EMPFOHLEN)
+### Step 2: Create Virtual Environment (RECOMMENDED)
 
 ```bash
 # Linux/Mac
@@ -58,25 +58,25 @@ python -m venv venv
 venv\Scripts\Activate.ps1
 ```
 
-**Ausgabe sollte so aussehen:**
+**Output should look like:**
 ```
 (venv) user@machine ~/webside-wallet-login $
 ```
 
-### Schritt 3: pip aktualisieren
+### Step 3: Upgrade pip
 
 ```bash
 pip install --upgrade pip
 ```
 
-### Schritt 4: Abhängigkeiten installieren
+### Step 4: Install Dependencies
 
-**Option A: Mit requirements.txt**
+**Option A: Using requirements.txt**
 ```bash
 pip install -r requirements.txt
 ```
 
-**Option B: Manuell**
+**Option B: Manual**
 ```bash
 pip install fastapi==0.104.1
 pip install uvicorn==0.24.0
@@ -84,115 +84,115 @@ pip install pydantic==2.5.0
 pip install python-dotenv==1.0.0
 ```
 
-**Ausgabe sollte so aussehen:**
+**Output should show:**
 ```
 Successfully installed fastapi-0.104.1 uvicorn-0.24.0 pydantic-2.5.0 ...
 ```
 
-### Schritt 5: Installation verifizieren
+### Step 5: Verify Installation
 
 ```bash
 python -c "import fastapi; import uvicorn; print('✓ All imports OK')"
 ```
 
-**Erwartet:** `✓ All imports OK`
+**Expected:** `✓ All imports OK`
 
 ---
 
-## 🚀 Server starten
+## 🚀 Starting the Server
 
-### Methode A: Einfach (Empfohlen)
+### Method A: Simple (Recommended)
 
 ```bash
-# Stelle sicher, dass deine venv aktiviert ist
-source venv/bin/activate  # oder äquivalent für dein OS
+# Make sure your venv is activated
+source venv/bin/activate  # or equivalent for your OS
 
-# Starte den Server
-uvicorn server:app --reload --port 8000
+# Start the server
+uvicorn server:app --reload --port 8820
 ```
 
 **Output:**
 ```
-INFO:     Uvicorn running on http://127.0.0.1:8000
+INFO:     Uvicorn running on http://127.0.0.1:8820
 INFO:     Application startup complete
 ```
 
-### Methode B: Mit Shell-Script
+### Method B: Using Shell Script
 
 ```bash
 ./start.sh
 ```
 
-(Das Script aktiviert venv automatisch)
+(Script activates venv automatically)
 
-### Methode C: Mit Auto-Reload deaktiviert
+### Method C: Without Auto-Reload
 
 ```bash
-uvicorn server:app --port 8000
+uvicorn server:app --port 8820
 ```
 
-(Schneller, aber Code-Änderungen brauchen Restart)
+(Faster, but code changes require restart)
 
 ---
 
-## 🧪 Testen & Verifizieren
+## 🧪 Testing & Verification
 
-### Test 1: Health-Check (Terminal)
+### Test 1: Health Check (Terminal)
 
 ```bash
-# Öffne ein NEUES Terminal-Tab/Fenster
-curl http://localhost:8000/api/health | python -m json.tool
+# Open a NEW terminal tab/window
+curl http://localhost:8820/api/health | python -m json.tool
 ```
 
-**Erwartet:**
+**Expected:**
 ```json
 {
   "status": "healthy",
-  "service": "AEra Login v0.1",
+  "service": "VEra-Resonance v0.1",
   "timestamp": 1234567890
 }
 ```
 
 ---
 
-### Test 2: Frontend öffnen (Browser)
+### Test 2: Open Frontend (Browser)
 
-Gehe zu: **http://localhost:8000**
+Go to: **http://localhost:8820**
 
-Du solltest sehen:
-- ✅ AEra Logo
-- ✅ "Wallet Verbinden" Button
-- ✅ "Proof of Human via Resonance" Text
-
----
-
-### Test 3: Wallet-Verbindung (Browser)
-
-1. **MetaMask öffnen** – Stelle sicher, dass MetaMask installiert ist
-2. **"Wallet Verbinden" klicken**
-3. **Genehmigung in MetaMask geben**
-4. Du solltest deine Wallet-Adresse sehen ✓
+You should see:
+- ✅ VEra-Resonance logo
+- ✅ "Connect Wallet" button
+- ✅ "Decentralized Proof-of-Human" text
 
 ---
 
-### Test 4: Verifizierung (Browser)
+### Test 3: Wallet Connection (Browser)
 
-1. **Nach erfolgreicher Wallet-Verbindung:** "Verifizieren" Button klicken
-2. **Server antwortet mit Score:** z.B. "Score: 50/100" ✓
-3. **Details anzeigen:** Adresse, Netzwerk, Score
+1. **Open MetaMask** – Make sure MetaMask is installed
+2. **Click "Connect Wallet"**
+3. **Approve in MetaMask**
+4. You should see your wallet address ✓
 
 ---
 
-### Test 5: API-Calls (cURL)
+### Test 4: Verification (Browser)
+
+1. **After successful wallet connection:** Click "Verify" button
+2. **Server responds with score:** e.g. "Score: 50/100" ✓
+3. **View details:** Address, network, score
+
+---
+
+### Test 5: API Calls (cURL)
 
 ```bash
-# Wallet-Adresse verifizieren
-curl -X POST http://localhost:8000/api/verify \
+# Verify wallet address
+curl -X POST http://localhost:8820/api/verify \
   -H "Content-Type: application/json" \
   -d '{"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}'
 ```
 
-**Erwartet:**
+**Expected:**
 ```json
 {
   "is_human": true,
@@ -206,43 +206,43 @@ curl -X POST http://localhost:8000/api/verify \
 
 ---
 
-### Test 6: Mehrfach-Verifizierung
+### Test 6: Multiple Verifications
 
-Führe denselben curl-Command nochmal aus:
+Run the same curl command again:
 
 ```bash
-curl -X POST http://localhost:8000/api/verify \
+curl -X POST http://localhost:8820/api/verify \
   -H "Content-Type: application/json" \
   -d '{"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}'
 ```
 
-**Erwartet:** Score ist jetzt **51** (erhöht um 1) ✓
+**Expected:** Score is now **51** (increased by 1) ✓
 
 ---
 
 ## 🛠️ Troubleshooting
 
-### Problem: "Port 8000 already in use"
+### Problem: "Port 8820 already in use"
 
-**Lösung A:** Beende andere Prozesse auf Port 8000
+**Solution A:** Kill other processes on port 8820
 ```bash
 # Linux/Mac
-lsof -ti:8000 | xargs kill -9
+lsof -ti:8820 | xargs kill -9
 
-# oder einen anderen Port verwenden
-uvicorn server:app --port 8001
+# or use a different port
+uvicorn server:app --port 8821
 ```
 
-**Lösung B:** Browser auf neuem Port öffnen
+**Solution B:** Open browser on new port
 ```
-http://localhost:8001
+http://localhost:8821
 ```
 
 ---
 
 ### Problem: "ModuleNotFoundError: No module named 'fastapi'"
 
-**Lösung:** Virtuelle Umgebung aktivieren
+**Solution:** Activate virtual environment
 ```bash
 # Linux/Mac
 source venv/bin/activate
@@ -250,55 +250,55 @@ source venv/bin/activate
 # Windows
 venv\Scripts\activate
 
-# Dann nochmal Abhängigkeiten installieren
+# Then install dependencies again
 pip install -r requirements.txt
 ```
 
 ---
 
-### Problem: "Connection refused" beim cURL-Test
+### Problem: "Connection refused" during cURL test
 
-**Lösung:** Server läuft nicht
+**Solution:** Server is not running
 ```bash
-# Prüfe ob Server läuft
+# Check if server is running
 ps aux | grep uvicorn
 
-# Falls nicht, starte ihn neu
-uvicorn server:app --port 8000
+# If not, restart it
+uvicorn server:app --port 8820
 ```
 
 ---
 
-### Problem: MetaMask Connect Button funktioniert nicht
+### Problem: MetaMask Connect button doesn't work
 
-**Lösung 1:** MetaMask Erweiterung installieren
+**Solution 1:** Install MetaMask extension
 - Chrome: https://chromewebstore.google.com/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn
 
-**Lösung 2:** Entwickler-Konsole checken
-- Browser öffnen: F12 → Console
-- Fehler-Meldungen schauen
+**Solution 2:** Check developer console
+- Browser: F12 → Console
+- Look for error messages
 
-**Lösung 3:** Browser-Cache leeren
+**Solution 3:** Clear browser cache
 ```
 Ctrl+Shift+Delete → Cookies & Cache
 ```
 
 ---
 
-### Problem: CORS-Fehler im Browser
+### Problem: CORS errors in browser
 
-**Anzeichen:**
+**Sign:**
 ```
-Access to XMLHttpRequest at 'http://localhost:8000/api/verify' 
+Access to XMLHttpRequest at 'http://localhost:8820/api/verify' 
 from origin 'http://localhost:3000' has been blocked by CORS policy
 ```
 
-**Lösung:** CORS ist bereits in `server.py` aktiviert. Falls Problem bleibt:
+**Solution:** CORS is already enabled in `server.py`. If problem persists:
 ```python
-# In server.py nach Zeile 16 prüfen:
+# Check after line 16 in server.py:
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # ← muss so sein
+    allow_origins=["*"],  # ← must be like this
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -306,50 +306,50 @@ app.add_middleware(
 
 ---
 
-### Problem: Datenbank-Fehler
+### Problem: Database errors
 
-**Anzeichen:** `sqlite3.OperationalError`
+**Sign:** `sqlite3.OperationalError`
 
-**Lösung:** Datenbank zurücksetzen
+**Solution:** Reset database
 ```bash
-# Lösche alte DB
+# Delete old database
 rm aera.db
 
-# Starte Server neu
-uvicorn server:app --reload --port 8000
+# Restart server
+uvicorn server:app --reload --port 8820
 ```
 
-Die Datenbank wird automatisch neu erstellt.
+Database will be automatically recreated.
 
 ---
 
 ## 📊 Logs & Debugging
 
-### Server-Logs im Detail
+### Server Logs in Detail
 
 ```bash
-# Mit mehr Debug-Info
-uvicorn server:app --reload --port 8000 --log-level debug
+# With more debug info
+uvicorn server:app --reload --port 8820 --log-level debug
 ```
 
-### Browser-Konsole
+### Browser Console
 
 ```javascript
-// Im Browser öffnen: F12 → Console
-// Dann testen:
-fetch('http://localhost:8000/api/health')
+// In browser open: F12 → Console
+// Then test:
+fetch('http://localhost:8820/api/health')
   .then(r => r.json())
   .then(d => console.log('✓ Server OK:', d))
   .catch(e => console.error('✗ Error:', e))
 ```
 
-### SQLite Datenbank inspizieren
+### Inspect SQLite Database
 
 ```bash
-# SQLite CLI öffnen
+# Open SQLite CLI
 sqlite3 aera.db
 
-# Dann in der Konsole:
+# Then in console:
 > SELECT * FROM users;
 > SELECT * FROM events;
 > .quit
@@ -357,41 +357,41 @@ sqlite3 aera.db
 
 ---
 
-## ✅ Checkliste: Alles läuft?
+## ✅ Checklist: Everything Running?
 
-- [ ] Python 3.9+ installiert
-- [ ] Virtual Environment erstellt & aktiviert
-- [ ] `pip install -r requirements.txt` erfolgreich
-- [ ] `uvicorn server:app --reload --port 8000` startet
-- [ ] `curl http://localhost:8000/api/health` antwortet
-- [ ] Browser öffnet `http://localhost:8000`
-- [ ] Wallet Verbinden Button sichtbar
-- [ ] MetaMask Wallet verbunden ✓
-- [ ] Verifizierung funktioniert
-- [ ] Score steigt bei mehrfachen Verifizierungen
+- [ ] Python 3.9+ installed
+- [ ] Virtual environment created & activated
+- [ ] `pip install -r requirements.txt` successful
+- [ ] `uvicorn server:app --reload --port 8820` starts
+- [ ] `curl http://localhost:8820/api/health` responds
+- [ ] Browser opens `http://localhost:8820`
+- [ ] Connect Wallet button visible
+- [ ] MetaMask wallet connected ✓
+- [ ] Verification works
+- [ ] Score increases with multiple verifications
 
 ---
 
-## 🎉 Geschafft!
+## 🎉 Done!
 
-Du hast AEra Login erfolgreich installiert! 🚀
+You have successfully installed VEra-Resonance! 🚀
 
-### Nächste Schritte:
+### Next Steps:
 
-1. **Integration in andere Plattformen** – Nutze die `/api/verify` Endpoint
-2. **Customization** – Passe Farben, Logo, Score-Logik an
-3. **Production Deployment** – Siehe `README.md` → Deployment-Sektion
-4. **On-Chain Integration** – Verbinde mit AEra Token Smart Contract
+1. **Integration into other platforms** – Use the `/api/verify` endpoint
+2. **Customization** – Adjust colors, logo, scoring logic
+3. **Production Deployment** – See `README.md` → Deployment section
+4. **On-Chain Integration** – Connect with VEra-Resonance Token Smart Contract
 
 ---
 
 ## 📞 Support & Links
 
-- **GitHub:** [aera-token/webside-wallet-login](https://github.com/example)
-- **Docs:** Siehe `README.md`
-- **License:** CC BY-NC-SA 4.0 (siehe `LICENSE`)
-- **Kontakt:** Karlheinz (2025)
+- **GitHub:** [vera-resonanz/AEraLogin](https://github.com/vera-resonanz/AEraLogin)
+- **Docs:** See `README.md`
+- **License:** Apache License 2.0 (see `LICENSE`)
+- **Contact:** Karlheinz Beismann (2025)
 
 ---
 
-**AEra Login © 2025 Karlheinz** ⸻ *Proving Humanity via Resonance*
+**VEra-Resonance © 2025 Karlheinz Beismann** ⸻ *Decentralized Proof-of-Human – No KYC, No Identity Theft*

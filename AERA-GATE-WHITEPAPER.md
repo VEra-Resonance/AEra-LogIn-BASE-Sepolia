@@ -1,13 +1,13 @@
-# 📄 AEra-Gate Whitepaper
+# 📄 VEra-Resonance Whitepaper
 ## Proof-of-Human Social Gating for Decentralized Identity
 
-**Version 1.0 | November 2025**
+**Version 1.0 | November 21, 2025 | © 2025 Karlheinz Beismann**
 
 ---
 
 ## Abstract
 
-AEra-Gate introduces a novel approach to social media verification by combining cryptographic wallet signatures with behavioral analysis to create a "Resonance Score" - a dynamic, privacy-preserving proof-of-human metric. This system enables content creators and community builders to gate their social media accounts (starting with X/Twitter) with a human-verification layer that is bot-resistant, Sybil-resistant, and requires no KYC.
+VEra-Resonance introduces a novel approach to social media verification by combining cryptographic wallet signatures with behavioral analysis to create a "Resonance Score" - a dynamic, privacy-preserving proof-of-human metric. This system enables content creators and community builders to gate their social media accounts (starting with X/Twitter) with a human-verification layer that is bot-resistant, Sybil-resistant, and requires no KYC.
 
 ---
 
@@ -31,9 +31,9 @@ Current state of social media platforms:
 | **KYC** | Privacy invasion, regulatory burden |
 | **Manual Moderation** | Not scalable, subjective |
 
-### 1.3 The AEra-Gate Approach
+### 1.3 The VEra-Resonance Approach
 
-AEra-Gate solves this through:
+VEra-Resonance solves this through:
 1. **Cryptographic Proof-of-Ownership** (Wallet signatures)
 2. **Behavioral Resonance Scoring** (Pattern analysis)
 3. **On-Chain Activity Tracking** (Immutable verification trails)
@@ -47,7 +47,7 @@ AEra-Gate solves this through:
 
 ```
 ┌─────────────────────────────────────────────────┐
-│                  AEra-Gate Stack                │
+│              VEra-Resonance Stack               │
 ├─────────────────────────────────────────────────┤
 │  Frontend Layer    │ index.html, MetaMask SDK   │
 │  API Layer         │ FastAPI Backend (Python)   │
@@ -119,10 +119,10 @@ Account owners set minimum score for access:
 
 ### 4.1 Wallet Signature as Identity Proof
 
-Instead of traditional credentials, AEra-Gate uses:
+Instead of traditional credentials, VEra-Resonance uses:
 
 ```
-Message = "Sign this message to verify at AEra: Nonce: [random]"
+Message = "Sign this message to verify at VEra-Resonance: Nonce: [random]"
 Signature = eth_sign(Message, PrivateKey)
 ```
 
@@ -166,9 +166,9 @@ If SybilScore < Threshold → Score penalty
 
 #### Mini-Transfers as "Resonance Breadcrumbs":
 ```
-User registers from X    → +0.0001 AEra ("X-Register")
-User logs in from Web    → +0.0001 AEra ("Web-Login")
-User verifies from Telegram → +0.0001 AEra ("TG-Verify")
+User registers from X    → +0.0001 VEra ("X-Register")
+User logs in from Web    → +0.0001 VEra ("Web-Login")
+User verifies from Telegram → +0.0001 VEra ("TG-Verify")
 ```
 
 **Purpose:** Create an on-chain trail of authentic human activity.
@@ -195,7 +195,7 @@ A wallet with:
 X's private accounts filter who can *see* content, but not who can *request* to follow.
 
 **Solution:**
-AEra-Gate creates a "request filter":
+VEra-Resonance creates a "request filter":
 
 ```
 User sees private profile
@@ -205,19 +205,19 @@ User sees private profile
   → Owner manually or auto-approves
 ```
 
-### 6.2 Implementation Flow
+### 6.2 Implementation flow
 
 ```
 1. Account owner sets X account to private
-2. Adds AEra-Gate link to bio
-3. User clicks link → Lands on AEra-Gate page
+2. Adds VEra-Resonance link to bio
+3. User clicks link → Lands on VEra-Resonance page
 4. User connects wallet → Signs message
 5. Server verifies → Returns score
 6. User returns to X → Sends follow request
 7. Owner checks score → Approves if ≥threshold
 ```
 
-### 6.3 Benefits for X Account Owners
+### 6.3 Benefits for X account owners
 
 - **100% bot-free followers**
 - **Measurable engagement rates** (real humans only)
@@ -285,7 +285,7 @@ User sees private profile
    - **Price:** Custom
 
 3. **Token-Gated Features:**
-   - Holders of X AEra tokens get bonus features
+   - Holders of VEra tokens get bonus features
    - Not required, optional value-add
 
 ---
@@ -366,8 +366,8 @@ POST /api/verify-token    # Verify stored token for auto-login
 
 ## 11. Comparison with Alternatives
 
-| Feature | AEra-Gate | Worldcoin | BrightID | Gitcoin Passport |
-|---------|-----------|-----------|----------|------------------|
+| Feature | VEra-Resonance | Worldcoin | BrightID | Gitcoin Passport |
+|---------|---|-----------|----------|------------------|
 | **No KYC** | ✅ | ❌ (Iris scan) | ✅ | ✅ |
 | **No Hardware** | ✅ | ❌ (Orb) | ✅ | ✅ |
 | **Privacy** | High | Low | Medium | High |
@@ -411,7 +411,7 @@ POST /api/verify-token    # Verify stored token for auto-login
 
 ### 13.2 Future Governance
 
-- **DAO Structure:** AEra token holders vote on:
+- **DAO Structure:** VEra token holders vote on:
   - Algorithm parameters (score thresholds)
   - Platform features
   - Treasury allocation
@@ -446,13 +446,13 @@ POST /api/verify-token    # Verify stored token for auto-login
 
 ## 15. Conclusion
 
-AEra-Gate represents a paradigm shift in social media verification:
+VEra-Resonance represents a paradigm shift in social media verification:
 
 - **From credentials to cryptography**
 - **From KYC to privacy-first proof-of-human**
 - **From centralized to decentralized identity**
 
-By combining wallet signatures, behavioral analysis, and soulbound tokens, AEra-Gate creates a robust, scalable, and privacy-preserving solution to the bot crisis plaguing modern social media.
+By combining wallet signatures, behavioral analysis, and soulbound tokens, VEra-Resonance creates a robust, scalable, and privacy-preserving solution to the bot crisis plaguing modern social media.
 
 **Mission:** Enable authentic human connections in digital spaces.
 
@@ -471,19 +471,21 @@ By combining wallet signatures, behavioral analysis, and soulbound tokens, AEra-
 - "Social Graphs as Identity" - E. Glen Weyl
 
 ### Open Source
-- GitHub: [github.com/koal0308/AEra]
-- License: MIT
+- GitHub: [github.com/vera-resonanz/AEraLogin](https://github.com/vera-resonanz/AEraLogin)
+- License: Apache 2.0
 
 ---
 
 ## Contact & Community
 
 **Website:** [Coming Soon]
-**Twitter/X:** @AEraGate
+**Twitter/X:** @VeraResonanz
 **Discord:** [Join Server]
-**Email:** contact@aeragate.io
+**Email:** contact@vera-resonance.org
 
 ---
 
-**Version 1.0 | November 2025 | AEra-Gate Project**
+**Version 1.0 | November 21, 2025 | VEra-Resonance Project**
 *Building the future of human-verified digital communities*
+
+© 2025 Karlheinz Beismann — Apache License 2.0
