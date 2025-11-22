@@ -1,48 +1,20 @@
-<!--
-VEra-Resonance — Decentralized Proof-of-Human System
-© 2025 Karlheinz Beismann — VEra-Resonance Project
-Licensed under the Apache License, Version 2.0
-Platform: {{ platform_name }}
--->
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VEra-Resonance — {{ platform_name }}</title>
+    <title>AEra Login</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            background: {{ platform_gradient }};
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
         }
-        
-        /* Platform Badge */
-        .platform-badge {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: {{ platform_color }};
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-            animation: slideIn 0.5s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100px); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-        
         .container {
             background: white;
             border-radius: 12px;
@@ -50,29 +22,14 @@ Platform: {{ platform_name }}
             padding: 40px;
             max-width: 500px;
             width: 100%;
-            position: relative;
         }
         .header {
             text-align: center;
             margin-bottom: 30px;
         }
-        .logo { 
-            font-size: 48px; 
-            margin-bottom: 10px; 
-        }
-        .title { 
-            font-size: 24px; 
-            font-weight: bold; 
-            background: {{ platform_gradient }};
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 5px; 
-        }
-        .tagline { 
-            font-size: 12px; 
-            color: #999; 
-        }
+        .logo { font-size: 48px; margin-bottom: 10px; }
+        .title { font-size: 24px; font-weight: bold; color: #667eea; margin-bottom: 5px; }
+        .tagline { font-size: 12px; color: #999; }
         .button {
             width: 100%;
             padding: 14px;
@@ -83,13 +40,10 @@ Platform: {{ platform_name }}
             cursor: pointer;
             margin-bottom: 12px;
             transition: all 0.3s ease;
-            background: {{ platform_gradient }};
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
         }
-        .button:hover { 
-            transform: translateY(-2px); 
-            box-shadow: 0 8px 20px {{ platform_color }}66;
-        }
+        .button:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(102,126,234,0.4); }
         .button:disabled { 
             opacity: 0.5; 
             cursor: not-allowed;
@@ -108,8 +62,8 @@ Platform: {{ platform_name }}
         .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
         .status.info { background: #d1ecf1; color: #0c5460; border: 1px solid #bee5eb; }
         .info-box {
-            background: {{ platform_color }}11;
-            border-left: 4px solid {{ platform_color }};
+            background: #f0f7ff;
+            border-left: 4px solid #667eea;
             padding: 14px;
             border-radius: 6px;
             font-size: 13px;
@@ -135,7 +89,7 @@ Platform: {{ platform_name }}
         .detail-label { color: #666; font-weight: 600; }
         .detail-value { color: #333; text-align: right; flex: 1; margin-left: 10px; word-break: break-all; }
         .score-badge {
-            background: {{ platform_gradient }};
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             padding: 6px 14px;
             border-radius: 20px;
@@ -164,40 +118,12 @@ Platform: {{ platform_name }}
             display: none;
         }
         .debug-info.show { display: block; }
-        
-        /* Return button for platform-specific styling */
-        .return-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            margin-top: 12px;
-            padding: 8px 16px;
-            background: {{ platform_color }}22;
-            color: {{ platform_color }};
-            border: 1px solid {{ platform_color }};
-            border-radius: 8px;
-            text-decoration: none;
-            font-size: 13px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-        .return-button:hover {
-            background: {{ platform_color }};
-            color: white;
-        }
     </style>
 </head>
 <body>
-    <!-- Platform Badge (nur wenn nicht "direct") -->
-    {% if platform_source != "direct" %}
-    <div class="platform-badge">
-        {{ platform_emoji }} {{ platform_badge }}
-    </div>
-    {% endif %}
-    
     <div class="container">
         <div class="header">
-            <div class="logo">{{ platform_emoji }}</div>
+            <div class="logo">⚡</div>
             <div class="title">AEra Login</div>
             <div class="tagline">Proof of Human via Resonance</div>
         </div>
@@ -208,16 +134,9 @@ Platform: {{ platform_name }}
         
         <div id="status" class="status"></div>
         
-        <!-- Name Input Field -->
-        <div id="nameInputSection" style="display: none; margin-bottom: 16px;">
-            <label style="display: block; font-size: 12px; font-weight: 600; margin-bottom: 8px; color: #333;">👤 Dein Name (optional):</label>
-            <input type="text" id="nameInput" placeholder="z.B. Max Mustermann" style="width: 100%; padding: 12px; border: 2px solid #e0e0e0; border-radius: 8px; font-size: 14px; font-family: inherit;">
-        </div>
-        
         <div id="desktopView">
             <button id="connectBtn" class="button">🔗 Wallet Verbinden</button>
             <button id="verifyBtn" class="button" style="display: none;">✓ Verifizieren</button>
-            <button id="confirmFollowBtn" class="button" style="display: none; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);" disabled>📋 Follow Anfrage bestätigen</button>
             <button id="disconnectBtn" class="button" style="display: none; background: #999;">✕ Trennen</button>
         </div>
         
@@ -240,49 +159,13 @@ Platform: {{ platform_name }}
             </div>
         </div>
         
-        <!-- Return to platform button (nur für bekannte Plattformen) -->
-        {% if platform_source == "twitter" %}
-        <div style="text-align: center;">
-            <a href="https://twitter.com" class="return-button">
-                ← Zurück zu {{ platform_name }}
-            </a>
-        </div>
-        {% elif platform_source == "telegram" %}
-        <div style="text-align: center;">
-            <a href="https://t.me" class="return-button">
-                ← Zurück zu {{ platform_name }}
-            </a>
-        </div>
-        {% elif platform_source == "discord" %}
-        <div style="text-align: center;">
-            <a href="https://discord.com" class="return-button">
-                ← Zurück zu {{ platform_name }}
-            </a>
-        </div>
-        {% elif platform_source == "instagram" %}
-        <div style="text-align: center;">
-            <a href="https://instagram.com" class="return-button">
-                ← Zurück zu {{ platform_name }}
-            </a>
-        </div>
-        {% elif platform_source == "linkedin" %}
-        <div style="text-align: center;">
-            <a href="https://linkedin.com" class="return-button">
-                ← Zurück zu {{ platform_name }}
-            </a>
-        </div>
-        {% endif %}
-        
         <div id="debugInfo" class="debug-info"></div>
         
-        <div class="footer">
-            AEra Login © 2025 | Powered by {{ platform_name }}
-        </div>
+        <div class="footer">AEra Login © 2025 | CC BY-NC-SA 4.0</div>
     </div>
     
     <script>
         const API_BASE = window.location.origin;
-        const PLATFORM = "{{ platform_source }}";
         
         let connectBtn, verifyBtn, disconnectBtn, statusDiv, detailsDiv, debugInfo;
         let currentAddress = null;
@@ -290,20 +173,16 @@ Platform: {{ platform_name }}
         
         function log(msg) {
             console.log('[AEra]', msg);
-            if (debugInfo) {
-                debugInfo.classList.add('show');
-                debugInfo.innerHTML = msg + '<br>' + debugInfo.innerHTML;
-                if (debugInfo.children.length > 50) {
-                    debugInfo.innerHTML = debugInfo.innerHTML.substring(0, debugInfo.innerHTML.lastIndexOf('<br>', debugInfo.innerHTML.length - 100));
-                }
+            debugInfo.classList.add('show');
+            debugInfo.innerHTML = msg + '<br>' + debugInfo.innerHTML;
+            if (debugInfo.children.length > 50) {
+                debugInfo.innerHTML = debugInfo.innerHTML.substring(0, debugInfo.innerHTML.lastIndexOf('<br>', debugInfo.innerHTML.length - 100));
             }
         }
         
         function showStatus(message, type = 'info') {
-            if (statusDiv) {
-                statusDiv.textContent = message;
-                statusDiv.className = `status ${type} show`;
-            }
+            statusDiv.textContent = message;
+            statusDiv.className = `status ${type} show`;
             log(`[${type}] ${message}`);
         }
         
@@ -318,26 +197,34 @@ Platform: {{ platform_name }}
             try {
                 log('🔐 Versuche Auto-Login mit echtem MetaMask-Check...');
                 
+                // ===== STRIKTE BLOCKADE: ECHTE METAMASK PRÜFUNG =====
                 if (typeof window.ethereum === 'undefined') {
-                    log('❌ MetaMask nicht installiert - Auto-Login blockiert');
+                    log('❌❌❌ MetaMask NICHT INSTALLIERT - Auto-Login BLOCKIERT');
                     localStorage.removeItem('aera_token');
                     localStorage.removeItem('aera_address');
+                    showStatus('❌ MetaMask nicht installiert! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
+                // ECHTE Prüfung mit eth_requestAccounts (nicht eth_accounts!)
                 let accounts = [];
                 try {
-                    // WICHTIG: eth_accounts LIEST nur die Accounts, öffnet KEIN Popup!
-                    accounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    log('⏳ Fordere eth_requestAccounts an...');
+                    accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 } catch (e) {
-                    log('❌ MetaMask nicht aktiv: ' + e.message);
+                    log('❌❌❌ eth_requestAccounts fehlgeschlagen: ' + e.message);
+                    log('    → MetaMask ist nicht aktiv oder wurde abgelehnt');
                     localStorage.removeItem('aera_token');
                     localStorage.removeItem('aera_address');
+                    showStatus('❌ MetaMask nicht aktiv! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
                 if (!accounts || accounts.length === 0) {
-                    log('ℹ️ Keine Wallet-Konten verfügbar - User muss manuell verbinden');
+                    log('❌❌❌ Keine Wallet-Konten verfügbar - Auto-Login BLOCKIERT');
+                    localStorage.removeItem('aera_token');
+                    localStorage.removeItem('aera_address');
+                    showStatus('❌ Keine Wallet verbunden! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
@@ -345,15 +232,20 @@ Platform: {{ platform_name }}
                 const savedWallet = savedAddress.toLowerCase();
                 
                 if (currentWallet !== savedWallet) {
-                    log('❌ WALLET MISMATCH - Auto-Login blockiert');
+                    log('❌❌❌ WALLET MISMATCH - Auto-Login BLOCKIERT (SafeWallet-Modus)');
+                    log(`   Registriert: ${savedWallet}`);
+                    log(`   Aktuell: ${currentWallet}`);
                     localStorage.removeItem('aera_token');
                     localStorage.removeItem('aera_address');
+                    showStatus('❌ Falsche Wallet! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
-                log('✓ MetaMask-Sicherheitsprüfung bestanden');
+                log('✓ MetaMask-Sicherheitsprüfung bestanden!');
                 
-                // Nonce anfordern
+                // ===== NEUE SIGNATUR-VERIFIKATION AUCH FÜR AUTO-LOGIN =====
+                log('📋 Schritt 1: Nonce vom Server anfordern...');
+                
                 const nonceResponse = await fetch(`${API_BASE}/api/nonce`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -367,9 +259,11 @@ Platform: {{ platform_name }}
                 if (!nonceData.success) throw new Error('Nonce generation failed');
                 
                 const messageToSign = nonceData.message;
-                log('✓ Nonce empfangen');
+                log('✓ Nonce empfangen: ' + nonceData.nonce);
                 
-                // MetaMask Signatur
+                // ===== SCHRITT 2: METAMASK SIGNATUR ANFORDERN =====
+                log('🔐 Schritt 2: Fordere MetaMask zum Signieren auf...');
+                
                 let signature;
                 try {
                     signature = await window.ethereum.request({
@@ -377,22 +271,26 @@ Platform: {{ platform_name }}
                         params: [messageToSign, currentWallet]
                     });
                 } catch (signError) {
-                    log('❌ Signierung abgelehnt: ' + signError.message);
+                    log('❌❌❌ MetaMask Signierung abgelehnt: ' + signError.message);
                     localStorage.removeItem('aera_token');
                     localStorage.removeItem('aera_address');
+                    showStatus('❌ MetaMask Signierung abgelehnt! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
                 if (!signature) {
-                    log('❌ Keine Signatur erhalten');
+                    log('❌❌❌ Keine Signatur von MetaMask - Auto-Login BLOCKIERT');
                     localStorage.removeItem('aera_token');
                     localStorage.removeItem('aera_address');
+                    showStatus('❌ Keine Signatur erhalten! Auto-Login BLOCKIERT', 'error');
                     return false;
                 }
                 
                 log('✓ Signatur erhalten');
                 
-                // Token verifizieren
+                // ===== SCHRITT 3: TOKEN + SIGNATUR AN SERVER SENDEN =====
+                log('✓ Schritt 3: Verifiziere auf dem Server...');
+                
                 const response = await fetch(`${API_BASE}/api/verify-token`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -408,6 +306,13 @@ Platform: {{ platform_name }}
                 
                 const data = await response.json();
                 
+                if (!data.valid && data.error) {
+                    log('⚠️ Token-Verifikation: ' + data.error);
+                    localStorage.removeItem('aera_token');
+                    localStorage.removeItem('aera_address');
+                    return false;
+                }
+                
                 if (!data.valid) {
                     log('⚠️ Token ungültig oder abgelaufen');
                     localStorage.removeItem('aera_token');
@@ -418,7 +323,7 @@ Platform: {{ platform_name }}
                 currentAddress = data.address;
                 currentToken = savedToken;
                 
-                log('✅ Auto-Login erfolgreich!');
+                log('✓✓✓ Auto-Login ERFOLGREICH mit Signatur-Verifikation!');
                 showStatus(`✓ Auto-Login erfolgreich`, 'success');
                 
                 document.getElementById('addressValue').textContent = currentAddress;
@@ -446,46 +351,72 @@ Platform: {{ platform_name }}
             try {
                 log('⏳ Wallet-Verbindung startet...');
                 
+                // ===== CHECK 1: MetaMask installiert? =====
                 if (typeof window.ethereum === 'undefined') {
-                    log('❌ MetaMask nicht installiert');
-                    showStatus('❌ MetaMask nicht installiert!', 'error');
+                    log('❌❌❌ MetaMask NICHT INSTALLIERT');
+                    showStatus('❌ MetaMask nicht installiert! Login BLOCKIERT', 'error');
                     return;
                 }
                 
                 connectBtn.disabled = true;
                 
-                log('🔍 MetaMask-Verbindung wird aufgebaut...');
-                showStatus('⏳ Warte auf MetaMask...', 'info');
+                // ===== CHECK 2: Ist MetaMask WIRKLICH offen/aktiv? =====
+                log('🔍 Überprüfe ob MetaMask WIRKLICH aktiv ist...');
+                
+                // Versuche zuerst eth_accounts (schnell, cached)
+                let cachedAccounts = [];
+                try {
+                    cachedAccounts = await window.ethereum.request({ method: 'eth_accounts' });
+                    log('ℹ️  Cached Accounts gefunden: ' + (cachedAccounts.length > 0 ? '✓' : '❌'));
+                } catch (e) {
+                    log('⚠️ eth_accounts fehlgeschlagen (OK, ist optional)');
+                }
+                
+                // Jetzt ERZWINGE echte Verbindung mit eth_requestAccounts
+                // Das Popup wird SICHTBAR gezeigt wenn MetaMask offen ist
+                log('⏳ Warte auf MetaMask-Popup (muss SICHTBAR erscheinen!)...');
+                showStatus('⏳ MetaMask-Popup sollte oben rechts sichtbar sein!', 'info');
                 
                 let accounts = [];
                 try {
-                    accounts = await window.ethereum.request({ 
+                    // WICHTIG: timeout=5000 bedeutet "wenn keine Antwort in 5s, dann Error"
+                    // Das verhindert dass gecachte Werte akzeptiert werden
+                    const requestPromise = window.ethereum.request({ 
                         method: 'eth_requestAccounts'
                     });
+                    
+                    // Set timeout um sicherzustellen dass MetaMask wirklich antwortet
+                    const timeoutPromise = new Promise((_, reject) => 
+                        setTimeout(() => reject(new Error('MetaMask antwortete nicht - ist es offen?')), 8000)
+                    );
+                    
+                    accounts = await Promise.race([requestPromise, timeoutPromise]);
+                    
                 } catch (popupError) {
-                    log('❌ MetaMask Popup abgelehnt: ' + popupError.message);
-                    showStatus('❌ MetaMask nicht verfügbar!', 'error');
+                    log('❌❌❌ MetaMask Popup abgelehnt oder nicht verfügbar:');
+                    log('    Error: ' + popupError.message);
+                    log('    → MetaMask MUSS offen/aktiv sein!');
+                    showStatus('❌ MetaMask nicht verfügbar! Bitte MetaMask öffnen und versuchen Sie es erneut.', 'error');
                     connectBtn.disabled = false;
                     return;
                 }
                 
                 if (!accounts || accounts.length === 0) {
-                    log('❌ Keine Wallet in MetaMask');
-                    showStatus('❌ Keine Wallet gefunden!', 'error');
+                    log('❌❌❌ Keine Wallet-Konten nach eth_requestAccounts');
+                    log('    → Keine Wallet in MetaMask verbunden!');
+                    showStatus('❌ Keine Wallet in MetaMask gefunden! Login BLOCKIERT', 'error');
                     connectBtn.disabled = false;
                     return;
                 }
                 
                 currentAddress = accounts[0];
-                log('✅ MetaMask verbunden: ' + currentAddress);
+                log('✓✓✓ MetaMask ECHTE Verbindung bestätigt mit: ' + currentAddress);
+                log('    (Popup wurde angezeigt und User hat bestätigt)');
                 
-                showStatus(`✓ Wallet verbunden. Jetzt "Verifizieren" klicken!`, 'success');
+                showStatus(`✓ Wallet verbunden (MetaMask AKTIV). Jetzt "Verifizieren" klicken!`, 'success');
                 
                 document.getElementById('addressValue').textContent = currentAddress;
                 document.getElementById('statusValue').textContent = '🔗 Verbunden';
-                
-                // Show name input field
-                document.getElementById('nameInputSection').style.display = 'block';
                 
                 connectBtn.style.display = 'none';
                 verifyBtn.style.display = 'block';
@@ -493,8 +424,10 @@ Platform: {{ platform_name }}
                 disconnectBtn.style.display = 'block';
                 detailsDiv.classList.add('show');
                 
+                log('✅ Button "Verifizieren" ist jetzt aktiv!');
+                
             } catch (error) {
-                log('❌ connectWallet: ' + error.message);
+                log('❌ connectWallet Exception: ' + error.message);
                 showStatus('❌ Fehler: ' + error.message, 'error');
                 connectBtn.disabled = false;
             }
@@ -506,51 +439,48 @@ Platform: {{ platform_name }}
                 return;
             }
             
-            // Check if name is provided
-            const nameInput = document.getElementById('nameInput').value.trim();
-            if (!nameInput) {
-                log('❌ Bitte gib deinen Namen ein!');
-                showStatus('❌ Bitte gib deinen Namen ein!', 'error');
-                document.getElementById('nameInput').focus();
-                document.getElementById('nameInput').style.borderColor = '#ff6b6b';
-                return;
-            }
-            
             try {
+                // ===== STRIKTE METAMASK CHECK AUCH BEI VERIFY - NUTZE eth_requestAccounts =====
                 if (typeof window.ethereum === 'undefined') {
-                    log('❌ MetaMask nicht verfügbar');
-                    showStatus('❌ MetaMask nicht verfügbar!', 'error');
+                    log('❌❌❌ MetaMask wurde entfernt/deinstalliert - VERIFY BLOCKIERT');
+                    showStatus('❌ MetaMask nicht verfügbar! VERIFY BLOCKIERT', 'error');
                     return;
                 }
                 
-                log('🔐 Sicherheitsprüfung...');
+                log('🔐 SICHERHEITSPRÜFUNG: Verifiziere dass MetaMask NOCH aktiv ist...');
                 
+                // Prüfe JETZT ob MetaMask ECHTE noch aktiv ist
                 let accounts = [];
                 try {
                     accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
                 } catch (e) {
-                    log('❌ MetaMask nicht aktiv: ' + e.message);
-                    showStatus('❌ MetaMask nicht aktiv!', 'error');
+                    log('❌❌❌ eth_requestAccounts fehlgeschlagen: ' + e.message);
+                    showStatus('❌ MetaMask nicht verfügbar! VERIFY BLOCKIERT', 'error');
                     return;
                 }
                 
                 if (!accounts || accounts.length === 0) {
-                    log('❌ Keine Wallet verfügbar');
-                    showStatus('❌ MetaMask nicht aktiv!', 'error');
+                    log('❌❌❌ Keine Wallet nach eth_requestAccounts - VERIFY BLOCKIERT');
+                    showStatus('❌ MetaMask nicht aktiv! VERIFY BLOCKIERT', 'error');
                     return;
                 }
                 
+                // Prüfe ob es NOCH die gleiche Wallet ist
                 if (accounts[0].toLowerCase() !== currentAddress.toLowerCase()) {
-                    log('❌ Wallet gewechselt');
-                    showStatus('❌ Wallet wurde gewechselt!', 'error');
+                    log('❌❌❌ WALLET GEWECHSELT - VERIFY BLOCKIERT');
+                    log(`   Ursprüngliche: ${currentAddress}`);
+                    log(`   Aktuelle: ${accounts[0]}`);
+                    showStatus('❌ Wallet wurde gewechselt! VERIFY BLOCKIERT', 'error');
                     return;
                 }
                 
-                log('✓ Sicherheitsprüfung bestanden');
+                log('✓✓✓ MetaMask Sicherheitsprüfung (eth_requestAccounts) bestanden!');
                 verifyBtn.disabled = true;
-                showStatus('⏳ Verifizierung läuft...', 'info');
+                showStatus('⏳ Verifizierung läuft... (bitte auf MetaMask Popup warten)', 'info');
                 
-                // Nonce anfordern
+                // ===== NEUE SIGNATUR-VERIFIKATION (KRYPTOGRAPHISCH SICHER) =====
+                log('📋 Schritt 1: Nonce vom Server anfordern...');
+                
                 const nonceResponse = await fetch(`${API_BASE}/api/nonce`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -564,9 +494,13 @@ Platform: {{ platform_name }}
                 if (!nonceData.success) throw new Error('Nonce generation failed');
                 
                 const messageToSign = nonceData.message;
-                log('✓ Nonce empfangen');
+                log('✓ Nonce empfangen: ' + nonceData.nonce);
+                log('📝 Nachricht zum Signieren (du wirst das in MetaMask sehen):');
+                log(messageToSign);
                 
-                // MetaMask Signatur
+                // ===== SCHRITT 2: METAMASK SIGNATUR ANFORDERN =====
+                log('🔐 Schritt 2: Fordere MetaMask zum Signieren auf...');
+                
                 let signature;
                 try {
                     signature = await window.ethereum.request({
@@ -574,51 +508,33 @@ Platform: {{ platform_name }}
                         params: [messageToSign, currentAddress]
                     });
                 } catch (signError) {
-                    log('❌ Signierung abgelehnt: ' + signError.message);
-                    showStatus('❌ Signierung abgelehnt!', 'error');
+                    log('❌❌❌ MetaMask Signierung abgelehnt oder fehlgeschlagen: ' + signError.message);
+                    showStatus('❌ MetaMask Signierung abgelehnt! VERIFY BLOCKIERT', 'error');
                     verifyBtn.disabled = false;
                     return;
                 }
                 
                 if (!signature) {
-                    log('❌ Keine Signatur erhalten');
-                    showStatus('❌ Keine Signatur!', 'error');
+                    log('❌❌❌ Keine Signatur von MetaMask - VERIFY BLOCKIERT');
+                    showStatus('❌ Keine Signatur erhalten! VERIFY BLOCKIERT', 'error');
                     verifyBtn.disabled = false;
                     return;
                 }
                 
-                log('✓ Signatur erhalten');
+                log('✓ Signatur erhalten: ' + signature.substring(0, 20) + '...');
                 
-                // Get owner parameter from URL if present
-                const urlParams = new URLSearchParams(window.location.search);
-                const ownerParam = urlParams.get('owner');
-                
-                // Verifizieren
-                const verifyPayload = {
-                    address: currentAddress,
-                    nonce: nonceData.nonce,
-                    message: messageToSign,
-                    signature: signature,
-                    display_name: nameInput  // NEW: Include user-provided name
-                };
-                
-                // Add owner if provided (for follower tracking)
-                if (ownerParam) {
-                    verifyPayload.owner = ownerParam;
-                    log(`👥 Owner Account: ${ownerParam.substring(0, 10)}...`);
-                }
-                
-                // Add source platform from URL or use PLATFORM constant
-                const sourceParam = new URLSearchParams(window.location.search).get('source');
-                if (sourceParam) {
-                    verifyPayload.source = sourceParam;
-                    log(`📱 Platform Source: ${sourceParam}`);
-                }
+                // ===== SCHRITT 3: SIGNATUR AN SERVER SENDEN =====
+                log('✓ Schritt 3: Verifiziere Signatur auf dem Server...');
                 
                 const response = await fetch(`${API_BASE}/api/verify`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(verifyPayload),
+                    body: JSON.stringify({
+                        address: currentAddress,
+                        nonce: nonceData.nonce,
+                        message: messageToSign,
+                        signature: signature
+                    }),
                     signal: AbortSignal.timeout(5000)
                 });
                 
@@ -629,36 +545,32 @@ Platform: {{ platform_name }}
                 if (data.error) throw new Error(data.error);
                 if (!data.is_human) throw new Error('Signaturverifikation fehlgeschlagen');
                 
-                log('✅ Verifizierung erfolgreich!');
+                log('✓✓✓ Signatur VERIFIZIERT - Login AUTORISIERT!');
                 
                 document.getElementById('scoreValue').innerHTML = 
                     `<span class="score-badge">${data.resonance_score}/100</span>`;
                 document.getElementById('statusValue').textContent = '✅ Verifiziert';
                 document.getElementById('loginCountValue').textContent = data.login_count;
                 
-                showStatus(`✓ Score: ${data.resonance_score}/100`, 'success');
+                showStatus(`✓ Score: ${data.resonance_score}/100 - Login erfolgreich!`, 'success');
                 verifyBtn.textContent = '✓ Verifiziert';
-                verifyBtn.disabled = true;
-                
-                // Enable follow confirmation button if owner is present
-                if (ownerParam) {
-                    const confirmBtn = document.getElementById('confirmFollowBtn');
-                    confirmBtn.style.display = 'block';
-                    confirmBtn.disabled = false;
-                    log('✓ Follow-Bestätigung verfügbar');
-                }
                 
                 if (data.token) {
                     currentToken = data.token;
                     localStorage.setItem('aera_token', data.token);
                     localStorage.setItem('aera_address', currentAddress);
-                    log('💾 Token gespeichert');
+                    log('💾 Token gespeichert (können später Auto-Login machen)');
+                }
+                
+                if (data.message && data.message.includes('Airdrop')) {
+                    showStatus(data.message, 'success');
+                    log('🎁 ' + data.message);
                 }
                 
             } catch (error) {
                 log('❌ Fehler: ' + error.message);
                 showStatus('Fehler: ' + error.message, 'error');
-                verifyBtn.textContent = '✓ Verifizieren';
+                verifyBtn.textContent = '✓ Verifizieren';  // Reset button text
             } finally {
                 verifyBtn.disabled = false;
             }
@@ -676,11 +588,6 @@ Platform: {{ platform_name }}
             document.getElementById('scoreValue').textContent = '—';
             document.getElementById('loginCountValue').textContent = '—';
             
-            // Hide name input
-            document.getElementById('nameInputSection').style.display = 'none';
-            document.getElementById('nameInput').value = '';
-            document.getElementById('nameInput').style.borderColor = '#e0e0e0';
-            
             connectBtn.style.display = 'block';
             verifyBtn.style.display = 'none';
             disconnectBtn.style.display = 'none';
@@ -692,53 +599,6 @@ Platform: {{ platform_name }}
             log('🗑️ Session gelöscht');
         }
         
-        async function confirmFollow() {
-            if (!currentAddress) {
-                log('❌ Keine Wallet verbunden');
-                return;
-            }
-            
-            const urlParams = new URLSearchParams(window.location.search);
-            const ownerParam = urlParams.get('owner');
-            
-            if (!ownerParam) {
-                log('❌ Kein Owner in URL');
-                return;
-            }
-            
-            const confirmBtn = document.getElementById('confirmFollowBtn');
-            confirmBtn.disabled = true;
-            showStatus('⏳ Follow-Anfrage wird bestätigt...', 'info');
-            
-            try {
-                const response = await fetch(`${API_BASE}/admin/confirm-follower`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        owner: ownerParam,
-                        follower: currentAddress
-                    }),
-                    signal: AbortSignal.timeout(5000)
-                });
-                
-                if (!response.ok) throw new Error(`HTTP ${response.status}`);
-                
-                const data = await response.json();
-                
-                if (!data.success) throw new Error(data.error || 'Follow confirmation failed');
-                
-                log('✅ Follow-Anfrage bestätigt!');
-                showStatus('✅ Follow-Anfrage bestätigt! 🎉', 'success');
-                confirmBtn.textContent = '✓ Bestätigt';
-                confirmBtn.disabled = true;
-                
-            } catch (error) {
-                log('❌ Fehler: ' + error.message);
-                showStatus('❌ Fehler: ' + error.message, 'error');
-                confirmBtn.disabled = false;
-            }
-        }
-        
         document.addEventListener('DOMContentLoaded', function() {
             try {
                 connectBtn = document.getElementById('connectBtn');
@@ -748,41 +608,24 @@ Platform: {{ platform_name }}
                 detailsDiv = document.getElementById('details');
                 debugInfo = document.getElementById('debugInfo');
                 
-                log(`=== AEra Login (${PLATFORM}) ===`);
+                log('=== AEra Login Minimal gestartet ===');
                 log('API: ' + API_BASE);
-                log('Platform: {{ platform_name }}');
                 
                 connectBtn.addEventListener('click', connectWallet);
                 verifyBtn.addEventListener('click', verifyWallet);
                 disconnectBtn.addEventListener('click', disconnectWallet);
                 
-                // Add event listener for confirm follow button
-                const confirmFollowBtn = document.getElementById('confirmFollowBtn');
-                if (confirmFollowBtn) {
-                    confirmFollowBtn.addEventListener('click', confirmFollow);
-                }
-                
-                // Auto-Login versuchen (ABER NICHT bei Follower-Links!)
+                // ===== VERSUCHE AUTO-LOGIN (ABER NICHT BLOCKIEREND) =====
+                // Die echte Blockade kommt durch eth_requestAccounts in connectWallet() und verifyWallet()
                 (async () => {
-                    const urlParams = new URLSearchParams(window.location.search);
-                    const ownerParam = urlParams.get('owner');
-                    
-                    // Bei Follower-Links: Kein Auto-Login, immer frischer Start
-                    if (ownerParam) {
-                        log('📋 Follower-Link erkannt - kein Auto-Login, frischer Start');
-                        // Clear any old tokens for clean experience
-                        localStorage.removeItem('aera_token');
-                        localStorage.removeItem('aera_address');
-                        return;
-                    }
-                    
                     if (typeof window.ethereum !== 'undefined') {
                         log('MetaMask installiert - versuche Auto-Login...');
+                        
                         setTimeout(async () => {
                             try {
                                 await autoLoginWithToken();
                             } catch (error) {
-                                log('❌ Auto-Login: ' + error.message);
+                                log('❌ Auto-Login Exception: ' + error.message);
                             }
                         }, 300);
                     } else {

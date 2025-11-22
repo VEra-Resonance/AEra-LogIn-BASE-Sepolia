@@ -203,7 +203,7 @@ Platform: {{ platform_name }}
         </div>
         
         <div class="info-box">
-            💡 Verbinde deine Wallet – ohne KYC, ohne Klardaten, ohne Datenverlust
+            💡 Connect your wallet – no KYC, no personal data, no data loss
         </div>
         
         <div id="status" class="status"></div>
@@ -479,7 +479,7 @@ Platform: {{ platform_name }}
                 currentAddress = accounts[0];
                 log('✅ MetaMask verbunden: ' + currentAddress);
                 
-                showStatus(`✓ Wallet verbunden. Jetzt "Verifizieren" klicken!`, 'success');
+                showStatus(`✓ Wallet connected. Now click "Verify"!`, 'success');
                 
                 document.getElementById('addressValue').textContent = currentAddress;
                 document.getElementById('statusValue').textContent = '🔗 Verbunden';
@@ -708,7 +708,7 @@ Platform: {{ platform_name }}
             
             const confirmBtn = document.getElementById('confirmFollowBtn');
             confirmBtn.disabled = true;
-            showStatus('⏳ Follow-Anfrage wird bestätigt...', 'info');
+            showStatus('...', 'info');
             
             try {
                 const response = await fetch(`${API_BASE}/admin/confirm-follower`, {
@@ -744,7 +744,7 @@ Platform: {{ platform_name }}
                 connectBtn = document.getElementById('connectBtn');
                 verifyBtn = document.getElementById('verifyBtn');
                 disconnectBtn = document.getElementById('disconnectBtn');
-                statusDiv = document.getElementById('status');
+                statusDiv = document.getElementById('status');⏳ Follow-Anfrage wird bestätigt
                 detailsDiv = document.getElementById('details');
                 debugInfo = document.getElementById('debugInfo');
                 

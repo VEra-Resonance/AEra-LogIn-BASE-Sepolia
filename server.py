@@ -428,7 +428,10 @@ async def root(request: Request):
     Only ONE template, dynamically styled!
     """
     referrer = request.headers.get("referer", request.headers.get("referrer", ""))
-    referrer_source = extract_referrer_source(referrer)
+    
+    # WICHTIG: URL-Parameter "source" hat PRIORITÄT vor Referrer-Header!
+    url_source = request.query_params.get("source", "").strip().lower()
+    referrer_source = url_source if url_source else extract_referrer_source(referrer)
     
     # Get platform config or default
     platform = PLATFORM_CONFIG.get(referrer_source, PLATFORM_CONFIG["direct"])
@@ -566,7 +569,11 @@ async def verify(req: Request):
         referrer = req.headers.get("referer", req.headers.get("referrer", ""))
         user_agent = req.headers.get("user-agent", "")
         client_ip = req.client.host if req.client else "unknown"
-        referrer_source = extract_referrer_source(referrer)
+        
+        # PRIORITÄT: POST-Body "source" > URL-Parameter "source" > Referrer-Header
+        source_from_body = data.get("source", "").strip().lower()
+        url_source = req.query_params.get("source", "").strip().lower()
+        referrer_source = source_from_body if source_from_body else (url_source if url_source else extract_referrer_source(referrer))
         
         log_activity("INFO", "AUTH", "Verify request received", 
                     address=address[:10], 
@@ -656,6 +663,44 @@ async def verify(req: Request):
                         new_score=new_score, 
                         login_count=login_count,
                         referrer=referrer_source)
+            
+            # NEW: Auch bei existierenden User-Logins: Follower-Eintrag erstellen wenn owner_wallet vorhanden
+            if owner_wallet:
+                try:
+                    # Prüfe ob dieser Follower auf dieser Plattform bereits existiert
+                    cursor.execute(
+                        """SELECT id FROM followers 
+                           WHERE owner_wallet = ? AND follower_address = ? AND source_platform = ?""",
+                        (owner_wallet, address, referrer_source)
+                    )
+                    existing = cursor.fetchone()
+                    
+                    if existing:
+                        # Update: Nur Score und Timestamp aktualisieren
+                        cursor.execute(
+                            """UPDATE followers 
+                               SET follower_score = ?, verified_at = ?
+                               WHERE owner_wallet = ? AND follower_address = ? AND source_platform = ?""",
+                            (new_score, current_iso, owner_wallet, address, referrer_source)
+                        )
+                        log_activity("INFO", "FOLLOWER", "✓ Follower score updated", 
+                                    owner=owner_wallet[:10], 
+                                    follower=address[:10], 
+                                    source=referrer_source)
+                    else:
+                        # Insert: Neuer Follower-Eintrag für diese Plattform
+                        cursor.execute(
+                            """INSERT INTO followers 
+                               (owner_wallet, follower_address, follower_score, follower_display_name, verified_at, source_platform, verified)
+                               VALUES (?, ?, ?, ?, ?, ?, ?)""",
+                            (owner_wallet, address, new_score, display_name or None, current_iso, referrer_source, 1)
+                        )
+                        log_activity("INFO", "FOLLOWER", "✓ New follower registered (multi-platform)", 
+                                    owner=owner_wallet[:10], 
+                                    follower=address[:10], 
+                                    source=referrer_source)
+                except Exception as e:
+                    log_activity("WARNING", "FOLLOWER", f"Could not create/update follower entry: {str(e)}")
             
         else:
             # Neuer Benutzer
@@ -1009,6 +1054,128 @@ async def get_airdrop_status(address: str):
         
     except Exception as e:
         return {"error": str(e)}
+
+# 🔐 SECURITY: Challenge-Response Authentication for Dashboard
+# Requires ACTIVE MetaMask confirmation via personal_sign
+dashboard_challenges = {}  # {address: {nonce, timestamp}}
+
+@app.post("/admin/challenge")
+async def get_dashboard_challenge(data: dict):
+    """
+    🔐 SECURITY: Get a challenge to sign with MetaMask (personal_sign)
+    
+    This requires:
+    - ACTIVE MetaMask confirmation (cannot be bypassed)
+    - User MUST click "Sign" in MetaMask every time
+    - Even if MetaMask is unlocked
+    
+    Request body: {"owner": "0x..."}
+    Response: {"success": true, "nonce": "...", "message": "..."}
+    """
+    try:
+        import secrets
+        
+        owner = data.get("owner", "").lower()
+        
+        if not owner or not owner.startswith("0x") or len(owner) != 42:
+            return {"success": False, "error": "Invalid owner wallet"}
+        
+        # Generate unique nonce
+        nonce = secrets.token_hex(16)
+        
+        # Store challenge with timestamp (5 min expiry)
+        dashboard_challenges[owner] = {
+            "nonce": nonce,
+            "timestamp": time.time(),
+            "expiry": 300
+        }
+        
+        log_activity("INFO", "AUTH", "Dashboard challenge created", owner=owner[:10], nonce=nonce[:10])
+        
+        return {
+            "success": True,
+            "nonce": nonce,
+            "message": "🔐 Sign this in MetaMask to access your dashboard"
+        }
+    except Exception as e:
+        log_activity("ERROR", "AUTH", "Challenge creation failed", error=str(e))
+        return {"success": False, "error": str(e)}
+
+@app.post("/admin/verify-signature")
+async def verify_dashboard_signature(data: dict):
+    """
+    🔐 SECURITY: Verify personal_sign signature
+    
+    Request body:
+        {
+            "owner": "0x...",
+            "signature": "0x...",
+            "nonce": "..."
+        }
+    
+    Response:
+        {
+            "success": true,
+            "verified": true,
+            "message": "✓ Verified"
+        }
+    """
+    try:
+        from eth_account.messages import encode_defunct
+        from eth_account import Account
+        
+        owner = data.get("owner", "").lower()
+        signature = data.get("signature", "")
+        nonce = data.get("nonce", "")
+        
+        if not owner or not signature or not nonce:
+            return {"success": False, "error": "owner, signature, and nonce required"}
+        
+        # Get stored challenge
+        if owner not in dashboard_challenges:
+            log_activity("WARNING", "AUTH", "No challenge found", owner=owner[:10])
+            return {"success": False, "error": "No challenge found. Request a new one."}
+        
+        challenge_data = dashboard_challenges[owner]
+        
+        # Verify nonce matches
+        if challenge_data["nonce"] != nonce:
+            log_activity("WARNING", "AUTH", "Nonce mismatch", owner=owner[:10])
+            return {"success": False, "error": "Invalid nonce"}
+        
+        # Check if challenge expired (5 minutes)
+        if time.time() - challenge_data["timestamp"] > challenge_data["expiry"]:
+            del dashboard_challenges[owner]
+            log_activity("WARNING", "AUTH", "Challenge expired", owner=owner[:10])
+            return {"success": False, "error": "Challenge expired"}
+        
+        # Verify signature
+        try:
+            messageToSign = f"VEra-Resonance Dashboard Access\n\nNonce: {nonce}\n\nBitte bestätigen Sie in MetaMask um auf Ihr Dashboard zuzugreifen."
+            message = encode_defunct(text=messageToSign)
+            recovered_address = Account.recover_message(message, signature=signature).lower()
+        except Exception as e:
+            log_activity("ERROR", "AUTH", "Signature recovery failed", owner=owner[:10], error=str(e))
+            return {"success": False, "error": f"Invalid signature: {str(e)}"}
+        
+        # Check if signature matches owner
+        if recovered_address != owner:
+            log_activity("WARNING", "AUTH", "Signature mismatch", expected=owner[:10], got=recovered_address[:10])
+            return {"success": False, "error": "Signature mismatch"}
+        
+        # Verified! Delete challenge (one-time use)
+        del dashboard_challenges[owner]
+        
+        log_activity("INFO", "AUTH", "✓ Dashboard signature verified", owner=owner[:10])
+        
+        return {
+            "success": True,
+            "verified": True,
+            "message": "✓ Verified - Dashboard access granted"
+        }
+    except Exception as e:
+        log_activity("ERROR", "AUTH", "Signature verification failed", error=str(e))
+        return {"success": False, "error": str(e)}
 
 @app.get("/admin/followers")
 async def get_followers_dashboard(req: Request):

@@ -398,9 +398,19 @@ Licensed under the Apache License, Version 2.0
                 return;
             }
             
+            // ✅ Check if user already connected with MetaMask
+            if (!dashboardToken || connectedWallet !== owner) {
+                statusDiv.innerHTML = '<div class="status error">❌ Please connect MetaMask first (🦊 Connect MetaMask button)</div>';
+                return;
+            }
+            
             statusDiv.innerHTML = '<div class="status loading"><span class="loading"></span> Loading dashboard...</div>';
             
             try {
+                // ✅ No MetaMask needed here - user already verified via connectMetaMask()
+                // Just load the dashboard
+                console.log('� Loading dashboard with stored token...');
+                
                 const response = await fetch(`${API_BASE}/admin/followers?owner=${owner}`);
                 const data = await response.json();
                 
@@ -410,8 +420,10 @@ Licensed under the Apache License, Version 2.0
                 
                 displayDashboard(data);
                 statusDiv.innerHTML = '<div class="status success">✓ Dashboard loaded successfully</div>';
+                console.log('✓ Dashboard loaded!');
                 
             } catch (error) {
+                console.error('❌ Error:', error);
                 statusDiv.innerHTML = `<div class="status error">❌ Error: ${error.message}</div>`;
                 document.getElementById('dashboardContent').style.display = 'none';
             }
@@ -513,6 +525,10 @@ Licensed under the Apache License, Version 2.0
         }
         
         // ===== NEW: MetaMask Integration =====
+        // Store verified token in memory (not localStorage for security)
+        let dashboardToken = null;
+        let connectedWallet = null;
+        
         async function connectMetaMask() {
             if (typeof window.ethereum === 'undefined') {
                 alert('❌ MetaMask not installed!\n\nPlease install MetaMask extension:\nhttps://metamask.io');
@@ -520,12 +536,62 @@ Licensed under the Apache License, Version 2.0
             }
             
             try {
+                console.log('� Step 1: Requesting MetaMask account access...');
+                
                 // Request account access
                 const accounts = await window.ethereum.request({
                     method: 'eth_requestAccounts'
                 });
                 
+                console.log('✅ Account received:', accounts[0]);
+                
                 const walletAddress = accounts[0].toLowerCase();
+                
+                // 🔐 SECURITY: Step 2 - Get Challenge from Backend
+                console.log('� Step 2: Requesting challenge from backend...');
+                const challengeResponse = await fetch(`${API_BASE}/admin/challenge`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ owner: walletAddress })
+                });
+                
+                const challengeData = await challengeResponse.json();
+                if (!challengeData.success) {
+                    throw new Error('Failed to get challenge: ' + challengeData.error);
+                }
+                
+                const nonce = challengeData.nonce;
+                console.log('✓ Challenge received:', nonce);
+                
+                // 🔐 SECURITY: Step 3 - Sign Challenge with MetaMask
+                console.log('🔐 Step 3: Requesting MetaMask signature...');
+                const messageToSign = `VEra-Resonance Dashboard Access\n\nNonce: ${nonce}\n\nBitte bestätigen Sie in MetaMask um auf Ihr Dashboard zuzugreifen.`;
+                
+                const signature = await window.ethereum.request({
+                    method: 'personal_sign',
+                    params: [messageToSign, walletAddress]
+                });
+                
+                console.log('✓ Signature received:', signature.substring(0, 20) + '...');
+                
+                // 🔐 SECURITY: Step 4 - Verify Signature on Backend
+                console.log('🔐 Step 4: Verifying signature on backend...');
+                const verifyResponse = await fetch(`${API_BASE}/admin/verify-signature`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ owner: walletAddress, signature, nonce })
+                });
+                
+                const verifyData = await verifyResponse.json();
+                if (!verifyData.success || !verifyData.verified) {
+                    throw new Error('Signature verification failed: ' + verifyData.error);
+                }
+                
+                console.log('✓ Signature verified!');
+                
+                // ✅ Store token for later use (no more MetaMask needed for loadDashboard)
+                dashboardToken = signature;  // Use signature as token
+                connectedWallet = walletAddress;
                 
                 // Auto-fill input
                 document.getElementById('ownerInput').value = walletAddress;
@@ -536,15 +602,20 @@ Licensed under the Apache License, Version 2.0
                 document.getElementById('walletAddress').innerHTML = 
                     `✓ Connected: <strong>${walletAddress.substring(0, 10)}...${walletAddress.substring(38)}</strong>`;
                 
-                // Auto-load dashboard
-                setTimeout(() => loadDashboard(), 500);
+                // 🎯 Do NOT auto-load dashboard - user must click "Load Dashboard" button
+                // But now loadDashboard() will NOT need MetaMask confirmation
                 
             } catch (error) {
-                if (error.code === 4001) {
-                    alert('❌ User rejected the request');
+                console.error('❌ Error in connectMetaMask:', error);
+                
+                if (error.code === 4001 || error.message.includes('rejected')) {
+                    alert('❌ You rejected the MetaMask signature request');
                 } else {
                     alert('❌ Error: ' + error.message);
                 }
+                
+                dashboardToken = null;
+                connectedWallet = null;
             }
         }
         
@@ -553,16 +624,18 @@ Licensed under the Apache License, Version 2.0
             document.getElementById('walletInfo').style.display = 'none';
             document.getElementById('dashboardContent').style.display = 'none';
             document.getElementById('statusMessage').innerHTML = '';
+            dashboardToken = null;
+            connectedWallet = null;
         }
         
-        // Listen for account changes
+        // 🚫 SECURITY: Do NOT listen to accountsChanged for auto-connection
+        // Only disconnect when accounts are removed
         if (window.ethereum) {
             window.ethereum.on('accountsChanged', (accounts) => {
                 if (accounts.length === 0) {
                     disconnectWallet();
-                } else {
-                    loadDashboard();
                 }
+                // Do NOT call loadDashboard - user must click button
             });
         }
         
@@ -572,7 +645,7 @@ Licensed under the Apache License, Version 2.0
             const owner = params.get('owner');
             if (owner) {
                 document.getElementById('ownerInput').value = owner;
-                loadDashboard();
+                // Do NOT auto-load - user must click button
             }
         });
     </script>
