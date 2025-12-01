@@ -34,6 +34,14 @@ memories.db
 vera_memory.db
 test_memory.db
 
+# SQLite WAL & SHM Files (Write-Ahead Logging)
+*.db-shm
+*.db-wal
+*.sqlite-shm
+*.sqlite-wal
+*.sqlite3-shm
+*.sqlite3-wal
+
 # Database Backups
 *.db.backup
 *.db.bak
@@ -262,6 +270,33 @@ check_*.py
 test_*.py
 trigger_*.py
 
+# Setup/Grant Scripts (können sensible Operationen durchführen)
+grant_*.py
+setup_*.py
+initial_*.py
+extract_*.py
+find_*.py
+
+# Sync Scripts (interne Tools)
+sync-*.py
+sync_*.py
+fix-*.py
+bulk_*.py
+batch-*.py
+
+# Verification Scripts
+verify_*.py
+final_*.py
+quick_*.py
+
+# NFT/Blockchain Helpers
+nft_*.py
+blockchain_*.py
+
+# Calculator Scripts
+*_calculator.py
+resonance_calculator.py
+
 # ===== Keine Backup-Dateien =====
 *.backup-*
 *.restored
@@ -275,6 +310,9 @@ install-*.sh
 setup-*.sh
 start-*.sh
 cleanup-*.sh
+batch-*.sh
+sync-*.sh
+deploy-*.sh
 
 # ===== Keine Blockchain Test Files =====
 blockchain-*.html
@@ -284,6 +322,12 @@ blockchain_*.py
 # ===== Keine Migration Scripts =====
 migrate_*.py
 initial_*.py
+
+# ===== Keine Report/Sync Outputs =====
+*_report_*.json
+bulk_sync_*.json
+sync_report_*.json
+batch_report_*.json
 
 # ===== Keine System Spezifischen Dateien =====
 Untitled-*

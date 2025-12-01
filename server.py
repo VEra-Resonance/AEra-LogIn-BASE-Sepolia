@@ -23,15 +23,15 @@ from dotenv import load_dotenv
 import hashlib
 import secrets
 
+# Load environment variables FIRST!
+load_dotenv()
+
 # ===== IMPORT CUSTOM LOGGER =====
 from logger import logger, api_logger, db_logger, wallet_logger, airdrop_logger, log_activity
 
-# ===== IMPORT BLOCKCHAIN SERVICE =====
+# ===== IMPORT BLOCKCHAIN SERVICE (after load_dotenv!) =====
 from web3_service import web3_service
 from blockchain_sync import sync_score_after_update
-
-# Load environment variables
-load_dotenv()
 
 # Config
 HOST = os.getenv("HOST", "0.0.0.0")
@@ -703,15 +703,28 @@ async def verify(req: Request):
         if user:
             # Benutzer existiert bereits
             old_score = user['score']
-            new_score = min(user['score'] + 1, 100)
+            # sqlite3.Row unterstützt kein .get() - verwende try/except
+            try:
+                pending_bonus = user['pending_bonus'] if user['pending_bonus'] is not None else 0
+            except (KeyError, IndexError):
+                pending_bonus = 0
+            
+            # HYBRID-SYSTEM: Score erhöhen + pending_bonus aktivieren
+            new_score = min(user['score'] + 1 + pending_bonus, 100)
             login_count = user['login_count'] + 1
             
             cursor.execute(
                 """UPDATE users 
-                   SET last_login=?, score=?, login_count=?, last_referrer=?
+                   SET last_login=?, score=?, login_count=?, last_referrer=?, pending_bonus=0
                    WHERE address=?""",
                 (current_timestamp, new_score, login_count, referrer_source, address)
             )
+            
+            if pending_bonus > 0:
+                log_activity("INFO", "BONUS", "✓ Follow-Bonus activated",
+                            address=address[:10],
+                            bonus=f"+{pending_bonus}",
+                            new_score=new_score)
             
             cursor.execute(
                 """INSERT INTO events 
@@ -767,6 +780,19 @@ async def verify(req: Request):
                                     owner=owner_wallet[:10], 
                                     follower=address[:10], 
                                     source=referrer_source)
+                        
+                        # HYBRID-SYSTEM: Owner bekommt Follow-Bonus (pending)
+                        try:
+                            cursor.execute(
+                                "UPDATE users SET pending_bonus = pending_bonus + 2 WHERE address = ?",
+                                (owner_wallet,)
+                            )
+                            log_activity("INFO", "BONUS", "✓ Follow-Bonus added (pending)",
+                                        owner=owner_wallet[:10],
+                                        bonus="+2",
+                                        activation="next_login")
+                        except Exception as bonus_err:
+                            log_activity("WARNING", "BONUS", f"Could not add pending bonus: {str(bonus_err)}")
                 except Exception as e:
                     log_activity("WARNING", "FOLLOWER", f"Could not create/update follower entry: {str(e)}")
             
@@ -800,6 +826,19 @@ async def verify(req: Request):
                                 owner=owner_wallet[:10], 
                                 follower=address[:10], 
                                 source=referrer_source)
+                    
+                    # HYBRID-SYSTEM: Owner bekommt Follow-Bonus (pending)
+                    try:
+                        cursor.execute(
+                            "UPDATE users SET pending_bonus = pending_bonus + 2 WHERE address = ?",
+                            (owner_wallet,)
+                        )
+                        log_activity("INFO", "BONUS", "✓ Follow-Bonus added (pending)",
+                                    owner=owner_wallet[:10],
+                                    bonus="+2",
+                                    activation="next_login")
+                    except Exception as bonus_err:
+                        log_activity("WARNING", "BONUS", f"Could not add pending bonus: {str(bonus_err)}")
                 except Exception as e:
                     log_activity("WARNING", "FOLLOWER", f"Could not register follower: {str(e)}")
             
@@ -1157,32 +1196,41 @@ async def get_blockchain_score(address: str):
             (address,)
         )
         user = cursor.fetchone()
-        conn.close()
         
         if not user:
+            conn.close()
             return {"error": "User not found"}
+        
+        # Calculate Resonance Score (Own + Avg Follower)
+        from resonance_calculator import calculate_resonance_score
+        own_score, avg_follower_score, follower_count, total_resonance = calculate_resonance_score(address, conn)
+        conn.close()
         
         # Get blockchain score
         blockchain_score = await web3_service.get_blockchain_score(address)
         
-        db_score = user['score']
-        sync_pending = db_score - (blockchain_score or 0)
+        sync_pending = total_resonance - (blockchain_score or 0)
         
-        # Calculate next sync milestone
-        next_sync_at = ((db_score // 10) + 1) * 10 if db_score < 100 else 100
+        # Calculate next sync milestone (every 2 points)
+        next_sync_at = ((total_resonance // 2) + 1) * 2 if total_resonance < 100 else ((total_resonance // 2) + 1) * 2
         
         contract_address = os.getenv("RESONANCE_SCORE_ADDRESS", "")
         basescan_url = f"https://sepolia.basescan.org/address/{contract_address}"
         
         return {
             "address": address,
-            "db_score": db_score,
+            "own_score": own_score,
+            "follower_bonus": avg_follower_score,
+            "follower_count": follower_count,
+            "total_resonance": total_resonance,
             "blockchain_score": blockchain_score,
             "sync_pending": sync_pending,
             "last_sync": user['last_blockchain_sync'],
             "next_sync_at": next_sync_at,
             "contract_address": contract_address,
-            "basescan_url": basescan_url
+            "basescan_url": basescan_url,
+            # Legacy fields for backwards compatibility
+            "db_score": own_score
         }
         
     except Exception as e:
@@ -1243,7 +1291,9 @@ async def get_blockchain_interactions(address: str, offset: int = 0, limit: int 
                 "interaction_type": interaction["interaction_type"],
                 "interaction_type_name": type_names.get(interaction["interaction_type"], "UNKNOWN"),
                 "timestamp": interaction["timestamp"],
-                "dashboard_link": interaction["dashboard_link"],
+                "link_id": interaction.get("link_id", ""),  # Changed from dashboard_link to link_id
+                "weight_follower": interaction.get("weight_follower", 0),
+                "weight_creator": interaction.get("weight_creator", 0),
                 "basescan_url": f"https://sepolia.basescan.org/tx/{interaction.get('tx_hash', '')}" if interaction.get("tx_hash") else None
             })
         
@@ -1941,7 +1991,7 @@ async def confirm_follower(req: Request):
                 initiator=follower,         # Follower initiates the follow
                 responder=owner,            # Owner receives the follow
                 interaction_type=0,         # 0 = FOLLOW
-                dashboard_link=dashboard_link
+                metadata=dashboard_link     # Dashboard link as metadata
             )
             
             if success:
@@ -1950,7 +2000,7 @@ async def confirm_follower(req: Request):
                             initiator=follower[:10],
                             responder=owner[:10],
                             type="FOLLOW",
-                            tx_hash=tx_hash[:20] if tx_hash else "unknown")
+                            tx_hash=str(tx_hash)[:20] if tx_hash else "unknown")
             else:
                 error_msg = result
                 log_activity("WARNING", "BLOCKCHAIN", f"Interaction recording failed: {error_msg}",

@@ -507,7 +507,8 @@ Licensed under the Apache License, Version 2.0
     <script src="blockchain-dashboard.js"></script>
     
     <script>
-        // API_BASE is defined in blockchain-dashboard.js
+        // ✅ Define API_BASE globally
+        const API_BASE = window.location.origin || 'http://localhost:8840';
         
         async function loadDashboard() {
             const owner = document.getElementById('ownerInput').value.toLowerCase().trim();
