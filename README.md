@@ -31,16 +31,24 @@ This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's E
 - ✅ **Auto-Minting** - First-time users automatically receive Identity NFTs
 - ✅ **Token ID Tracking** - Each user gets a unique, non-transferable NFT
 
-### Reputation System
-- ✅ **Resonance Score** - On-chain reputation tracking (0-100 scale)
-- ✅ **Blockchain Sync** - Real-time score updates to smart contracts
+### Reputation System (HYBRID Model)
+- ✅ **Resonance Score** - On-chain reputation tracking (0-100+ scale)
+- ✅ **Blockchain Sync** - Real-time score updates via milestone system (every 2 points)
+- ✅ **HYBRID Score System** - Database-driven with pending_bonus mechanism
+  - Follow Bonus: +2 pending points on follow
+  - Login Activation: +1 base + pending bonus on creator login
+  - Prevents double-minting while rewarding engagement
 - ✅ **Score Evolution** - Dynamic scoring based on platform interactions
 - ✅ **Transparent Verification** - All scores verifiable on-chain
 
 ### Social Features
 - ✅ **Multi-Platform Tracking** - Twitter, Discord, Telegram, Direct links
 - ✅ **Follower Dashboard** - Track verified followers and their scores
-- ✅ **On-Chain Interactions** - Follower confirmations recorded on BASE
+- ✅ **On-Chain Interactions** - All interactions recorded via recordInteraction()
+  - FOLLOW interactions with weight=1 (contract validation compliant)
+  - InteractionRecorded events emitted on blockchain
+  - Complete interaction history queryable via events
+- ✅ **Blockchain History Display** - Real-time interaction timeline with icons (👥📤💬🤝🏆)
 - ✅ **Platform Integration** - Easy embedding with referral links
 
 ---
@@ -57,8 +65,11 @@ This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's E
 
 ### Backend Components
 
-- **FastAPI Server** (`server.py`) - REST API and dashboard backend
-- **Web3 Service** - Blockchain interaction layer (in production environment)
+- **FastAPI Server** (`server.py`) - REST API, dashboard backend & HYBRID score system
+- **Web3 Service** (`web3_service.py`) - Full blockchain integration with all 3 smart contracts
+  - Identity NFT minting & queries
+  - Resonance Score updates (adminAdjust)
+  - Interaction recording & history (recordInteraction)
 - **Airdrop Worker** (`airdrop_worker.py`) - Background task processor
 - **Logger** (`logger.py`) - Centralized logging system
 
@@ -186,6 +197,43 @@ GET /api/blockchain/score/{address}
 }
 ```
 
+**Blockchain Interactions:**
+```bash
+# Get interaction history
+GET /api/blockchain/interactions/{address}
+
+# Returns:
+{
+  "interactions": [
+    {
+      "interaction_type": 0,
+      "interaction_type_name": "FOLLOW",
+      "initiator": "0x1234...",
+      "responder": "0x5678...",
+      "timestamp": 1733068883,
+      "tx_hash": "0xabcd...",
+      "block_number": 34417098
+    }
+  ],
+  "total": 5
+}
+```
+
+**Blockchain Stats:**
+```bash
+# Get blockchain health status
+GET /api/blockchain/stats
+
+# Returns:
+{
+  "identity_nft": "✅ Connected",
+  "resonance_score": "✅ Connected",
+  "resonance_registry": "✅ Connected",
+  "backend_wallet": "0x22A2...",
+  "network": "BASE Sepolia"
+}
+```
+
 ---
 
 ## 🔧 Development
@@ -193,14 +241,17 @@ GET /api/blockchain/score/{address}
 ### Project Structure
 
 ```
-├── server.py                 # FastAPI backend
+├── server.py                 # FastAPI backend (2800+ lines)
+├── web3_service.py          # Blockchain integration (579 lines)
 ├── airdrop_worker.py        # Background tasks
 ├── logger.py                # Logging system
 ├── index.html               # Landing page
-├── dashboard.html           # User dashboard
+├── dashboard.html           # User dashboard with blockchain history
+├── blockchain-dashboard.js  # Frontend blockchain interactions
 ├── requirements.txt         # Python dependencies
 ├── .env.example            # Environment template
-└── .gitignore              # Security protection
+├── .gitignore              # Security protection (extended)
+└── backups/                 # Local backups (not in git)
 ```
 
 ### Technology Stack
