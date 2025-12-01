@@ -1,455 +1,306 @@
-# VEra-Resonance v0.1 – Decentralized Proof-of-Human
+# AEra Identity & Resonance System
 
-A minimalist, wallet-based identity layer system that proves a user is a real human – **without KYC, without real names, without data sharing**.
+**Decentralized Identity NFTs and Reputation Tracking on BASE Sepolia**
 
----
-
-## About VEra-Resonance
-
-**VEra-Resonance** is a decentralized, privacy-preserving Proof-of-Human framework designed to protect digital spaces from bots, automated identities, synthetic engagement, and AI-generated fake accounts — without using KYC, biometrics, personal data, or centralized identity providers.
-
-The system combines:
-
-* **cryptographic wallet signatures**
-* **behavioral on-chain pattern analysis**
-* **a transparent Proof-of-Human score (0–100)**
-* **non-tradable utility tokens for event logging**
-* **zero personal data retention**
-* **a resonance-based authenticity model**
-
-VEra-Resonance aims to become a foundational standard for authenticity and human presence — applicable to social platforms, communities, decentralized networks and private ecosystems.
-
-### 🔹 Core Principles
-
-* **Anonymous but provably human**
-* **No phone number, no email, no KYC**
-* **Bot-resistant by design**
-* **Privacy-first: no profiling, no tracking**
-* **Interoperable with any platform (X, Discord, Web Apps)**
-* **Zero speculation: the utility token has no market value**
-* **Open, verifiable, cryptographically secure**
-
-### 🔹 Mission
-
-To restore **authenticity**, **trust** and **real human resonance**
-in digital environments — through open, decentralized technology.
+A Web3 authentication and reputation system built on Coinbase's BASE Layer 2 network, featuring Identity NFTs, Resonance Scores, and multi-platform follower tracking.
 
 ---
+
+## 🌐 Built on BASE Sepolia
+
+This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's Ethereum Layer 2 solution - for:
+
+- **⚡ 99.97% Lower Gas Costs** - NFT minting ~$0.0003 vs $1.00 on Ethereum
+- **🚀 Faster Transactions** - Sub-second confirmation times
+- **🔗 EVM Compatible** - All Ethereum tools work seamlessly
+- **🛡️ Ethereum Security** - Inherits Ethereum's security guarantees
+
+### Network Information
+- **Network**: BASE Sepolia Testnet
+- **Chain ID**: 84532
+- **RPC URL**: https://sepolia.base.org
+- **Block Explorer**: https://sepolia.basescan.org
 
 ---
 
 ## 🎯 Features
 
-✅ **Wallet Login** – MetaMask & WalletConnect Support  
-✅ **Resonance Score** – Intelligent Scoring System (0–100)  
-✅ **REST API** – Simple verification for other platforms  
-✅ **SQLite Database** – Fast, local persistence  
-✅ **Privacy-First** – Only wallet ID + score, no personal data  
-✅ **Production-Ready** – CORS middleware, error handling, audit trail  
+### Identity System
+- ✅ **Identity NFTs** - Soul-bound ERC-721 tokens for verified users
+- ✅ **MetaMask Authentication** - Sign-in with Ethereum (EIP-4361)
+- ✅ **Auto-Minting** - First-time users automatically receive Identity NFTs
+- ✅ **Token ID Tracking** - Each user gets a unique, non-transferable NFT
+
+### Reputation System
+- ✅ **Resonance Score** - On-chain reputation tracking (0-100 scale)
+- ✅ **Blockchain Sync** - Real-time score updates to smart contracts
+- ✅ **Score Evolution** - Dynamic scoring based on platform interactions
+- ✅ **Transparent Verification** - All scores verifiable on-chain
+
+### Social Features
+- ✅ **Multi-Platform Tracking** - Twitter, Discord, Telegram, Direct links
+- ✅ **Follower Dashboard** - Track verified followers and their scores
+- ✅ **On-Chain Interactions** - Follower confirmations recorded on BASE
+- ✅ **Platform Integration** - Easy embedding with referral links
+
+---
+
+## 🏗️ Architecture
+
+### Smart Contracts (BASE Sepolia)
+
+#### 1. AEraIdentityNFT
+- **Address**: `0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce`
+- **Type**: ERC-721 (Soul-bound)
+- **Function**: Issues non-transferable Identity NFTs
+- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce)
+
+#### 2. AEraResonanceScore
+- **Address**: `0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4`
+- **Type**: Score Registry
+- **Function**: Stores and updates user reputation scores
+- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4)
+
+#### 3. AEraResonanceRegistry
+- **Address**: `0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9`
+- **Type**: Interaction Log
+- **Function**: Records follower confirmations and interactions
+- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9)
+
+### Backend Components
+
+- **FastAPI Server** (`server.py`) - REST API and dashboard backend
+- **Web3 Service** - Blockchain interaction layer (in production environment)
+- **Airdrop Worker** (`airdrop_worker.py`) - Background task processor
+- **Logger** (`logger.py`) - Centralized logging system
 
 ---
 
 ## 🚀 Quick Start
 
-### 1. Requirements
+### Prerequisites
 
 ```bash
 # Python 3.9+ required
 python --version
 
-# Update pip
-pip install --upgrade pip
+# Git and pip
+sudo apt update
+sudo apt install git python3-pip
 ```
 
-### 2. Installation
+### Installation
 
 ```bash
-# Navigate to project directory
-cd /path/to/webside-wallet-login
+# Clone repository
+git clone https://github.com/VEra-Resonance/AEra-LogIn-BASE-Sepolia.git
+cd AEra-LogIn-BASE-Sepolia
+
+# Create virtual environment
+python3 -m venv venv
+source venv/bin/activate
 
 # Install dependencies
-pip install fastapi uvicorn
-
-# (Optional) Using requirements.txt
 pip install -r requirements.txt
 ```
 
-### 3. Start Server
+### Configuration
+
+Create a `.env` file (copy from `.env.example`):
 
 ```bash
-# Development mode with auto-reload
-uvicorn server:app --reload --port 8000
-
-# Or Production mode
-uvicorn server:app --host 0.0.0.0 --port 8000
+cp .env.example .env
 ```
 
-**Output:**
-```
-INFO:     Uvicorn running on http://127.0.0.1:8000
-✓ Database initialized: /path/to/aera.db
-🚀 VEra-Resonance Server started
-```
+Required environment variables:
 
-### 4. Open in Browser
+```env
+# BASE Sepolia RPC
+BASE_SEPOLIA_RPC_URL=https://sepolia.base.org
 
-Navigate to: **http://localhost:8000**
+# Backend Wallet (with MINTER_ROLE)
+PRIVATE_KEY=your_private_key_here
 
----
+# Smart Contracts
+IDENTITY_NFT_ADDRESS=0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce
+RESONANCE_SCORE_ADDRESS=0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4
+RESONANCE_REGISTRY_ADDRESS=0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9
 
-## 📋 Workflow
-
-1. **Connect Wallet** – Click button, approve MetaMask
-2. **Verify** – Server checks address and calculates score
-3. **Display Resonance Score** – User receives score (50–100)
-4. **Login Token** – For integration with other platforms
-
----
-
-📁 Project Structure
-
-```
-webside-wallet-login/
-├── index.html          # Frontend (HTML + JavaScript)
-├── server.py           # Backend (FastAPI)
-├── aera.db             # SQLite Database
-├── README.md           # This file
-├── LICENSE             # Apache 2.0
-└── requirements.txt    # Python Dependencies (optional)
+# Server
+PORT=8840
 ```
 
----
-
-## 🔌 API Endpoints
-
-### `POST /api/verify`
-
-Verifies a wallet address and updates the score.
-
-**Request:**
-```json
-{
-  "address": "0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"
-}
-```
-
-**Response (Success):**
-```json
-{
-  "is_human": true,
-  "address": "0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE",
-  "resonance_score": 51,
-  "first_seen": 1700334000,
-  "login_count": 2,
-  "message": "Welcome back! Score increased to 51/100"
-}
-```
-
-**Response (Error):**
-```json
-{
-  "error": "Invalid address format",
-  "is_human": false
-}
-```
-
----
-
-### `GET /api/health`
-
-Health check for monitoring.
-
-**Response:**
-```json
-{
-  "status": "healthy",
-  "service": "VEra-Resonance v0.1",
-  "timestamp": 1700334000
-}
-```
-
----
-
-### `GET /api/user/{address}`
-
-Retrieves user data.
-
-**Response:**
-```json
-{
-  "address": "0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE",
-  "resonance_score": 51,
-  "first_seen": 1700334000,
-  "last_login": 1700334120,
-  "login_count": 2,
-  "created_at": "2025-11-18T10:00:00"
-}
-```
-
----
-
-### `GET /api/stats`
-
-Public statistics.
-
-**Response:**
-```json
-{
-  "total_users": 42,
-  "average_score": 65.5,
-  "total_logins": 128,
-  "timestamp": 1700334000
-}
-```
-
----
-
-### `GET /api/events/{address}`
-
-Retrieves login events for a user (up to 50 most recent).
-
-**Response:**
-```json
-{
-  "address": "0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE",
-  "events": [
-    {
-      "id": 1,
-      "address": "0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE",
-      "event_type": "signup",
-      "score_before": 0,
-      "score_after": 50,
-      "timestamp": 1700334000,
-      "created_at": "2025-11-18T10:00:00"
-    }
-  ]
-}
-```
-
----
-
-## 💾 Database Schema
-
-### Table: `users`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `address` | TEXT (PK) | Wallet address (Unique) |
-| `first_seen` | INTEGER | Unix timestamp of first login |
-| `last_login` | INTEGER | Unix timestamp of last login |
-| `score` | INTEGER | Resonance Score (0–100) |
-| `login_count` | INTEGER | Number of logins |
-| `created_at` | TEXT | ISO timestamp of creation |
-
-### Table: `events`
-
-| Column | Type | Description |
-|--------|------|-------------|
-| `id` | INTEGER (PK) | Event ID |
-| `address` | TEXT | Wallet address |
-| `event_type` | TEXT | "signup" or "login" |
-| `score_before` | INTEGER | Score before action |
-| `score_after` | INTEGER | Score after action |
-| `timestamp` | INTEGER | Unix timestamp |
-| `created_at` | TEXT | ISO timestamp |
-
----
-
-## 🎓 Resonance Score Logic
-
-The score starts at **50** for new users and can increase up to **100**.
-
-- **New User**: 50 points
-- **Each Login**: +1 point (maximum 100)
-- **Audit Trail**: All changes are logged in the `events` table
-
-**Future Enhancements:**
-- Community attestations (+5 per confirmation)
-- Inactivity penalty (-1 per week without login)
-- On-Chain Integration (token balance, governance votes)
-
----
-
-## 🔐 Security & Privacy
-
-✅ **No Personal Data** – Only wallet addresses stored  
-✅ **Signature Verification** – (Coming in v0.2)  
-✅ **Non-Transactional** – No gas consumption  
-✅ **HTTPS Ready** – Production deployment with SSL  
-✅ **Audit Trail** – All events logged  
-✅ **CORS Protection** – Configurable per domain  
-
----
-
-## 🚀 Integration with Other Platforms
-
-### Example: Forum Integration
-
-```javascript
-// Forum checks login status
-const response = await fetch('https://aera-login.example.com/api/user/0x742d...');
-const user = await response.json();
-
-if (user.resonance_score >= 50) {
-  // User is verified → grant access
-  allowForumAccess(user.address);
-}
-```
-
-### Example: Discord Bot
-
-```python
-@discord.command()
-async def verify(ctx):
-    """Verification for Discord"""
-    # Request wallet address
-    address = await prompt_wallet(ctx)
-    
-    # Query AEra server
-    response = requests.get(f'https://api.aera-login.com/api/user/{address}')
-    user = response.json()
-    
-    if user.get('resonance_score', 0) >= 50:
-        await ctx.author.add_roles(discord.utils.get(ctx.guild.roles, name='Verified'))
-```
-
----
-
-## 📝 Environment Variables
-
-Optional (for Production):
+### Start Server
 
 ```bash
-# .env (create this file)
-FASTAPI_ENV=production
-DATABASE_URL=sqlite:///aera.db
-CORS_ORIGINS=https://aera.example.com
-LOG_LEVEL=info
+# Development mode
+source venv/bin/activate
+python server.py
 ```
+
+**Server will start on**: http://localhost:8840
 
 ---
 
-## 🧪 Testing
+## 📖 Usage
 
-### cURL Tests
+### For Users
 
+1. **Visit Landing Page**: `http://localhost:8840`
+2. **Connect MetaMask** - Ensure you're on BASE Sepolia network
+3. **Sign Authentication** - Verify wallet ownership
+4. **Receive Identity NFT** - Automatically minted on first login
+5. **Access Dashboard** - View your followers and Resonance Score
+
+### For Developers
+
+#### API Endpoints
+
+**Authentication:**
 ```bash
-# Health check
-curl http://localhost:8000/api/health
+# Get challenge
+GET /admin/challenge
 
-# Verify user
-curl -X POST http://localhost:8000/api/verify \
-  -H "Content-Type: application/json" \
-  -d '{"address":"0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE"}'
-
-# Get user data
-curl http://localhost:8000/api/user/0x742d35Cc6634C0532925a3b844Bc59e7e6d6e0dE
-
-# Get statistics
-curl http://localhost:8000/api/stats
+# Verify signature
+POST /admin/verify-signature
+{
+  "address": "0x...",
+  "signature": "0x...",
+  "message": "..."
+}
 ```
 
----
-
-## 📦 Requirements.txt
-
-```
-fastapi==0.104.1
-uvicorn==0.24.0
-pydantic==2.5.0
-python-dotenv==1.0.0
-```
-
-**Installation:**
+**Identity NFT:**
 ```bash
-pip install -r requirements.txt
+# Check NFT status
+GET /api/blockchain/identity/{address}
+
+# Returns:
+{
+  "has_identity": true,
+  "token_id": 15,
+  "status": "active",
+  "contract_address": "0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce",
+  "basescan_url": "https://sepolia.basescan.org/nft/..."
+}
 ```
 
----
-
-## 🔄 Deployment (Production)
-
-### With Gunicorn + Nginx
-
+**Resonance Score:**
 ```bash
-# Install Gunicorn
-pip install gunicorn
+# Get score
+GET /api/blockchain/score/{address}
 
-# Start server (4 workers)
-gunicorn server:app --workers 4 --worker-class uvicorn.workers.UvicornWorker --bind 0.0.0.0:8000
-```
-
-### With Docker
-
-```dockerfile
-FROM python:3.11-slim
-
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install -r requirements.txt
-
-COPY . .
-
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
-```
-
-```bash
-docker build -t aera-login .
-docker run -p 8000:8000 aera-login
+# Returns:
+{
+  "db_score": 50,
+  "blockchain_score": 50,
+  "last_synced": "2025-12-01T10:30:00Z"
+}
 ```
 
 ---
 
-## 🗂️ Roadmap (v0.2+)
+## 🔧 Development
 
-- ✅ v0.1 – Basis-Login, Score-System
-- 🔲 v0.2 – Signatur-Verification (EIP-191)
-- 🔲 v0.3 – On-Chain Integration (AEra Token Contract)
-- 🔲 v0.4 – Zero-Knowledge Proofs (zk-SNARKs)
-- 🔲 v0.5 – Telegram Bot Integration
-- 🔲 v1.0 – Mainnet Launch + Audit
-
----
-
-## 📄 License
-
-**Apache License 2.0**
+### Project Structure
 
 ```
-Copyright 2025 Karlheinz Beismann
-VEra-Resonance Project
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+├── server.py                 # FastAPI backend
+├── airdrop_worker.py        # Background tasks
+├── logger.py                # Logging system
+├── index.html               # Landing page
+├── dashboard.html           # User dashboard
+├── requirements.txt         # Python dependencies
+├── .env.example            # Environment template
+└── .gitignore              # Security protection
 ```
 
-**Full License:** https://www.apache.org/licenses/LICENSE-2.0
+### Technology Stack
+
+- **Backend**: FastAPI, Python 3.9+
+- **Blockchain**: Web3.py, eth-account
+- **Frontend**: Vanilla JS, Web3.js, MetaMask
+- **Database**: SQLite
+- **Network**: BASE Sepolia (L2)
 
 ---
 
-## 👤 Credits
+## 🛡️ Security
 
-- **Creator & Maintainer:** Karlheinz Beismann
-- **Project:** VEra-Resonance — Decentralized Proof-of-Human Architecture
-- **Framework:** FastAPI, ethers.js, Web3.py
-- **Community:** VEra-Resonance Project
+### What's Protected
+
+✅ **Private keys never stored** - Only in `.env` (gitignored)
+✅ **Database excluded** - No user data in repository
+✅ **Logs excluded** - No sensitive information leaked
+✅ **Minimal data collection** - Only wallet addresses and scores
+✅ **EIP-4361 signatures** - Industry-standard authentication
+
+### Best Practices
+
+1. **Never commit `.env` files**
+2. **Keep private keys secure**
+3. **Use testnet for development**
+4. **Verify all contracts on Basescan**
+5. **Regular security audits**
 
 ---
 
-## 🤝 Support
+## 🌟 Why BASE Sepolia?
 
-Questions or bugs? Create an issue on GitHub or contact the maintainer.
+### Cost Comparison
+
+| Operation | Ethereum Mainnet | BASE Sepolia | Savings |
+|-----------|-----------------|--------------|---------|
+| NFT Mint | ~$1.00 | ~$0.0003 | 99.97% |
+| Score Update | ~$0.50 | ~$0.0002 | 99.96% |
+| Registry Entry | ~$0.75 | ~$0.0002 | 99.97% |
+
+### Technical Benefits
+
+- **Ethereum Compatibility** - All Solidity contracts work without changes
+- **Fast Finality** - Transactions confirm in seconds
+- **Low Fees** - Enable micro-transactions and frequent updates
+- **Coinbase Support** - Backed by major crypto exchange
+- **Growing Ecosystem** - Active developer community
 
 ---
 
-**VEra-Resonance © 2025 Karlheinz Beismann**  
-*Proving Humanity via Resonance – No KYC, No Identity Theft.*
+## �� License
+
+MIT License - See [LICENSE](LICENSE) file for details
+
+---
+
+## 🔗 Links
+
+- **Repository**: https://github.com/VEra-Resonance/AEra-LogIn-BASE-Sepolia
+- **BASE Network**: https://base.org
+- **BASE Sepolia Explorer**: https://sepolia.basescan.org
+- **Coinbase L2 Docs**: https://docs.base.org
+
+---
+
+## 🤝 Contributing
+
+This is an open-source project. Contributions are welcome!
+
+### Development Setup
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test on BASE Sepolia
+5. Submit a pull request
+
+---
+
+## 📞 Support
+
+For issues, questions, or feature requests:
+- Open an issue on GitHub
+- Review smart contracts on Basescan
+- Check BASE network status
+
+---
+
+**Built with ❤️ on BASE Sepolia - Coinbase's Ethereum L2 Solution**
