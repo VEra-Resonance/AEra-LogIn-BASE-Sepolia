@@ -18,13 +18,17 @@ import time
 import json
 import os
 import asyncio
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
 from dotenv import load_dotenv
 import hashlib
 import secrets
 
 # ===== IMPORT CUSTOM LOGGER =====
 from logger import logger, api_logger, db_logger, wallet_logger, airdrop_logger, log_activity
+
+# ===== IMPORT BLOCKCHAIN SERVICE =====
+from web3_service import web3_service
+from blockchain_sync import sync_score_after_update
 
 # Load environment variables
 load_dotenv()
@@ -47,7 +51,7 @@ INITIAL_SCORE = int(os.getenv("INITIAL_SCORE", 50))
 MAX_SCORE = int(os.getenv("MAX_SCORE", 100))
 SCORE_INCREMENT = int(os.getenv("SCORE_INCREMENT", 1))
 TOKEN_SECRET = os.getenv("TOKEN_SECRET", "aera-secret-key-change-in-production")
-TOKEN_EXPIRY_DAYS = int(os.getenv("TOKEN_EXPIRY_DAYS", 7))
+TOKEN_EXPIRY_MINUTES = int(os.getenv("TOKEN_EXPIRY_MINUTES", 2))  # 2 Minuten Standard
 
 # Airdrop Configuration
 ADMIN_WALLET = os.getenv("ADMIN_WALLET", "")
@@ -90,7 +94,8 @@ except Exception as e:
 templates = Jinja2Templates(directory=static_dir)
 
 # Datenbank-Konfiguration
-DB_PATH = os.path.join(os.path.dirname(__file__), "aera.db")
+DATABASE_NAME = os.getenv("DATABASE_PATH", "./aera.db")
+DB_PATH = os.path.join(os.path.dirname(__file__), DATABASE_NAME.replace("./", ""))
 
 # Platform-Konfiguration für dynamisches Styling
 PLATFORM_CONFIG = {
@@ -301,26 +306,26 @@ def init_db():
     conn.close()
     print(f"✓ Datenbank initialisiert: {DB_PATH}")
 
-def generate_token(address: str, duration_hours = None) -> str:
+def generate_token(address: str, duration_minutes = None) -> str:
     """
     Generiert einen JWT-ähnlichen Token
     
     Args:
         address: Wallet-Adresse
-        duration_hours: Token-Gültigkeitsdauer in Stunden (None = Standard TOKEN_EXPIRY_DAYS)
+        duration_minutes: Token-Gültigkeitsdauer in Minuten (None = Standard TOKEN_EXPIRY_MINUTES = 2 Min)
     """
-    if duration_hours is None:
-        duration_hours = TOKEN_EXPIRY_DAYS * 24
-    elif duration_hours == 0:
+    if duration_minutes is None:
+        duration_minutes = TOKEN_EXPIRY_MINUTES
+    elif duration_minutes == 0:
         # 0 = kein Ablaufdatum, Token gilt bis manuelles Abmelden
-        duration_hours = 365 * 24  # 1 Jahr als Maximum
+        duration_minutes = 525600  # 1 Jahr als Maximum
     
-    expiry = (datetime.utcnow() + timedelta(hours=int(duration_hours))).timestamp()
+    expiry = (datetime.utcnow() + timedelta(minutes=int(duration_minutes))).timestamp()
     token_data = f"{address}:{expiry}"
     signature = hashlib.sha256((token_data + TOKEN_SECRET).encode()).hexdigest()
     token = f"{token_data}:{signature}"
     
-    log_activity("DEBUG", "TOKEN", "Generated new token", address=address[:10], duration_hours=duration_hours, expiry_timestamp=expiry)
+    log_activity("DEBUG", "TOKEN", "Generated new token", address=address[:10], duration_minutes=duration_minutes, expiry_timestamp=expiry)
     return token
 
 def verify_token(token: str) -> dict:
@@ -413,13 +418,48 @@ async def trigger_airdrop(address: str) -> dict:
     return {"triggered": False, "message": "Airdrop failed after retries"}
 
 @app.on_event("startup")
-def startup_event():
-    """App-Start: Initialisiere Datenbank"""
+async def startup_event():
+    """App-Start: Initialisiere Datenbank und Blockchain Services"""
     init_db()
     logger.info("🚀 VEra-Resonance Server gestartet")
     logger.info(f"   🌐 Öffentliche URL: {PUBLIC_URL}")
     logger.info(f"   📍 Host: {HOST}:{PORT}")
     logger.info(f"   🔐 CORS Origins: {CORS_ORIGINS}")
+    
+    # Starte Blockchain Sync Queue Processor
+    from blockchain_sync import start_sync_queue_processor, add_to_sync_queue, should_sync_score
+    asyncio.create_task(start_sync_queue_processor())
+    logger.info("   ⛓️  Blockchain Sync Queue gestartet")
+    
+    # Starte NFT Mint Confirmation Checker
+    from nft_confirmation import start_nft_confirmation_checker
+    asyncio.create_task(start_nft_confirmation_checker())
+    logger.info("   🎨 NFT Mint Confirmation Checker gestartet")
+    
+    # Initial Scan: Füge alle User mit Score ≥10 zur Sync-Queue hinzu
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT address, score, blockchain_score
+            FROM users
+            WHERE score >= 10
+            ORDER BY score DESC
+        """)
+        users = cursor.fetchall()
+        conn.close()
+        
+        added_count = 0
+        for address, db_score, blockchain_score in users:
+            blockchain_score = blockchain_score or 0
+            if should_sync_score(db_score, blockchain_score):
+                add_to_sync_queue(address, db_score)
+                added_count += 1
+        
+        if added_count > 0:
+            logger.info(f"   📊 {added_count} users added to initial sync queue")
+    except Exception as e:
+        logger.error(f"   ❌ Failed to scan users for initial sync: {e}")
 
 @app.get("/", response_class=HTMLResponse)
 async def root(request: Request):
@@ -452,6 +492,31 @@ async def root(request: Request):
 async def dashboard():
     """Admin Follower Dashboard"""
     with open(os.path.join(os.path.dirname(__file__), "dashboard.html"), "r") as f:
+        return f.read()
+
+@app.get("/dashboard.html", response_class=HTMLResponse)
+async def dashboard_html():
+    """Admin Follower Dashboard (with .html extension)"""
+    with open(os.path.join(os.path.dirname(__file__), "dashboard.html"), "r") as f:
+        return f.read()
+
+@app.get("/blockchain-dashboard.js")
+async def blockchain_dashboard_js():
+    """Blockchain Dashboard JavaScript Module"""
+    from fastapi.responses import FileResponse
+    js_path = os.path.join(os.path.dirname(__file__), "blockchain-dashboard.js")
+    return FileResponse(js_path, media_type="application/javascript")
+
+@app.get("/blockchain-test.html", response_class=HTMLResponse)
+async def blockchain_test():
+    """Blockchain Integration Test Page"""
+    with open(os.path.join(os.path.dirname(__file__), "blockchain-test.html"), "r") as f:
+        return f.read()
+
+@app.get("/blockchain-direct-test.html", response_class=HTMLResponse)
+async def blockchain_direct_test():
+    """Direct Blockchain API Test Page"""
+    with open(os.path.join(os.path.dirname(__file__), "blockchain-direct-test.html"), "r") as f:
         return f.read()
 
 @app.get("/api/health")
@@ -561,7 +626,7 @@ async def verify(req: Request):
         address = data.get("address", "").lower()
         nonce = data.get("nonce", "")
         signature = data.get("signature", "")
-        token_duration_hours = data.get("token_duration_hours", None)
+        token_duration_minutes = data.get("token_duration_minutes", None)  # Token-Gültigkeitsdauer in Minuten
         owner_wallet = data.get("owner", "").lower()  # NEW: Owner for follower tracking
         display_name = data.get("display_name", "").strip()  # NEW: User-provided display name
         
@@ -655,6 +720,9 @@ async def verify(req: Request):
                 (address, "login", old_score, new_score, current_timestamp, current_iso, referrer_source, user_agent[:200], client_ip)
             )
             
+            # BLOCKCHAIN: Check if score sync needed (every 10 points)
+            await sync_score_after_update(address, new_score, conn)
+            
             first_seen = user['first_seen']
             message = f"Welcome back! Score increased to {new_score}/100"
             log_activity("INFO", "AUTH", "Existing user login", 
@@ -745,6 +813,71 @@ async def verify(req: Request):
                         initial_score=initial_score,
                         referrer=referrer_source,
                         owner=owner_wallet[:10] if owner_wallet else "none")
+            
+            # BLOCKCHAIN: Check if score sync needed (initial score 50)
+            await sync_score_after_update(address, new_score, conn)
+            
+            # DELAY: Wait 2 seconds to prevent nonce conflict between score sync and NFT mint
+            await asyncio.sleep(2)
+        
+        # ===== BLOCKCHAIN: IDENTITY NFT INTEGRATION =====
+        try:
+            # Check current identity status from DB
+            cursor.execute("SELECT identity_status, identity_nft_token_id FROM users WHERE address=?", (address,))
+            identity_result = cursor.fetchone()
+            db_identity_status = identity_result[0] if identity_result else 'pending'
+            db_token_id = identity_result[1] if identity_result else None
+            
+            # Prüfe ob User bereits Identity NFT hat
+            has_identity = await web3_service.has_identity_nft(address)
+            
+            # RETRY LOGIC: If status is 'failed' or 'pending' (old users), try minting again
+            if not has_identity and db_identity_status in ['failed', 'pending']:
+                log_activity("INFO", "BLOCKCHAIN", "🎨 Starting Identity NFT mint", address=address[:10])
+                success, result = await web3_service.mint_identity_nft(address)
+                
+                if success:
+                    tx_hash = result
+                    # Set status to 'minting' with tx_hash - background task will confirm later
+                    cursor.execute(
+                        """UPDATE users 
+                           SET identity_status='minting', identity_mint_tx_hash=?, identity_minted_at=?
+                           WHERE address=?""",
+                        (tx_hash, current_iso, address)
+                    )
+                    
+                    log_activity("INFO", "BLOCKCHAIN", "📤 Identity NFT mint transaction sent", 
+                                address=address[:10], 
+                                tx_hash=tx_hash[:16] + "...")
+                    message += f" | Identity NFT minting (TX: {tx_hash[:10]}...)"
+                else:
+                    error_msg = result
+                    log_activity("WARNING", "BLOCKCHAIN", f"NFT minting failed: {error_msg}", address=address[:10])
+                    # Nicht-kritischer Fehler - fahre fort
+                    cursor.execute(
+                        """UPDATE users 
+                           SET identity_status='failed'
+                           WHERE address=?""",
+                        (address,)
+                    )
+            else:
+                # User hat bereits NFT - hole Token ID
+                token_id = await web3_service.get_identity_token_id(address)
+                if token_id is not None:
+                    # Update DB falls noch nicht gespeichert
+                    cursor.execute(
+                        """UPDATE users 
+                           SET identity_nft_token_id=?, identity_status='active'
+                           WHERE address=? AND identity_nft_token_id IS NULL""",
+                        (token_id, address)
+                    )
+                    log_activity("INFO", "BLOCKCHAIN", "✓ Identity NFT verified", 
+                                address=address[:10], 
+                                token_id=token_id)
+        
+        except Exception as e:
+            log_activity("WARNING", "BLOCKCHAIN", f"Identity NFT error (non-critical): {str(e)}", address=address[:10])
+            # Nicht-kritischer Fehler - System funktioniert weiter ohne Blockchain
         
         conn.commit()
         conn.close()
@@ -755,7 +888,7 @@ async def verify(req: Request):
             message += f" | {airdrop_result['message']}"
         
         # Generiere Token
-        token = generate_token(address, token_duration_hours)
+        token = generate_token(address, token_duration_minutes)
         
         log_activity("INFO", "AUTH", "✓ Verify successful (SIGNATURE VERIFIED)", address=address[:10], score=new_score)
         
@@ -916,6 +1049,290 @@ async def get_referrer_stats():
         
     except Exception as e:
         return {"error": str(e)}
+
+
+# ===== BLOCKCHAIN API ENDPOINTS =====
+
+@app.get("/api/blockchain/identity/{address}")
+async def get_blockchain_identity(address: str):
+    """
+    Get Identity NFT information for a user
+    
+    Returns:
+        {
+            "has_identity": true,
+            "token_id": 123,
+            "status": "active",
+            "minted_at": "2024-11-30T14:30:00",
+            "contract_address": "0x...",
+            "basescan_url": "https://sepolia.basescan.org/nft/0x..."
+        }
+    """
+    try:
+        address = address.lower()
+        
+        # Get DB info
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            """SELECT identity_nft_token_id, identity_status, identity_minted_at, identity_mint_tx_hash
+               FROM users WHERE address=?""",
+            (address,)
+        )
+        user = cursor.fetchone()
+        conn.close()
+        
+        if not user:
+            return {
+                "has_identity": False,
+                "identity_status": "not_found",
+                "token_id": None,
+                "mint_tx_hash": None,
+                "minted_at": None,
+                "contract_address": None,
+                "basescan_url": None
+            }
+        
+        # Get blockchain info
+        # Primary: Trust DB if status is 'active' (already verified)
+        db_token_id = user['identity_nft_token_id']
+        db_status = user['identity_status']
+        
+        if db_status == 'active' and db_token_id is not None:
+            # User has verified NFT in DB
+            has_identity = True
+            token_id = db_token_id
+        else:
+            # Check blockchain for pending/failed cases
+            has_identity = await web3_service.has_identity_nft(address)
+            token_id = await web3_service.get_identity_token_id(address) if has_identity else db_token_id
+        
+        contract_address = os.getenv("IDENTITY_NFT_ADDRESS", "")
+        tx_hash = user['identity_mint_tx_hash']
+        basescan_url = f"https://sepolia.basescan.org/nft/{contract_address}/{token_id}" if token_id else None
+        tx_url = f"https://sepolia.basescan.org/tx/{tx_hash}" if tx_hash else None
+        
+        return {
+            "has_identity": has_identity,
+            "identity_status": user['identity_status'],  # pending, minting, active, failed
+            "token_id": token_id,
+            "mint_tx_hash": tx_hash,
+            "minted_at": user['identity_minted_at'],
+            "contract_address": contract_address,
+            "basescan_url": basescan_url,
+            "tx_url": tx_url
+        }
+        
+    except Exception as e:
+        log_activity("ERROR", "API", f"Blockchain identity error: {str(e)}")
+        return {"error": str(e), "has_identity": False}
+
+
+@app.get("/api/blockchain/score/{address}")
+async def get_blockchain_score(address: str):
+    """
+    Get Resonance Score comparison (DB vs Blockchain)
+    
+    Returns:
+        {
+            "address": "0x...",
+            "db_score": 55,
+            "blockchain_score": 50,
+            "sync_pending": 5,
+            "last_sync": "2024-11-30T14:30:00",
+            "next_sync_at": 60,
+            "contract_address": "0x...",
+            "basescan_url": "https://sepolia.basescan.org/address/0x..."
+        }
+    """
+    try:
+        address = address.lower()
+        
+        # Get DB info
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute(
+            """SELECT score, blockchain_score, blockchain_score_synced_at, last_blockchain_sync
+               FROM users WHERE address=?""",
+            (address,)
+        )
+        user = cursor.fetchone()
+        conn.close()
+        
+        if not user:
+            return {"error": "User not found"}
+        
+        # Get blockchain score
+        blockchain_score = await web3_service.get_blockchain_score(address)
+        
+        db_score = user['score']
+        sync_pending = db_score - (blockchain_score or 0)
+        
+        # Calculate next sync milestone
+        next_sync_at = ((db_score // 10) + 1) * 10 if db_score < 100 else 100
+        
+        contract_address = os.getenv("RESONANCE_SCORE_ADDRESS", "")
+        basescan_url = f"https://sepolia.basescan.org/address/{contract_address}"
+        
+        return {
+            "address": address,
+            "db_score": db_score,
+            "blockchain_score": blockchain_score,
+            "sync_pending": sync_pending,
+            "last_sync": user['last_blockchain_sync'],
+            "next_sync_at": next_sync_at,
+            "contract_address": contract_address,
+            "basescan_url": basescan_url
+        }
+        
+    except Exception as e:
+        log_activity("ERROR", "API", f"Blockchain score error: {str(e)}")
+        return {"error": str(e)}
+
+
+@app.get("/api/blockchain/interactions/{address}")
+async def get_blockchain_interactions(address: str, offset: int = 0, limit: int = 10):
+    """
+    Get user's interaction history from blockchain
+    
+    Query Parameters:
+        offset: Pagination offset (default 0)
+        limit: Results per page (default 10, max 50)
+    
+    Returns:
+        {
+            "address": "0x...",
+            "interactions": [
+                {
+                    "initiator": "0x...",
+                    "responder": "0x...",
+                    "interaction_type": 0,
+                    "interaction_type_name": "FOLLOW",
+                    "timestamp": 1701360000,
+                    "dashboard_link": "https://...",
+                    "basescan_url": "https://sepolia.basescan.org/tx/0x..."
+                }
+            ],
+            "total": 5,
+            "offset": 0,
+            "limit": 10
+        }
+    """
+    try:
+        address = address.lower()
+        limit = min(limit, 50)  # Max 50 per request
+        
+        # Get interactions from blockchain
+        interactions = await web3_service.get_user_interactions(address, offset, limit)
+        
+        # Map interaction types
+        type_names = {
+            0: "FOLLOW",
+            1: "SHARE",
+            2: "ENGAGE",
+            3: "COLLABORATE",
+            4: "MILESTONE"
+        }
+        
+        # Enhance with type names and Basescan URLs
+        enhanced_interactions = []
+        for interaction in interactions:
+            enhanced_interactions.append({
+                "initiator": interaction["initiator"],
+                "responder": interaction["responder"],
+                "interaction_type": interaction["interaction_type"],
+                "interaction_type_name": type_names.get(interaction["interaction_type"], "UNKNOWN"),
+                "timestamp": interaction["timestamp"],
+                "dashboard_link": interaction["dashboard_link"],
+                "basescan_url": f"https://sepolia.basescan.org/tx/{interaction.get('tx_hash', '')}" if interaction.get("tx_hash") else None
+            })
+        
+        return {
+            "address": address,
+            "interactions": enhanced_interactions,
+            "total": len(interactions),
+            "offset": offset,
+            "limit": limit
+        }
+        
+    except Exception as e:
+        log_activity("ERROR", "API", f"Blockchain interactions error: {str(e)}")
+        return {"error": str(e), "interactions": []}
+
+
+@app.get("/api/blockchain/stats")
+async def get_blockchain_stats():
+    """
+    Get blockchain system statistics and health
+    
+    Returns:
+        {
+            "blockchain_health": {
+                "connected": true,
+                "chain_id": 84532,
+                "latest_block": 12345678,
+                "gas_price_gwei": 0.5
+            },
+            "contracts": {
+                "identity_nft": "0x...",
+                "resonance_score": "0x...",
+                "registry": "0x..."
+            },
+            "stats": {
+                "total_identities": 150,
+                "total_interactions": 420,
+                "total_score_synced": 7500
+            },
+            "basescan_base_url": "https://sepolia.basescan.org"
+        }
+    """
+    try:
+        # Get blockchain health
+        health = await web3_service.get_blockchain_health()
+        
+        # Get DB stats
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        
+        cursor.execute("SELECT COUNT(*) as count FROM users WHERE identity_status='active'")
+        total_identities = cursor.fetchone()['count']
+        
+        cursor.execute("SELECT COUNT(*) as count FROM users WHERE blockchain_score > 0")
+        users_with_score = cursor.fetchone()['count']
+        
+        cursor.execute("SELECT SUM(blockchain_score) as total FROM users")
+        total_score_synced = cursor.fetchone()['total'] or 0
+        
+        conn.close()
+        
+        # Get interaction count (estimate from blockchain if available)
+        # For now use DB follower count as proxy
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT COUNT(*) as count FROM followers WHERE follow_confirmed=1")
+        total_interactions = cursor.fetchone()['count']
+        conn.close()
+        
+        return {
+            "blockchain_health": health,
+            "contracts": {
+                "identity_nft": os.getenv("IDENTITY_NFT_ADDRESS", ""),
+                "resonance_score": os.getenv("RESONANCE_SCORE_ADDRESS", ""),
+                "registry": os.getenv("REGISTRY_ADDRESS", "")
+            },
+            "stats": {
+                "total_identities": total_identities,
+                "total_interactions": total_interactions,
+                "total_score_synced": total_score_synced,
+                "users_with_blockchain_score": users_with_score
+            },
+            "basescan_base_url": "https://sepolia.basescan.org"
+        }
+        
+    except Exception as e:
+        log_activity("ERROR", "API", f"Blockchain stats error: {str(e)}")
+        return {"error": str(e)}
+
 
 @app.post("/api/verify-token")
 async def verify_token_endpoint(req: Request):
@@ -1168,6 +1585,108 @@ async def verify_dashboard_signature(data: dict):
         
         log_activity("INFO", "AUTH", "✓ Dashboard signature verified", owner=owner[:10])
         
+        # ===== NFT RETRY LOGIC + NEW USER REGISTRATION =====
+        try:
+            conn = get_db_connection()
+            cursor = conn.cursor()
+            
+            cursor.execute("SELECT identity_status, identity_mint_tx_hash, score FROM users WHERE address=?", (owner,))
+            result = cursor.fetchone()
+            
+            if not result:
+                # ===== NEW USER: First-time Dashboard access =====
+                log_activity("INFO", "AUTH", "🆕 First-time dashboard user - creating account", address=owner[:10])
+                
+                # Create user with initial score
+                current_iso = datetime.now(timezone.utc).isoformat()
+                cursor.execute(
+                    """INSERT INTO users (address, score, created_at, identity_status)
+                       VALUES (?, ?, ?, ?)""",
+                    (owner, INITIAL_SCORE, current_iso, 'pending')
+                )
+                conn.commit()
+                
+                # Sync initial score to blockchain
+                log_activity("INFO", "BLOCKCHAIN", "🔄 Syncing initial score", address=owner[:10])
+                await sync_score_after_update(owner, INITIAL_SCORE, conn)
+                
+                # Wait 2 seconds (nonce conflict prevention)
+                await asyncio.sleep(2)
+                
+                # Mint NFT for new user
+                log_activity("INFO", "BLOCKCHAIN", "🎨 Starting Identity NFT mint for new dashboard user", address=owner[:10])
+                success, mint_result = await web3_service.mint_identity_nft(owner)
+                
+                if success:
+                    new_tx_hash = mint_result
+                    cursor.execute(
+                        """UPDATE users 
+                           SET identity_status='minting', identity_mint_tx_hash=?, identity_minted_at=?
+                           WHERE address=?""",
+                        (new_tx_hash, current_iso, owner)
+                    )
+                    conn.commit()
+                    log_activity("INFO", "BLOCKCHAIN", "✅ NFT mint transaction sent for new user", 
+                                address=owner[:10], 
+                                tx_hash=new_tx_hash[:16] + "...")
+                else:
+                    error_msg = mint_result
+                    cursor.execute("UPDATE users SET identity_status='failed' WHERE address=?", (owner,))
+                    conn.commit()
+                    log_activity("WARNING", "BLOCKCHAIN", f"NFT minting failed for new user: {error_msg}", address=owner[:10])
+            
+            elif result:
+                # ===== EXISTING USER: Check for retry =====
+                db_identity_status = result[0]
+                tx_hash = result[1]
+                
+                # RETRY if status is 'minting' without tx_hash OR 'failed'
+                if db_identity_status in ['failed', 'pending'] or (db_identity_status == 'minting' and not tx_hash):
+                    log_activity("INFO", "BLOCKCHAIN", "🔄 Retry: NFT mint for dashboard login", address=owner[:10])
+                    
+                    # Check if user already has NFT on-chain
+                    has_identity = await web3_service.has_identity_nft(owner)
+                    
+                    if not has_identity:
+                        # Attempt NFT mint
+                        success, mint_result = await web3_service.mint_identity_nft(owner)
+                        
+                        if success:
+                            new_tx_hash = mint_result
+                            cursor.execute(
+                                """UPDATE users 
+                                   SET identity_status='minting', identity_mint_tx_hash=?, identity_minted_at=?
+                                   WHERE address=?""",
+                                (new_tx_hash, datetime.now(timezone.utc).isoformat(), owner)
+                            )
+                            conn.commit()
+                            log_activity("INFO", "BLOCKCHAIN", "✅ NFT mint retry successful", 
+                                        address=owner[:10], 
+                                        tx_hash=new_tx_hash[:16] + "...")
+                        else:
+                            error_msg = mint_result
+                            cursor.execute("UPDATE users SET identity_status='failed' WHERE address=?", (owner,))
+                            conn.commit()
+                            log_activity("WARNING", "BLOCKCHAIN", f"NFT retry failed: {error_msg}", address=owner[:10])
+                    else:
+                        # User already has NFT - update status
+                        token_id = await web3_service.get_identity_token_id(owner)
+                        if token_id is not None:
+                            cursor.execute(
+                                """UPDATE users 
+                                   SET identity_nft_token_id=?, identity_status='active'
+                                   WHERE address=?""",
+                                (token_id, owner)
+                            )
+                            conn.commit()
+                            log_activity("INFO", "BLOCKCHAIN", "✓ NFT already minted, status updated", 
+                                        address=owner[:10], token_id=token_id)
+            
+            conn.close()
+        except Exception as e:
+            log_activity("WARNING", "BLOCKCHAIN", f"NFT retry check failed: {str(e)}", address=owner[:10])
+        # ===== END NFT RETRY LOGIC =====
+        
         return {
             "success": True,
             "verified": True,
@@ -1414,6 +1933,35 @@ async def confirm_follower(req: Request):
                     owner=owner[:10],
                     follower=follower[:10])
         
+        # ===== BLOCKCHAIN: RECORD INTERACTION =====
+        try:
+            # Record follow interaction on-chain (Type 0 = FOLLOW)
+            dashboard_link = f"{PUBLIC_URL}/dashboard?owner={owner}"
+            success, result = await web3_service.record_interaction(
+                initiator=follower,         # Follower initiates the follow
+                responder=owner,            # Owner receives the follow
+                interaction_type=0,         # 0 = FOLLOW
+                dashboard_link=dashboard_link
+            )
+            
+            if success:
+                tx_hash = result
+                log_activity("INFO", "BLOCKCHAIN", "✓ Interaction recorded on-chain",
+                            initiator=follower[:10],
+                            responder=owner[:10],
+                            type="FOLLOW",
+                            tx_hash=tx_hash[:20] if tx_hash else "unknown")
+            else:
+                error_msg = result
+                log_activity("WARNING", "BLOCKCHAIN", f"Interaction recording failed: {error_msg}",
+                            initiator=follower[:10],
+                            responder=owner[:10])
+        
+        except Exception as e:
+            log_activity("WARNING", "BLOCKCHAIN", f"Interaction recording error (non-critical): {str(e)}",
+                        initiator=follower[:10],
+                        responder=owner[:10])
+        
         return {
             "success": True,
             "message": "Follow request confirmed",
@@ -1423,6 +1971,65 @@ async def confirm_follower(req: Request):
         
     except Exception as e:
         logger.error(f"❌ confirm_follower error: {str(e)}")
+        return {"error": str(e), "success": False}
+
+
+# ===== BLOCKCHAIN SYNC DEBUG ENDPOINTS =====
+
+@app.get("/api/blockchain/sync-queue")
+async def get_sync_queue():
+    """Debug: Zeigt aktuelle Sync Queue"""
+    from blockchain_sync import sync_queue
+    return {
+        "queue_size": len(sync_queue),
+        "items": [
+            {
+                "address": item["address"][:10] + "...",
+                "score": item["score"],
+                "attempts": item["attempts"],
+                "last_attempt": item["last_attempt"].isoformat() if item.get("last_attempt") else None
+            }
+            for item in sync_queue
+        ]
+    }
+
+@app.post("/api/blockchain/trigger-sync/{address}")
+async def trigger_sync(address: str):
+    """Debug: Triggert manuellen Sync für User"""
+    try:
+        conn = get_db_connection()
+        cursor = conn.cursor()
+        cursor.execute("SELECT score, blockchain_score FROM users WHERE LOWER(address) = LOWER(?)", (address,))
+        result = cursor.fetchone()
+        conn.close()
+        
+        if not result:
+            return {"error": "User not found", "success": False}
+        
+        db_score, blockchain_score = result
+        blockchain_score = blockchain_score or 0
+        
+        from blockchain_sync import add_to_sync_queue, should_sync_score
+        
+        if should_sync_score(db_score, blockchain_score):
+            add_to_sync_queue(address, db_score)
+            return {
+                "success": True,
+                "message": f"Added {address[:10]}... to sync queue",
+                "db_score": db_score,
+                "blockchain_score": blockchain_score
+            }
+        else:
+            return {
+                "success": False,
+                "message": "User does not meet sync criteria",
+                "db_score": db_score,
+                "blockchain_score": blockchain_score,
+                "next_milestone": ((db_score // 10) + 1) * 10
+            }
+    
+    except Exception as e:
+        logger.error(f"❌ trigger_sync error: {str(e)}")
         return {"error": str(e), "success": False}
 
 if __name__ == "__main__":

@@ -283,10 +283,31 @@ Platform: {{ platform_name }}
     <script>
         const API_BASE = window.location.origin;
         const PLATFORM = "{{ platform_source }}";
+        const SESSION_TIMEOUT_MINUTES = 2;  // 2 Minuten Session-Timeout
+        const SESSION_TIMEOUT_MS = SESSION_TIMEOUT_MINUTES * 60 * 1000;  // In Millisekunden
         
         let connectBtn, verifyBtn, disconnectBtn, statusDiv, detailsDiv, debugInfo;
         let currentAddress = null;
         let currentToken = null;
+        let sessionTimeoutId = null;
+        
+        /**
+         * Startet den Session-Timeout-Timer neu
+         * Nach 2 Minuten wird die Session automatisch beendet
+         */
+        function resetSessionTimeout() {
+            if (sessionTimeoutId) {
+                clearTimeout(sessionTimeoutId);
+            }
+            
+            sessionTimeoutId = setTimeout(() => {
+                log('⏰ SESSION TIMEOUT: 2 Minuten inaktiv');
+                showStatus('⏰ Session abgelaufen - Automatisches Logout', 'info');
+                disconnectWallet();
+            }, SESSION_TIMEOUT_MS);
+            
+            log(`🕐 Session-Timeout aktualisiert (${SESSION_TIMEOUT_MINUTES} min)`);
+        }
         
         function log(msg) {
             console.log('[AEra]', msg);
@@ -419,7 +440,7 @@ Platform: {{ platform_name }}
                 currentToken = savedToken;
                 
                 log('✅ Auto-Login erfolgreich!');
-                showStatus(`✓ Auto-Login erfolgreich`, 'success');
+                showStatus(`✓ Auto-Login erfolgreich - Session: ${SESSION_TIMEOUT_MINUTES} min`, 'success');
                 
                 document.getElementById('addressValue').textContent = currentAddress;
                 document.getElementById('statusValue').textContent = '✅ Auto-Login';
@@ -431,6 +452,9 @@ Platform: {{ platform_name }}
                 verifyBtn.style.display = 'none';
                 disconnectBtn.style.display = 'block';
                 detailsDiv.classList.add('show');
+                
+                // 🔐 WICHTIG: Starte Session-Timeout (2 Minuten)
+                resetSessionTimeout();
                 
                 return true;
                 
@@ -636,9 +660,12 @@ Platform: {{ platform_name }}
                 document.getElementById('statusValue').textContent = '✅ Verifiziert';
                 document.getElementById('loginCountValue').textContent = data.login_count;
                 
-                showStatus(`✓ Score: ${data.resonance_score}/100`, 'success');
+                showStatus(`✓ Score: ${data.resonance_score}/100 - Session: ${SESSION_TIMEOUT_MINUTES} min`, 'success');
                 verifyBtn.textContent = '✓ Verifiziert';
                 verifyBtn.disabled = true;
+                
+                // 🔐 WICHTIG: Starte Session-Timeout (2 Minuten)
+                resetSessionTimeout();
                 
                 // Enable follow confirmation button if owner is present
                 if (ownerParam) {
@@ -665,6 +692,12 @@ Platform: {{ platform_name }}
         }
         
         function disconnectWallet() {
+            // 🔐 Stoppe Session-Timeout
+            if (sessionTimeoutId) {
+                clearTimeout(sessionTimeoutId);
+                sessionTimeoutId = null;
+            }
+            
             currentAddress = null;
             currentToken = null;
             
