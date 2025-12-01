@@ -1,5 +1,7 @@
 # AEra Identity & Resonance System
 
+> **AEra LogIn — A human-verified, on-chain identity system built on BASE.**
+
 **Decentralized Identity NFTs and Reputation Tracking on BASE Sepolia**
 
 A Web3 authentication and reputation system built on Coinbase's BASE Layer 2 network, featuring Identity NFTs, Resonance Scores, and multi-platform follower tracking.
