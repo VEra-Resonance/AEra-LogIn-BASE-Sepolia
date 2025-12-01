@@ -13,7 +13,7 @@ This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's E
 - **⚡ 99.97% Lower Gas Costs** - NFT minting ~$0.0003 vs $1.00 on Ethereum
 - **🚀 Faster Transactions** - Sub-second confirmation times
 - **🔗 EVM Compatible** - All Ethereum tools work seamlessly
-- **��️ Ethereum Security** - Inherits Ethereum's security guarantees
+- **🛡️ Ethereum Security** - Inherits Ethereum's security guarantees
 
 ### Network Information
 - **Network**: BASE Sepolia Testnet
