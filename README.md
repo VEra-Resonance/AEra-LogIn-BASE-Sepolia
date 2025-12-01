@@ -1,8 +1,6 @@
 # AEra Identity & Resonance System
 
-> **AEra LogIn — A human-verified, on-chain identity system built on BASE.**
-
-**Decentralized Identity NFTs and Reputation Tracking on BASE Sepolia**
+**AEra LogIn — Human-verified identity and on-chain resonance scoring on Coinbase's BASE L2.**
 
 A Web3 authentication and reputation system built on Coinbase's BASE Layer 2 network, featuring Identity NFTs, Resonance Scores, and multi-platform follower tracking.
 
@@ -15,7 +13,7 @@ This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's E
 - **⚡ 99.97% Lower Gas Costs** - NFT minting ~$0.0003 vs $1.00 on Ethereum
 - **🚀 Faster Transactions** - Sub-second confirmation times
 - **🔗 EVM Compatible** - All Ethereum tools work seamlessly
-- **🛡️ Ethereum Security** - Inherits Ethereum's security guarantees
+- **��️ Ethereum Security** - Inherits Ethereum's security guarantees
 
 ### Network Information
 - **Network**: BASE Sepolia Testnet
@@ -51,23 +49,11 @@ This project leverages **BASE Sepolia Testnet** (Chain ID: 84532) - Coinbase's E
 
 ### Smart Contracts (BASE Sepolia)
 
-#### 1. AEraIdentityNFT
-- **Address**: `0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce`
-- **Type**: ERC-721 (Soul-bound)
-- **Function**: Issues non-transferable Identity NFTs
-- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce)
-
-#### 2. AEraResonanceScore
-- **Address**: `0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4`
-- **Type**: Score Registry
-- **Function**: Stores and updates user reputation scores
-- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4)
-
-#### 3. AEraResonanceRegistry
-- **Address**: `0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9`
-- **Type**: Interaction Log
-- **Function**: Records follower confirmations and interactions
-- **View on Basescan**: [Contract Link](https://sepolia.basescan.org/address/0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9)
+| Contract | Address | Purpose | Explorer |
+|---------|---------|---------|----------|
+| **AEraIdentityNFT** | `0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce` | Soul-bound Identity NFT | [View on Basescan](https://sepolia.basescan.org/address/0xF6f86cc0b916BCfE44cff64b00C2fe6e7954A3Ce) |
+| **AEraResonanceScore** | `0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4` | On-chain reputation score | [View on Basescan](https://sepolia.basescan.org/address/0xD4676a88bfAD40A87c8a5e889EE4AdD1448527c4) |
+| **AEraResonanceRegistry** | `0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9` | Interaction & follower log | [View on Basescan](https://sepolia.basescan.org/address/0xE2d5B85E4A9B0820c59658607C03bC90ba63b7b9) |
 
 ### Backend Components
 
@@ -231,11 +217,12 @@ GET /api/blockchain/score/{address}
 
 ### What's Protected
 
-✅ **Private keys never stored** - Only in `.env` (gitignored)
-✅ **Database excluded** - No user data in repository
-✅ **Logs excluded** - No sensitive information leaked
-✅ **Minimal data collection** - Only wallet addresses and scores
-✅ **EIP-4361 signatures** - Industry-standard authentication
+✅ **Private keys never stored** - Only in `.env` (gitignored)  
+✅ **Database excluded** - No user data in repository  
+✅ **Logs excluded** - No sensitive information leaked  
+✅ **Minimal data collection** - Only wallet addresses and scores  
+✅ **EIP-4361 signatures** - Industry-standard authentication  
+✅ **Dedicated system-role wallet** - AEra uses a dedicated system-role wallet for backend operations — no user keys are ever stored or processed
 
 ### Best Practices
 
@@ -267,7 +254,15 @@ GET /api/blockchain/score/{address}
 
 ---
 
-## �� License
+## 🛣️ Roadmap
+
+- **Deploy contracts on BASE Mainnet** - Production-ready deployment
+- **Dashboard V2 with cross-platform resonance analytics** - Enhanced user insights
+- **Optional Miniapp integration** - Once SIWE is supported natively in Base Miniapps
+
+---
+
+## 📝 License
 
 MIT License - See [LICENSE](LICENSE) file for details
 
