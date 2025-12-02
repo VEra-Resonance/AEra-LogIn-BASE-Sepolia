@@ -784,12 +784,12 @@ async def verify(req: Request):
                         # HYBRID-SYSTEM: Owner bekommt Follow-Bonus (pending)
                         try:
                             cursor.execute(
-                                "UPDATE users SET pending_bonus = pending_bonus + 2 WHERE address = ?",
+                                "UPDATE users SET pending_bonus = pending_bonus + 1 WHERE address = ?",
                                 (owner_wallet,)
                             )
                             log_activity("INFO", "BONUS", "✓ Follow-Bonus added (pending)",
                                         owner=owner_wallet[:10],
-                                        bonus="+2",
+                                        bonus="+1",
                                         activation="next_login")
                         except Exception as bonus_err:
                             log_activity("WARNING", "BONUS", f"Could not add pending bonus: {str(bonus_err)}")
@@ -830,12 +830,12 @@ async def verify(req: Request):
                     # HYBRID-SYSTEM: Owner bekommt Follow-Bonus (pending)
                     try:
                         cursor.execute(
-                            "UPDATE users SET pending_bonus = pending_bonus + 2 WHERE address = ?",
+                            "UPDATE users SET pending_bonus = pending_bonus + 1 WHERE address = ?",
                             (owner_wallet,)
                         )
                         log_activity("INFO", "BONUS", "✓ Follow-Bonus added (pending)",
                                     owner=owner_wallet[:10],
-                                    bonus="+2",
+                                    bonus="+1",
                                     activation="next_login")
                     except Exception as bonus_err:
                         log_activity("WARNING", "BONUS", f"Could not add pending bonus: {str(bonus_err)}")

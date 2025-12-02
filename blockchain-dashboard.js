@@ -78,6 +78,13 @@ window.BlockchainDashboard = (function() {
                         View on BaseScan →
                     </a>
                 `);
+                
+                // 🔥 Hide Gasless Mint button (NFT already minted)
+                const mintBtn = document.getElementById('mintGaslessBtn');
+                if (mintBtn) {
+                    mintBtn.style.display = 'none';
+                    console.log('[Blockchain] ✅ Gasless Mint button hidden (NFT already minted)');
+                }
             } else if (data.identity_status === 'minting') {
                 updateElement('identityStatus', `
                     <span style="color: #ff9800;">⏳ Minting...</span>
@@ -96,6 +103,13 @@ window.BlockchainDashboard = (function() {
                     <br>
                     <small>Will auto-mint on first login</small>
                 `);
+                
+                // 🔥 Show Gasless Mint button if NFT not minted
+                const mintBtn = document.getElementById('mintGaslessBtn');
+                if (mintBtn) {
+                    mintBtn.style.display = 'block';
+                    console.log('[Blockchain] 🔥 Gasless Mint button shown (NFT not minted)');
+                }
             }
         } catch (error) {
             console.error('[Blockchain] NFT load error:', error);

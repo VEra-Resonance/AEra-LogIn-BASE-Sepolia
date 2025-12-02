@@ -12,6 +12,23 @@
 .env.*
 !.env.example
 
+# ===== INTERNE DOKUMENTATION (nicht pushen) =====
+# Alle Markdown außer README
+*.md
+!README.md
+!LICENSE.md
+!CONTRIBUTING.md
+
+# Spezifische interne Docs
+PAYMASTER-*.md
+DASHBOARD-*.md
+*-QUICKSTART.md
+*-STATUS*.md
+*-REPORT*.md
+PLAN-*.md
+*-FINDINGS*.md
+*-PROGRESS*.md
+
 # Private Keys (Web3/Ethereum)
 private_key.txt
 private_keys/
